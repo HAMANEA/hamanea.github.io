@@ -94,6 +94,21 @@ h3 { font-size: 19px; margin: 28px 0 8px; color: var(--gold2); }
 .cards.rows .card .body { padding: 22px 26px; justify-content: center; }
 .cards.rows .card h3 { font-size: 22px; }
 .cards.rows .card p { font-size: 16px; }
+/* EA ごとの色（各 EA の説明書のテーマ色: TREND = ゴールド / NAMITORE = 海の青 / MADOUME = グリーン） */
+.card.ea-tre  { --c: #d9b54a; --c2: #fff1b8; --cbg: #2c2817; }
+.card.ea-nami { --c: #4dc3ff; --c2: #bfe9ff; --cbg: #0c2440; }
+.card.ea-mado { --c: #4fc27f; --c2: #c9f2d9; --cbg: #17281e; }
+.card[class*="ea-"] { border-color: color-mix(in srgb, var(--c) 45%, var(--line)); background: linear-gradient(120deg, var(--cbg) 0%, var(--card) 55%); }
+a.card[class*="ea-"]:hover { border-color: var(--c); }
+.card[class*="ea-"] .img { position: relative; }
+.card[class*="ea-"] .img::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 55%, var(--cbg)); }
+.card[class*="ea-"] .nick { color: var(--c); }
+.card[class*="ea-"] h3 { color: var(--c2); }
+.card[class*="ea-"] .more { color: var(--c); font-weight: 700; }
+.card[class*="ea-"] .point { border-left-color: var(--c); background: rgba(0,0,0,.25); }
+.card[class*="ea-"] .point .pl { background: var(--c); color: #0b0c0e; }
+@media (max-width: 640px) { .card[class*="ea-"] .img::after { background: linear-gradient(180deg, transparent 55%, var(--cbg)); } }
+
 /* カードの「一番のアピールポイント」 */
 .card .point { border-left: 3px solid var(--gold2); background: var(--bg2); border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 0 0 16px; }
 .card .point .pl { display: inline-block; font-size: 12px; letter-spacing: .12em; color: var(--bg); background: var(--gold2); border-radius: 99px; padding: 1px 10px; margin-bottom: 6px; font-weight: 700; }
