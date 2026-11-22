@@ -90,10 +90,15 @@ h3 { font-size: 19px; margin: 28px 0 8px; color: var(--gold2); }
 /* 横長のカードを縦に並べる（トップの EA 一覧） */
 .cards.rows { grid-template-columns: 1fr; gap: 16px; }
 .cards.rows .card { flex-direction: row; }
-.cards.rows .card .img { aspect-ratio: auto; width: 38%; min-height: 190px; border-bottom: 0; border-right: 1px solid var(--line); flex-shrink: 0; }
+.cards.rows .card .img { aspect-ratio: auto; width: 38%; min-height: 300px; border-bottom: 0; border-right: 1px solid var(--line); flex-shrink: 0; }
 .cards.rows .card .body { padding: 22px 26px; justify-content: center; }
 .cards.rows .card h3 { font-size: 22px; }
 .cards.rows .card p { font-size: 16px; }
+/* カードの「一番のアピールポイント」 */
+.card .point { border-left: 3px solid var(--gold2); background: var(--bg2); border-radius: 0 10px 10px 0; padding: 12px 16px; margin: 0 0 16px; }
+.card .point .pl { display: inline-block; font-size: 12px; letter-spacing: .12em; color: var(--bg); background: var(--gold2); border-radius: 99px; padding: 1px 10px; margin-bottom: 6px; font-weight: 700; }
+.card .point b { display: block; font-size: 18px; line-height: 1.5; color: var(--text); }
+.card .point small { display: block; margin-top: 6px; color: var(--sub); font-size: 14px; line-height: 1.7; }
 @media (max-width: 640px) {
   .cards.rows .card { flex-direction: column; }
   .cards.rows .card .img { width: 100%; min-height: 0; aspect-ratio: 16 / 7; border-right: 0; border-bottom: 1px solid var(--line); }
