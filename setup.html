@@ -29,7 +29,7 @@
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">SETUP</span>
     <h1><span class="g">設置のしかた</span></h1>
-    <p class="lead">MT5 に EA を入れて、ゴールドのチャートで動かすまでの手順です。3 つの EA とも同じです。</p>
+    <p class="lead">MT5 に EA を入れて、チャートで動かすまでの手順です。すべての HAMA の EA で同じです。</p>
   </div>
 </div>
 
@@ -42,16 +42,17 @@
       MT5 の上のメニュー「ファイル → データフォルダを開く」→「MQL5」→「Experts」に、配布物の EA（.ex5）を入れます。<br>
       MADOUME は、インジケーター「SMCHAMA」（.ex5）を「MQL5」→「Indicators」にも入れます。<br>
       入れたら MT5 を一度閉じて、開き直します。</li>
-    <li><b>WebRequest を許可する</b><br>
-      「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、次の 2 つを追加して「OK」。<br>
+    <li><b>ライセンスの確認の準備（どちらか 1 つ）</b><br>
+      ライセンスの確認に使います。次の <b>①か②のどちらか 1 つ</b>をしてください。どちらもしていないと、新しい注文が止まります。<br>
+      <b>① URL を許可する</b>（MT5 の標準のやり方）：「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、次の 2 つを追加して「OK」。<br>
       <code>https://script.google.com</code><br>
       <code>https://script.googleusercontent.com</code><br>
-      <span style="color:var(--sub)">ライセンスの確認に使います。これがないと新しい注文が止まります。</span></li>
+      <b>② DLL を許可する</b>：手順 5 で EA を載せるときの設定画面の「共通」タブで、「DLL の使用を許可する」にチェック。URL の追加は要りません。</li>
     <li><b>自動売買を ON にする</b><br>
       同じ画面の「アルゴリズム取引を許可する」にチェック。MT5 の上のボタン「アルゴリズム取引」も緑（ON）にします。</li>
-    <li><b>ゴールドのチャートを開く</b><br>
-      気配値表示のゴールド（XAUUSD など）を右クリック →「チャートを表示」。<br>
-      時間足は EA の説明書に合わせます（MADOUME は 5 分足。SMCHAMA も同じチャートに載せます）。</li>
+    <li><b>EA の銘柄のチャートを開く</b><br>
+      気配値表示で、その EA の銘柄（例：ゴールドの EA なら XAUUSD など）を右クリック →「チャートを表示」。<br>
+      時間足や、一緒に使うインジケーターは、各 EA の説明書に合わせます。</li>
     <li><b>EA をチャートに載せて、ライセンスキーを入れる</b><br>
       「ナビゲーター」の「エキスパートアドバイザ」から EA をチャートへドラッグ。設定画面の「パラメーターの入力」で「<b>ライセンスキー</b>」にキーを入れて「OK」。</li>
     <li><b>パネルで確かめる</b><br>
@@ -59,13 +60,48 @@
   </ol>
 </div></section>
 
+<section id="lot"><div class="wrap">
+  <h2>口座の種類とロット</h2>
+  <p class="sub">すべての HAMA の EA で共通です。</p>
+
+  <h3>1 ロットの量は、口座によってちがいます</h3>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>口座の種類</th><th>1 ロット</th><th>いちばん小さい注文（0.01 ロット）</th></tr>
+    <tr><td>ミニ口座</td><td>1 オンス</td><td>0.01 オンス</td></tr>
+    <tr><td>スタンダード口座</td><td>100 オンス</td><td>1 オンス</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:10px">どちらの口座かは、業者の仕様で確かめられます。EA を動かすと、ログ（エキスパートタブ）とパネルにも「1 ロット＝何オンス」と出ます。（例はゴールドの場合です）</p>
+
+  <h3>EA は、口座に合わせて自動で計算します</h3>
+  <ul class="check">
+    <li>EA は「損切りになったら、残高の何 % の損になるか」から、注文の量を計算します</li>
+    <li>口座の 1 ロットの量に合わせて計算するので、ミニ口座でもスタンダード口座でも、損切りのときの損失（円）は同じになるように動きます</li>
+    <li>自分でロットを直す必要はありません</li>
+  </ul>
+
+  <h3>スタンダード口座で、資金が少ないとき</h3>
+  <p>スタンダード口座は、いちばん小さい注文でも 1 オンスです。資金が少ないと、計算した量がこれより小さくなり、そのままでは注文できません。</p>
+  <p>そのとき EA は「<b>スタンダード対応</b>」で動きます。</p>
+  <ul class="check">
+    <li>いちばん小さい注文（0.01 ロット）で入ります</li>
+    <li>そのかわり、同時に持つ本数を減らして、全体の損失が設定より大きくならないようにします</li>
+    <li>パネルとログに「スタンダード対応」と、今の本数が出ます</li>
+  </ul>
+  <div class="box note" style="margin-top:14px">
+    本数が減るので、ミニ口座とは、動き方と成績が変わります。スタンダード対応の細かい動きは EA ごとにちがうので、各 EA の説明書に書いています。ミニ口座では、この機能は働かず、何も変わりません。
+  </div>
+</div></section>
+
 <section id="license"><div class="wrap">
-  <h2>ライセンスキー</h2>
-  <p class="sub">口座の種類で、使えるキーがちがいます。</p>
+  <h2>ライセンス</h2>
+  <p class="sub">すべての HAMA の EA で共通です。各 EA の説明書の「ライセンス」も、このページにまとめています。</p>
+
+  <h3>キーの種類</h3>
+  <p class="sub" style="margin-bottom:12px">口座の種類で、使えるキーがちがいます。</p>
   <div class="tblwrap"><table class="tbl">
     <tr><th>キー</th><th>デモ口座</th><th>リアル口座</th></tr>
-    <tr><td>デモ用キー<br><span style="color:var(--sub);font-size:14px">（<a href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">申し込む</a>とメールで届きます・30 日間）</span></td><td><span class="ok">3 つの EA とも動く</span></td><td><span class="ng">動かない</span></td></tr>
-    <tr><td>リアル用キー<br><span style="color:var(--sub);font-size:14px">（ご購入の方にお送りします）</span></td><td><span class="ok">3 つの EA とも動く</span></td><td><span class="ok">そのキーの EA が、1 つの口座で動く</span></td></tr>
+    <tr><td>デモ用キー<br><span style="color:var(--sub);font-size:14px">（<a href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">申し込む</a>とメールで届きます・30 日間）</span></td><td><span class="ok">すべての EA が動く</span></td><td><span class="ng">動かない</span></td></tr>
+    <tr><td>リアル用キー<br><span style="color:var(--sub);font-size:14px">（ご購入の方にお送りします）</span></td><td><span class="ok">すべての EA が動く</span></td><td><span class="ok">そのキーの EA が、1 つの口座で動く</span></td></tr>
   </table></div>
   <div class="grid2" style="margin-top:24px">
     <div class="box">
@@ -86,17 +122,47 @@
       </ul>
     </div>
   </div>
+
+  <h3>キーの入れ方</h3>
+  <ol class="steps">
+    <li><b>確認の準備をする（どちらか 1 つ）</b><br>
+      ① 「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、<code>https://script.google.com</code> と <code>https://script.googleusercontent.com</code> を追加<br>
+      ② EA を載せるときの設定画面の「共通」タブで、「DLL の使用を許可する」にチェック（URL の追加は要りません）<br>
+      <span style="color:var(--sub)">両方してもかまいません。Google のアカウントは要りません。</span></li>
+    <li><b>キーを入れる</b><br>
+      EA の設定（F7）の「パラメーターの入力」で、「ライセンスキー」にキーを入れて「OK」。スペース・ハイフン・大文字小文字は区別しません。</li>
+    <li><b>パネルで確かめる</b><br>
+      パネルの状態の行に「ライセンス OK（期限…）」と出れば使えます。</li>
+  </ol>
+
+  <h3>パネルに出るメッセージと、すること</h3>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>メッセージ（「ライセンス: …」）</th><th>意味・すること</th></tr>
+    <tr><td>OK（期限 … ／ 期限なし）</td><td>使えます。</td></tr>
+    <tr><td>キーが入っていません</td><td>EA の設定（F7）の「ライセンスキー」に、キーを入れてください。</td></tr>
+    <tr><td>確かめられません。次のどちらか 1 つをしてください</td><td>上の「確認の準備」の ① か ② をしてから、EA をチャートに載せ直してください。</td></tr>
+    <tr><td>確かめられません。サーバーにつながりません</td><td>ネットにつながっているか確かめてください。前回の確認から 24 時間は動きます。</td></tr>
+    <tr><td>今は確かめられません … 前回の確認から 24 時間は動きます</td><td>そのまま動いています。つながると自動で確かめ直します。</td></tr>
+    <tr><td>このキーは登録されていません</td><td>キーを打ちまちがえていないか確かめてください。</td></tr>
+    <tr><td>期限（…）が切れています</td><td>期限が過ぎています。デモ用キーは申し込みから 30 日間です。</td></tr>
+    <tr><td>デモ用のキーです</td><td>デモ用キーはリアル口座では使えません。その EA 用のリアル用キーが必要です。</td></tr>
+    <tr><td>このキーは、ほかの EA 用です</td><td>リアル口座では、キーは 1 つの EA 用です。その EA のキーを入れてください。</td></tr>
+    <tr><td>このキーは別の口座に移りました</td><td>同じキーを、ほかの口座で使い始めました。この口座では新しい注文を止めています。</td></tr>
+    <tr><td>口座を移せる回数（30 日）を超えました</td><td>販売元にご連絡ください。</td></tr>
+    <tr><td>このキーは止められています ／ 今は販売元が稼働を止めています</td><td>販売元にご連絡ください。</td></tr>
+    <tr><td>サーバーの答えが正しくありません</td><td>しばらくして、もう一度お試しください。続くときは販売元にご連絡ください。</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:12px">OK でないあいだは、新しい注文だけを止めます。持っているポジションの損切り・利確・トレール・決済は、いつもどおり続けます。</p>
 </div></section>
 
 <section><div class="wrap">
-  <h2>説明書</h2>
-  <p class="sub">設定の項目や、パネルの見方は説明書にくわしく書いています。</p>
-  <div class="tblwrap"><table class="tbl">
-    <tr><th>EA</th><th>説明書</th></tr>
-    <tr><td>HAMA TREND G3</td><td><a href="tre.html">Web で読む</a></td></tr>
-    <tr><td>HAMA NAMITORE G4</td><td><a href="nami.html">Web で読む</a></td></tr>
-    <tr><td>HAMA MADOUME G7</td><td><a href="mado.html">Web で読む</a></td></tr>
-  </table></div>
+  <h2>各 EA の説明書</h2>
+  <p class="sub">設定の項目やパネルの見方は、各 EA の説明書にあります。EA のパネルの「説明」ボタンでも開けます。</p>
+  <ul class="check">
+    <li><a href="tre.html">HAMA TREND G3</a></li>
+    <li><a href="nami.html">HAMA NAMITORE G4</a></li>
+    <li><a href="mado.html">HAMA MADOUME G7</a></li>
+  </ul>
 </div></section>
 </main>
 

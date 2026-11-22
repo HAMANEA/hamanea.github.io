@@ -16,7 +16,7 @@
   --w: 1048px;   /* 中身の幅 1000px＋左右の余白 24px（説明書のページと同じ） */
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; }   /* 上の固定メニューに見出しが隠れないように */
 body {
   margin: 0;
   background: var(--bg);
