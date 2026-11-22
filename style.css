@@ -229,3 +229,5 @@ code, .key { overflow-wrap: anywhere; word-break: break-all; }
 .tbl td:first-child { white-space: nowrap; }
 .tbl td:first-child { white-space: normal; min-width: 5.5em; word-break: keep-all; }
 @media (max-width: 640px) { .tbl td:first-child { word-break: normal; width: 28%; min-width: 5em; } }
+/* トップのバナーの縁取りを太く */
+.card[class*="ea-"] { border-width: 2.5px; border-color: color-mix(in srgb, var(--c) 75%, var(--line)); }
