@@ -179,3 +179,34 @@ html, body { overflow-x: hidden; overflow-x: clip; max-width: 100%; }
 svg, video { max-width: 100%; height: auto; }
 code, .key { overflow-wrap: anywhere; word-break: break-all; }
 @media (max-width: 640px) { .tbl th { white-space: normal; } .tbl th, .tbl td { padding: 8px 10px; } }
+
+/* EA カードの「VIEW MORE」ボタン */
+.card[class*="ea-"] .more { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; margin-top: auto; padding: 10px 24px; border: 1.5px solid var(--c); border-radius: 99px; font-family: "JetBrains Mono", "Consolas", monospace; font-size: 13px; letter-spacing: .16em; transition: background .2s, color .2s; }
+.card[class*="ea-"] .more i { font-style: normal; transition: transform .2s; }
+.card[class*="ea-"]:hover .more { background: var(--c); color: #0b0c0e; }
+.card[class*="ea-"]:hover .more i { transform: translateX(4px); }
+
+/* EA カードの製品名を大きく */
+.card[class*="ea-"] .body h3 { font-size: 40px; line-height: 1.2; letter-spacing: .02em; margin: 8px 0 24px; }
+.card[class*="ea-"] .nick { font-size: 15px; }
+@media (max-width: 640px) { .card[class*="ea-"] .body h3 { font-size: 28px; } }
+
+/* EA カード: ラベル・紹介文も大きく、縦の真ん中にまとめる */
+.cards.rows .card[class*="ea-"] .body { justify-content: center; }
+.card[class*="ea-"] .nick { font-size: 19px; letter-spacing: .12em; font-weight: 700; }
+.card[class*="ea-"] .body h3 { margin: 6px 0 18px; }
+.card[class*="ea-"] .body p { font-size: 18px; line-height: 1.9; color: #d4d6db; margin: 0; }
+.card[class*="ea-"] .more { margin-top: 30px; }
+@media (max-width: 640px) {
+  .card[class*="ea-"] .nick { font-size: 15px; }
+  .card[class*="ea-"] .body p { font-size: 15px; line-height: 1.8; }
+  .card[class*="ea-"] .more { margin-top: 22px; }
+}
+
+/* VIEW MORE は 3 つとも同じ位置（右下） */
+.cards.rows .card[class*="ea-"] .body { position: relative; padding-bottom: 84px; }
+.cards.rows .card[class*="ea-"] .more { position: absolute; right: 28px; bottom: 26px; margin: 0; }
+@media (max-width: 640px) {
+  .cards.rows .card[class*="ea-"] .body { padding-bottom: 76px; }
+  .cards.rows .card[class*="ea-"] .more { right: 18px; bottom: 20px; }
+}
