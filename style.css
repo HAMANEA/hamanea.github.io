@@ -13,7 +13,7 @@
   --warn: #e8a33c;
   --ng: #e5636b;
   --r: 14px;
-  --w: 1080px;
+  --w: 1048px;   /* 中身の幅 1000px＋左右の余白 24px（説明書のページと同じ） */
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -29,7 +29,8 @@ body {
 a { color: var(--gold); text-decoration: none; }
 a:hover { color: var(--gold2); text-decoration: underline; }
 img { max-width: 100%; display: block; }
-.wrap { max-width: var(--w); margin: 0 auto; padding: 0 16px; }
+.wrap { max-width: var(--w); margin: 0 auto; padding: 0 24px; }
+@media (max-width: 640px) { .wrap { padding: 0 16px; } }
 
 /* ヘッダー */
 header.top {
