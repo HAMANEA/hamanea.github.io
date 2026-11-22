@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>よくある質問 | HAMA</title>
+<meta name="description" content="HAMA の EA についてよくある質問と、お問い合わせ。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <nav class="menu">
+    <a href="index.html">トップ</a>
+    <a href="tre.html">TREND</a>
+    <a href="nami.html">NAMITORE</a>
+    <a href="mado.html">MADOUME</a>
+    <a href="setup.html">設置のしかた</a>
+    <a href="faq.html" class="on">よくある質問</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px">
+    <span class="tag">FAQ</span>
+    <h1><span class="g">よくある質問</span></h1>
+    <p class="lead">困ったときは、まずここを見てください。</p>
+  </div>
+</div>
+
+<main>
+<section><div class="wrap">
+  <h2>はじめる前に</h2>
+  <details><summary>どの EA を選べばいいですか？</summary><div class="a">
+    <p>大きなトレンドを取りたいなら TREND、行ったり来たりの値動きでこまめに取りたいなら NAMITORE、トレンド中の押し目を少しずつ拾いたいなら MADOUME です。</p>
+    <p>トレンド型（TREND・MADOUME）とレンジ型（NAMITORE）は得意な相場が反対なので、組み合わせると、片方が苦手な時期をもう片方がおぎなう形になります。</p>
+  </div></details>
+  <details><summary>マイクロ口座とスタンダード口座、どちらで使えますか？</summary><div class="a">
+    <p>どちらでも使えます。1 ロットが何オンスかは口座によってちがいますが、EA が自動で計算します（マイクロ口座は 1 ロット＝1 オンス、スタンダード口座は 1 ロット＝100 オンスが多いです）。</p>
+    <p>スタンダード口座は最小ロットが大きいので、資金が少ないと、本来より少ない本数で動きます（「スタンダード対応」）。各 EA のページの「おすすめの資金」を見てください。</p>
+  </div></details>
+  <details><summary>どれくらいの資金から使えますか？</summary><div class="a">
+    <p>EA と口座の種類でちがいます。<a href="tre.html">TREND</a>・<a href="nami.html">NAMITORE</a>・<a href="mado.html">MADOUME</a> の各ページの「おすすめの資金とロット」を見てください。</p>
+  </div></details>
+  <details><summary>マーチンやナンピンはしますか？</summary><div class="a">
+    <p>しません。ロットを倍々に増やすことはなく、どの EA も損切りを先に決めています。TREND と MADOUME の「買い増し・積み増し」は、同じロットで本数に上限があり、全体の損失も決まった範囲に収まるようにしています。</p>
+  </div></details>
+  <details><summary>パソコンを閉じても動きますか？</summary><div class="a">
+    <p>EA は MT5 が動いている間だけ動きます。24 時間動かすには、パソコンをつけっぱなしにするか、VPS（ネット上のパソコン）を使ってください。TREND はブローカー側にも損切りを置くので、MT5 が止まっても損切りは効きます。</p>
+  </div></details>
+</div></section>
+
+<section><div class="wrap">
+  <h2>ライセンス</h2>
+  <details><summary>デモ口座で試すには？</summary><div class="a">
+    <p>デモ用キー <span class="key" style="font-size:15px">HAMA DEMO DEKI TAYO</span> を、EA の設定の「ライセンスキー」に入れてください。3 つの EA とも使えます。スペース・ハイフン・大文字小文字はどれでも大丈夫です。</p>
+  </div></details>
+  <details><summary>「ライセンス: 確かめられません」と出ます</summary><div class="a">
+    <p>「ツール → オプション → エキスパートアドバイザー」の「WebRequest を許可する URL」に、<code>https://script.google.com</code> と <code>https://script.googleusercontent.com</code> の 2 つが入っているか確かめてください。入れたあとは、EA をチャートに載せ直します。</p>
+  </div></details>
+  <details><summary>「デモ用のキーです」と出て、リアル口座で動きません</summary><div class="a">
+    <p>デモ用キーはデモ口座専用です。リアル口座では、その EA 用のリアル用キーが必要です。</p>
+  </div></details>
+  <details><summary>口座を変えたいです</summary><div class="a">
+    <p>新しい口座の MT5 に、同じリアル用キーを入れるだけで使えます。前の口座の EA は、次の確認で新しい注文を止めます。口座を移せるのは 30 日で 3 回までです。</p>
+  </div></details>
+  <details><summary>1 つのキーで、3 つの EA を動かせますか？</summary><div class="a">
+    <p>デモ口座なら動かせます。リアル口座では、リアル用キーは 1 つの EA 用です。3 つの EA を同時に動かすときは、EA ごとにキーが必要です。</p>
+  </div></details>
+  <details><summary>ライセンスが確認できないと、ポジションはどうなりますか？</summary><div class="a">
+    <p>新しい注文だけ止めます。持っているポジションの損切り・利確・トレール・決済はいつもどおり続けます。ネットにつながらないときも、前回の確認から 24 時間は通常どおり動きます。</p>
+  </div></details>
+</div></section>
+
+<section><div class="wrap">
+  <h2>動かしてから</h2>
+  <details><summary>しばらく注文しません</summary><div class="a">
+    <p>パネルの状態の行に、待っている理由が出ます（トレンド待ち、指標の前後、稼働時間外、スプレッドが広い、1 日の損失上限 など）。条件がそろうまで、EA は注文しません。</p>
+  </div></details>
+  <details><summary>設定を変えたのに反映されません</summary><div class="a">
+    <p>パネルで変えた設定は、「設定を反映」を押すと使われます。元に戻したいときは「初期値に戻す」、自分の設定は「マイ設定を保存」で 1 つ残せます。</p>
+  </div></details>
+  <details><summary>負けが続いています</summary><div class="a">
+    <p>どの EA も、苦手な相場では負けが続く時期があります（TREND と MADOUME は勝率 3 割前後、NAMITORE は強いトレンドが苦手）。ロットや 1 日の損失上限を見直すか、しばらく様子を見てください。過去の検証結果は将来の成績を保証しません。</p>
+  </div></details>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <h2>お問い合わせ</h2>
+  <div class="box">
+    <p style="margin:0">ご購入・リアル用キー・使い方のご質問は、下記からご連絡ください。</p>
+    <p style="margin:12px 0 0;color:var(--sub)">（お問い合わせ先は準備中です）</p>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。なくなっても困らない資金で、まずデモ口座で動きを確かめてからお使いください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>設置のしかた | HAMA</title>
+<meta name="description" content="HAMA の EA を MT5 に入れて動かすまでの手順と、ライセンスキーの入れ方。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <nav class="menu">
+    <a href="index.html">トップ</a>
+    <a href="tre.html">TREND</a>
+    <a href="nami.html">NAMITORE</a>
+    <a href="mado.html">MADOUME</a>
+    <a href="setup.html" class="on">設置のしかた</a>
+    <a href="faq.html">よくある質問</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px">
+    <span class="tag">SETUP</span>
+    <h1><span class="g">設置のしかた</span></h1>
+    <p class="lead">MT5 に EA を入れて、ゴールドのチャートで動かすまでの手順です。3 つの EA とも同じです。</p>
+  </div>
+</div>
+
+<main>
+<section><div class="wrap">
+  <h2>動かすまでの 6 ステップ</h2>
+  <p class="sub">はじめての方は、デモ口座で試してからリアル口座に移るのがおすすめです。</p>
+  <ol class="steps">
+    <li><b>EA のファイルを MT5 に入れる</b><br>
+      MT5 の上のメニュー「ファイル → データフォルダを開く」→「MQL5」→「Experts」に、配布物の EA（.ex5）を入れます。<br>
+      MADOUME は、インジケーター「SMCHAMA」（.ex5）を「MQL5」→「Indicators」にも入れます。<br>
+      入れたら MT5 を一度閉じて、開き直します。</li>
+    <li><b>WebRequest を許可する</b><br>
+      「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、次の 2 つを追加して「OK」。<br>
+      <code>https://script.google.com</code><br>
+      <code>https://script.googleusercontent.com</code><br>
+      <span style="color:var(--sub)">ライセンスの確認に使います。これがないと新しい注文が止まります。</span></li>
+    <li><b>自動売買を ON にする</b><br>
+      同じ画面の「アルゴリズム取引を許可する」にチェック。MT5 の上のボタン「アルゴリズム取引」も緑（ON）にします。</li>
+    <li><b>ゴールドのチャートを開く</b><br>
+      気配値表示のゴールド（XAUUSD など）を右クリック →「チャートを表示」。<br>
+      時間足は EA の説明書に合わせます（MADOUME は 5 分足。SMCHAMA も同じチャートに載せます）。</li>
+    <li><b>EA をチャートに載せて、ライセンスキーを入れる</b><br>
+      「ナビゲーター」の「エキスパートアドバイザ」から EA をチャートへドラッグ。設定画面の「パラメーターの入力」で「<b>ライセンスキー</b>」にキーを入れて「OK」。</li>
+    <li><b>パネルで確かめる</b><br>
+      チャートにパネルが出て、状態の行に「ライセンス OK」と出れば準備完了です。あとは EA が自動で動きます。</li>
+  </ol>
+</div></section>
+
+<section id="license"><div class="wrap">
+  <h2>ライセンスキー</h2>
+  <p class="sub">口座の種類で、使えるキーがちがいます。</p>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>キー</th><th>デモ口座</th><th>リアル口座</th></tr>
+    <tr><td>デモ用キー<br><span class="key" style="font-size:15px">HAMA DEMO DEKI TAYO</span></td><td><span class="ok">3 つの EA とも動く</span></td><td><span class="ng">動かない</span></td></tr>
+    <tr><td>リアル用キー<br><span style="color:var(--sub);font-size:14px">（ご購入の方にお送りします）</span></td><td><span class="ok">3 つの EA とも動く</span></td><td><span class="ok">そのキーの EA が、1 つの口座で動く</span></td></tr>
+  </table></div>
+  <div class="grid2" style="margin-top:24px">
+    <div class="box">
+      <h3 style="margin-top:0">確認のしかた</h3>
+      <ul class="check">
+        <li>起動したときと、その後 3 時間ごとに確認します</li>
+        <li>ネットにつながらないときも、前回の確認から 24 時間は動きます</li>
+        <li>ライセンスが確認できないあいだは、新しい注文だけ止めます。持っているポジションの損切り・利確・決済はいつもどおりです</li>
+        <li>ストラテジーテスターでは、キーなしで動きます</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0">口座を変えるとき</h3>
+      <ul class="check">
+        <li>新しい口座の MT5 に、同じリアル用キーを入れるだけで使えます</li>
+        <li>前の口座の EA は、次の確認で新しい注文を止めます</li>
+        <li>口座を移せるのは 30 日で 3 回までです</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>説明書</h2>
+  <p class="sub">設定の項目や、パネルの見方は説明書にくわしく書いています。</p>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>EA</th><th>説明書</th></tr>
+    <tr><td>HAMA TREND G3</td><td><a href="manuals/HAMA_TREND_G3_manual.html">Web で読む</a>　/　<a href="manuals/HAMA_TREND_G3_manual.pdf">PDF</a></td></tr>
+    <tr><td>HAMA NAMITORE G4</td><td><a href="manuals/HAMA_NAMITORE_G4_manual.html">Web で読む</a>　/　<a href="manuals/HAMA_NAMITORE_G4_manual.pdf">PDF</a></td></tr>
+    <tr><td>HAMA MADOUME G7</td><td><a href="manuals/HAMA_MADOUME_G7_manual.html">Web で読む</a>　/　<a href="manuals/HAMA_MADOUME_G7_manual.pdf">PDF</a></td></tr>
+  </table></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。なくなっても困らない資金で、まずデモ口座で動きを確かめてからお使いください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+</body>
+</html>

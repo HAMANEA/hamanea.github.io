@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HAMA NAMITORE G4</title>
+<meta name="description" content="攻めと守りの「ダブルロジック」で、金の“波”をとらえるレンジ EA。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <nav class="menu">
+    <a href="index.html">トップ</a>
+    <a href="tre.html">TREND</a>
+    <a href="nami.html" class="on">NAMITORE</a>
+    <a href="mado.html">MADOUME</a>
+    <a href="setup.html">設置のしかた</a>
+    <a href="faq.html">よくある質問</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <div class="bgimg" style="background-image:url(img/namitore_cover.jpg)"></div>
+  <div class="wrap">
+    <span class="tag">レンジ（逆張り）</span>
+    <h1><span class="g">HAMA NAMITORE G4</span></h1>
+    <p class="lead">攻めと守りの「ダブルロジック」で、金の“波”をとらえるレンジ EA。</p>
+    <div class="btns">
+      <a class="btn" href="manuals/HAMA_NAMITORE_G4_manual.html">説明書を読む</a>
+      <a class="btn ghost" href="manuals/HAMA_NAMITORE_G4_manual.pdf">説明書 PDF</a>
+    </div>
+  </div>
+</div>
+
+<main>
+<section><div class="wrap">
+  <h2>どんな EA？</h2>
+  <p>金（ゴールド）の、行ったり来たりする値動き（レンジ）をねらう EA です。中で 2 つのロジックが同時に動きます。</p>
+  <div class="grid2">
+    <div class="box">
+      <h3 style="margin-top:0">攻めの A（5 分足）</h3>
+      <p style="margin:0;color:var(--sub)">RSI が「売られすぎ」「買われすぎ」から戻ったところで入ります。</p>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0">守りの B（15 分足）</h3>
+      <p style="margin:0;color:var(--sub)">値段と RSI の向きがずれる「ダイバージェンス」を待って、確度の高いところだけで入ります。</p>
+    </div>
+  </div>
+  <p style="margin-top:18px">トレンドが強いときは自動で新しい注文を止めます。決済は、損切り（SL）か反対のサインのときです。利確（TP）を決めることもできます。</p>
+  <img src="img/namitore_panel.jpg" alt="NAMITORE の操作パネル" style="border:1px solid var(--line);border-radius:var(--r);margin-top:18px" loading="lazy">
+</div></section>
+
+<section><div class="wrap">
+  <h2>特長</h2>
+  <ul class="check">
+    <li>攻めと守り、性格のちがう 2 つのロジックで、チャンスを逃さず、負けを広げにくい</li>
+    <li>強いトレンドのときは自動で休む（ADX で判断）。重要な経済指標の前後も止められる（初期値 ON）</li>
+    <li>1 日の損失上限と損切りは、パネルで「ドル」か「円」で決められる</li>
+    <li>ロットは残高に合わせて自動。攻め／標準／守りに加えて、残高の増え方で切り替わる「自動 攻め」「自動 守り」も選べる</li>
+    <li>成績表ボタンで、A・B 別と合計の成績をいつでも見られる</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap grid2">
+  <div>
+    <h2>こんな方に</h2>
+    <ul class="check">
+      <li>トレンドを追うより、上がったら売り・下がったら買いの逆張りで、コツコツ取りたい方</li>
+      <li>ほかの EA と組み合わせて、値動きのちがう場面でも稼ぎたい方（トレンド型の EA と相性が良い）</li>
+      <li>細かい設定をしなくても、検証済みの初期値のまま使いたい方</li>
+    </ul>
+  </div>
+  <div>
+    <h2>ご注意</h2>
+    <ul class="check warn">
+      <li>強いトレンドが長く続く相場は苦手で、負けが続く時期があります（検証でも、残高が一番多いときから約 40% 減った時期がありました）</li>
+      <li>ライセンスキーと、WebRequest の許可設定が必要です（デモ口座はデモ用キーで試せます）</li>
+      <li>過去の検証結果は、これからの利益を約束しません。なくなっても困らない資金で使ってください</li>
+    </ul>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>おすすめの資金とロット</h2>
+  <p class="sub">ロットは残高に合わせて自動で決まります。下は「1 オンス分を建てるのに必要な残高」の目安です。</p>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>ロットの決め方</th><th>1 オンスあたりの残高</th><th>向いている使い方</th></tr>
+    <tr><td>攻め</td><td>約 7.8 万円</td><td>少額から早く増やしたい</td></tr>
+    <tr><td>標準（初期値）</td><td>約 15.6 万円</td><td>ふつうに使う</td></tr>
+    <tr><td>守り</td><td>約 23.5 万円</td><td>落ち込みを小さくしたい</td></tr>
+    <tr><td>自動 攻め</td><td colspan="2">少額から育てたいとき。残高が増えると攻め → 標準 → 守りに切り替わる</td></tr>
+    <tr><td>自動 守り</td><td colspan="2">まとまった資金のとき。はじめは守り、増えると標準 → 攻めに切り替わる</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:12px">マイクロ口座（1 ロット＝1 オンス）は少額から使えます。スタンダード口座（1 ロット＝100 オンス、最小 0.01 ロット＝1 オンス）も、上の残高があれば本来の量で動きます（100 万円なら標準で約 0.06 ロット）。</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>はじめ方</h2>
+  <p>デモ口座なら、デモ用キー <span class="key">HAMA DEMO DEKI TAYO</span> ですぐに試せます。</p>
+  <div class="btns">
+    <a class="btn" href="setup.html">設置のしかた</a>
+    <a class="btn ghost" href="manuals/HAMA_NAMITORE_G4_manual.html">説明書を読む</a>
+    <a class="btn ghost" href="faq.html">よくある質問</a>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。なくなっても困らない資金で、まずデモ口座で動きを確かめてからお使いください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+</body>
+</html>
