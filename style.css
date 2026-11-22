@@ -210,3 +210,8 @@ code, .key { overflow-wrap: anywhere; word-break: break-all; }
   .cards.rows .card[class*="ea-"] .body { padding-bottom: 76px; }
   .cards.rows .card[class*="ea-"] .more { right: 18px; bottom: 20px; }
 }
+
+/* 成績表のバナー（シルバー） */
+.card.ea-report { --c: #c9ced8; --c2: #ffffff; --cbg: #1f232b; }
+.card.ea-report .img { background-position: left top; background-size: cover; }
+.card.ea-report .body h3 { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; font-weight: 900; letter-spacing: .01em; }
