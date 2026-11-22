@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>成績表の見方 | HAMA</title>
+<meta name="description" content="HAMA の EA の成績表（パネルの「成績」ボタン）の開き方と見方。すべての EA で共通です。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <nav class="menu">
+    <a href="index.html">トップ</a>
+    <a href="tre.html">TREND</a>
+    <a href="nami.html">NAMITORE</a>
+    <a href="mado.html">MADOUME</a>
+    <a href="setup.html">設置のしかた</a>
+    <a href="report.html" class="on">成績表</a>
+    <a href="faq.html">よくある質問</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px">
+    <span class="tag">REPORT</span>
+    <h1><span class="g">成績表の見方</span></h1>
+    <p class="lead">EA のパネルの「成績」ボタンで開く成績表の、開き方と見方です。すべての HAMA の EA で共通です。</p>
+  </div>
+</div>
+
+<main>
+<section><div class="wrap">
+  <h2>開き方</h2>
+  <ol class="steps">
+    <li><b>パネルの「成績」ボタンを押す</b><br>
+      EA が、その MT5 の取引の履歴から成績表を作って、ブラウザで開きます。パソコンの中だけで作るので、ネットにつながっていなくても開けます。</li>
+    <li><b>新しい取引を反映するとき</b><br>
+      成績表は、ボタンを押した時点の内容です。新しい取引を反映するには、もう一度「成績」ボタンを押します。</li>
+  </ol>
+  <div class="box note" style="margin-top:8px">
+    損益はスワップ・手数料を含みます（入金・出金は含みません）。日付は、ブローカーのサーバー時間で区切っています。
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>画面の見方</h2>
+  <p class="sub">上から順に、次のように並んでいます。</p>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>場所</th><th>できること・出ているもの</th></tr>
+    <tr><td>EA を選ぶ</td><td>成績表には、その MT5 の口座の取引がすべて入ります。EA ごとに分かれ、手で取引した分は「手動」、HAMA 以外の EA は注文のコメントか「EA 番号」の名前で分かれます。「すべて」は口座全体の合計、EA のボタンはその EA の分だけです。</td></tr>
+    <tr><td>✎ 名前を変える</td><td>EA の表示名を変えます（このブラウザが覚えます）。ほかの EA と同じ名前にすると、まとめて集計します。空にすると元の名前に戻ります。</td></tr>
+    <tr><td>‹ ›（月の切り替え）</td><td>前の月・次の月に切り替えます。</td></tr>
+    <tr><td>月のまとめ</td><td>選んでいる月の、損益・ロング・ショート・勝ち日 / 負け日・決済本数・最大含み損・PF・RF です（下の「言葉の意味」）。</td></tr>
+    <tr><td>カレンダー</td><td>日ごとの損益と決済本数、その日の最大含み損です。日付を押すと、その日を選びます。</td></tr>
+    <tr><td>日ごとの一覧</td><td>選んでいる月の、日ごとの損益・ロング・ショート・決済本数・最大含み損・終了時の残高です。いちばん下が月の合計です。</td></tr>
+    <tr><td>月ごとの一覧</td><td>月ごとの損益・ロング・ショート・勝ち日・負け日・決済本数・最大含み損・PF・RF です。行を押すと、その月に切り替わります。いちばん下が全期間です。</td></tr>
+  </table></div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>言葉の意味</h2>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>言葉</th><th>意味</th></tr>
+    <tr><td>損益</td><td>決済したポジションの損益の合計（スワップ・手数料を含む）。</td></tr>
+    <tr><td>ロング / ショート</td><td>決済したポジションの向き（買い / 売り）ごとの損益。</td></tr>
+    <tr><td>勝ち日 / 負け日</td><td>1 日の損益がプラスだった日 / マイナスだった日の数。</td></tr>
+    <tr><td>決済本数</td><td>決済したポジションの本数。</td></tr>
+    <tr><td>最大含み損</td><td>その日に持っていたポジションの合計含み損の、いちばん深い値。1 分足の高値・安値から計算した目安です。EA をまとめて表示しているときは、それぞれを足した目安です。</td></tr>
+    <tr><td>終了時の残高</td><td>その日の終わりの口座残高。</td></tr>
+    <tr><td>PF（プロフィットファクター）</td><td>総利益 ÷ 総損失。損失が 1 度もないときは ∞、利益がないときは − と表示します。</td></tr>
+    <tr><td>RF（リカバリーファクター）</td><td>純損益 ÷ 最大ドローダウン。最大ドローダウンは、その期間で、損益の累計が山から谷へいちばん下がった額です（日中の含み損も含む目安）。</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:14px">成績表は、過去の取引の記録を集計したものです。これからの成績を示すものではありません。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。本ソフトは投資助言ではありません。売買の判断・設定・資金の管理は、ご自身の責任で行ってください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+</body>
+</html>
