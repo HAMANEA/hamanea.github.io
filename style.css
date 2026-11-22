@@ -231,3 +231,48 @@ code, .key { overflow-wrap: anywhere; word-break: break-all; }
 @media (max-width: 640px) { .tbl td:first-child { word-break: normal; width: 28%; min-width: 5em; } }
 /* トップのバナーの縁取りを太く */
 .card[class*="ea-"] { border-width: 2.5px; border-color: color-mix(in srgb, var(--c) 75%, var(--line)); }
+/* トップの見出し: 白い背景 */
+.hero-brand { background: radial-gradient(900px 420px at 85% 30%, rgba(217,181,74,.10), transparent 70%), #f6f5f1; border-bottom: 0; }
+.hero-brand h1 { color: #111318; }
+.hero-brand h1 .g { background: linear-gradient(135deg, #2a2d33, #555a63 55%, #8b8f98); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-brand p.lead { color: #3c4048; }
+.hero-brand .tag { color: #8a6a14; border-color: #c9a646; }
+.hero-brand .hero-mark { opacity: .22; }
+@media (max-width: 720px) { .hero-brand .hero-mark { opacity: .14; } }
+.hero-brand h1 { color: #4a4e56; }
+.hero-brand h1 .g { background: linear-gradient(135deg, #5c6069, #868b94 55%, #a7abb3); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-brand p.lead { color: #7a7f88; }
+.hero-brand .hero-mark { opacity: .13; }
+/* 見出し: 真っ白な背景・Zen Kaku Gothic New */
+.hero-brand { background: #ffffff; }
+.hero-brand h1 { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; font-weight: 900; letter-spacing: .03em; }
+/* 見出しの文字: 黒に近いグレー */
+.hero-brand h1 { color: #2b2e33; }
+.hero-brand h1 .g { background: none; -webkit-background-clip: initial; background-clip: initial; color: #2b2e33; }
+.hero-brand p.lead { color: #3d4148; }
+.hero-brand .hero-mark { display: none; }
+/* 見出しの右: 白黒のローソク足のイメージ */
+.hero-brand .hero-candles { position: absolute; right: max(24px, calc((100vw - 1100px) / 2 - 40px)); top: 50%; width: min(520px, 42vw); transform: translateY(-50%); pointer-events: none; }
+@media (max-width: 900px) { .hero-brand .hero-candles { opacity: .18; width: 70vw; right: -10vw; } }
+/* 見出し: 左に文字、右にローソク足（重ならないように 2 列） */
+.hero-brand .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(240px, 400px); gap: 40px; align-items: center; }
+.hero-brand .hero-candles { position: static; transform: none; width: 100%; opacity: 1; right: auto; }
+.hero-brand h1 { font-size: clamp(26px, 3.6vw, 42px); }
+@media (max-width: 860px) { .hero-brand .hero-grid { grid-template-columns: 1fr; gap: 24px; } .hero-brand .hero-candles { max-width: 360px; opacity: 1; width: 100%; } }
+.hero-brand .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(240px, 340px); }
+.hero-brand h1 { font-size: clamp(26px, 3.1vw, 38px); }
+@media (min-width: 861px) { .hero-brand h1 { white-space: nowrap; } }
+/* 見出し: 大きなタイトル「HAMA EA series」＋ 右に大きなローソク足（左側は文字にかからないよう消える） */
+.hero-brand .hero-grid { display: block; position: static; }
+.hero-brand .hero-text { position: relative; z-index: 1; max-width: 700px; }
+.hero-brand .hero-title { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; font-weight: 900; font-size: clamp(44px, 7vw, 84px); line-height: 1.05; letter-spacing: .01em; color: #2b2e33; margin: 4px 0 18px; }
+.hero-brand .hero-title span { color: #c9a646; }
+.hero-brand h1 { font-size: clamp(22px, 2.6vw, 32px); margin-bottom: 14px; }
+.hero-brand .hero-candles { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: min(820px, 64vw); max-width: none; opacity: 1;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 18%, #000 55%); mask-image: linear-gradient(90deg, transparent 0%, transparent 18%, #000 55%); }
+.hero-brand .wrap { padding-top: 84px; padding-bottom: 84px; }
+@media (max-width: 860px) {
+  .hero-brand .hero-candles { position: absolute; width: 110vw; right: -20vw; top: auto; bottom: 0; transform: none; opacity: .25; }
+  .hero-brand h1 { white-space: normal; }
+}
+.hero-brand .hero-candles { width: min(760px, 60vw); top: 54%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 66%); mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 66%); }
