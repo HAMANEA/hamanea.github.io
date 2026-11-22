@@ -87,6 +87,17 @@ h3 { font-size: 19px; margin: 28px 0 8px; color: var(--gold2); }
 .card h3 { margin: 2px 0 8px; color: var(--text); font-size: 20px; }
 .card p { margin: 0 0 14px; color: var(--sub); font-size: 15px; }
 .card .more { margin-top: auto; }
+/* 横長のカードを縦に並べる（トップの EA 一覧） */
+.cards.rows { grid-template-columns: 1fr; gap: 16px; }
+.cards.rows .card { flex-direction: row; }
+.cards.rows .card .img { aspect-ratio: auto; width: 38%; min-height: 190px; border-bottom: 0; border-right: 1px solid var(--line); flex-shrink: 0; }
+.cards.rows .card .body { padding: 22px 26px; justify-content: center; }
+.cards.rows .card h3 { font-size: 22px; }
+.cards.rows .card p { font-size: 16px; }
+@media (max-width: 640px) {
+  .cards.rows .card { flex-direction: column; }
+  .cards.rows .card .img { width: 100%; min-height: 0; aspect-ratio: 16 / 7; border-right: 0; border-bottom: 1px solid var(--line); }
+}
 a.card { color: inherit; transition: transform .15s, border-color .15s; }
 a.card:hover { text-decoration: none; transform: translateY(-2px); border-color: var(--gold3); }
 
