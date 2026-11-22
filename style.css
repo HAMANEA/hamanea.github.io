@@ -276,3 +276,17 @@ code, .key { overflow-wrap: anywhere; word-break: break-all; }
   .hero-brand h1 { white-space: normal; }
 }
 .hero-brand .hero-candles { width: min(760px, 60vw); top: 54%; -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 66%); mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, #000 66%); }
+/* 見出し: 作り直し（文字とチャートを 2 列。重ならない・切れない） */
+.hero-brand .hero-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; align-items: center; }
+.hero-brand .hero-text { max-width: none; }
+.hero-brand .hero-title { font-size: clamp(40px, 6.2vw, 80px); white-space: nowrap; }
+.hero-brand h1 { font-size: clamp(20px, 2.4vw, 30px); white-space: normal; }
+.hero-brand .hero-candles { position: static; transform: none; width: 100%; max-width: none; opacity: 1;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 35%); mask-image: linear-gradient(90deg, transparent 0%, #000 35%); }
+@media (max-width: 860px) {
+  .hero-brand .hero-grid { grid-template-columns: 1fr; gap: 8px; }
+  .hero-brand .hero-candles { position: static; width: 100%; max-width: 520px; margin: 0 auto; opacity: 1; right: auto; bottom: auto;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 25%); mask-image: linear-gradient(90deg, transparent 0%, #000 25%); }
+  .hero-brand .wrap { padding-top: 48px; padding-bottom: 40px; }
+}
+.hero-brand .hero-title { font-size: clamp(40px, 5.4vw, 70px); }
