@@ -21,7 +21,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  font-family: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;   /* 説明書と同じ */
   font-size: 16px;
   line-height: 1.8;
   -webkit-text-size-adjust: 100%;
@@ -156,7 +156,7 @@ ol.steps > li::after { content: ""; position: absolute; left: 16px; top: 38px; b
 ol.steps > li:last-child::after { display: none; }
 ol.steps b { color: var(--gold2); }
 
-code, .key { font-family: "Consolas", "Menlo", monospace; background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; font-size: .95em; color: var(--gold2); }
+code, .key { font-family: "JetBrains Mono", "Consolas", "Menlo", monospace; background: var(--bg2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; font-size: .95em; color: var(--gold2); }
 .key { display: inline-block; font-size: 20px; letter-spacing: .08em; padding: 6px 14px; margin: 6px 0; user-select: all; }
 
 /* よくある質問 */
