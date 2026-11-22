@@ -67,6 +67,9 @@ nav.menu a:hover, nav.menu a.on { color: var(--gold2); background: var(--bg2); t
 @media (max-width: 720px) { .hero-brand .hero-mark { right: -80px; opacity: .08; } }
 h3.cat { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; color: var(--gold); font-size: 16px; letter-spacing: .06em; }
 h3.cat::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+/* 銘柄ごとの色（ゴールドは金色） */
+h3.cat.xau { color: #e2b84d; }
+h3.cat.xau::after { background: linear-gradient(90deg, rgba(226,184,77,.6), var(--line) 60%); }
 
 /* セクション */
 section { padding: 56px 0; }
