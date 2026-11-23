@@ -252,8 +252,22 @@ const MOCK = /[?&]mock=1/.test(location.search);
 const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MADOUME G7', 'mado'] };
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
+// このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
+const PAGE_VER = '20261124c';
+async function checkVer() {
+  try {
+    const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
+    const m = t.match(/PAGE_VER = '([^']+)'/);
+    if (!m || m[1] === PAGE_VER) return;
+    const k = 'hama_reload_' + m[1];
+    try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, '1'); } catch (e) {}   // 同じ版で何度も読み込み直さない
+    const u = new URL(location.href); u.searchParams.set('r', m[1]); location.replace(u.toString());
+  } catch (e) {}
+}
+checkVer();
+document.addEventListener('visibilitychange', () => { if (!document.hidden) checkVer(); });
 const $ = id => document.getElementById(id);
-const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} } };
+const store ={ get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} } };
 let tok = store.get('hama_tok'), data = null, cur = store.get('hama_acc') || 'real', accSel = null, sel = null, timer = null, seenNotes = Number(store.get('hama_seen') || 0);
 
 async function api(op, body) {
