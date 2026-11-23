@@ -431,3 +431,21 @@ ul.news p { margin: 0; }
 .hero[class*="hero-"]:not(.hero-brand) h1 .g { background: linear-gradient(135deg, var(--hc1) 0%, var(--hc2) 70%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero[class*="hero-"]:not(.hero-brand) .tag { color: var(--hc2); border-color: color-mix(in srgb, var(--hc2) 60%, transparent); }
 .hero[class*="hero-"]:not(.hero-brand) { background: radial-gradient(700px 300px at 85% 20%, color-mix(in srgb, var(--hc2) 14%, transparent), transparent 70%); }
+/* メニュー: EA はドロップダウン（パソコン = 乗せる／押すと開く、スマホの ☰ の中 = 下に並べる） */
+nav.menu .dd { position: relative; display: flex; }
+nav.menu .dd-btn { background: transparent; border: 0; color: var(--sub); font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+nav.menu .dd-btn:hover, nav.menu .dd.open .dd-btn { color: var(--gold2); background: var(--bg2); }
+nav.menu .dd-ar { font-size: 11px; opacity: .8; transition: transform .2s; }
+nav.menu .dd.open .dd-ar { transform: rotate(180deg); }
+nav.menu .dd-menu { display: none; position: absolute; top: calc(100% + 6px); left: 0; min-width: 210px; padding: 6px; background: rgba(15,17,22,.98); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 14px 30px rgba(0,0,0,.45); z-index: 20; }
+nav.menu .dd-menu a { display: block; padding: 9px 12px; border-radius: 8px; white-space: nowrap; }
+nav.menu .dd-menu a:nth-child(1) { color: #e6c766; } nav.menu .dd-menu a:nth-child(2) { color: #7fd3ff; } nav.menu .dd-menu a:nth-child(3) { color: #7fdca2; }
+nav.menu .dd-menu a:hover { background: var(--bg2); }
+@media (min-width: 721px) { nav.menu .dd:hover .dd-menu, nav.menu .dd.open .dd-menu, nav.menu .dd:focus-within .dd-menu { display: block; } nav.menu .dd:hover .dd-btn { color: var(--gold2); background: var(--bg2); } }
+@media (max-width: 720px) {
+  nav.menu .dd { display: block; }
+  nav.menu .dd-btn { width: 100%; font-size: 16px; letter-spacing: .08em; padding: 12px 14px; justify-content: space-between; }
+  nav.menu .dd-menu { position: static; display: none; min-width: 0; margin: 2px 0 4px 14px; padding: 0 0 0 10px; background: transparent; border: 0; border-left: 2px solid var(--line); border-radius: 0; box-shadow: none; }
+  nav.menu .dd.open .dd-menu { display: block; }
+  nav.menu .dd-menu a { font-size: 15px; padding: 10px 12px; }
+}

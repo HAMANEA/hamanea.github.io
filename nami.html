@@ -174,6 +174,16 @@ html{scroll-padding-top:64px}
 #hama-bar a.b img{width:26px;height:26px}
 #hama-bar a.d{margin-left:auto;background:#f2f3f5;color:#0b0c0e;font-weight:700}
 #hama-bar a.d:hover{background:#fff;color:#000}
+#hama-bar .dd{position:relative;display:flex}
+#hama-bar .dd-btn{background:transparent;border:0;color:#a2a5ab;font:inherit;padding:6px 10px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:4px}
+#hama-bar .dd-btn:hover,#hama-bar .dd.open .dd-btn{color:#fff;background:#141518}
+#hama-bar .dd-ar{font-size:11px;opacity:.8}
+#hama-bar .dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:210px;padding:6px;background:rgba(11,12,14,.98);border:1px solid #2a2c31;border-radius:12px;box-shadow:0 14px 30px rgba(0,0,0,.45);z-index:5}
+#hama-bar .dd-menu a,#hama-bar .dd-menu a.m{display:block;padding:9px 12px}
+#hama-bar .dd-menu a:nth-child(1){color:#e6c766}#hama-bar .dd-menu a:nth-child(2){color:#7fd3ff}#hama-bar .dd-menu a:nth-child(3){color:#7fdca2}
+#hama-bar .dd-menu a.on{background:#141518}
+@media (min-width:721px){#hama-bar .dd:hover .dd-menu,#hama-bar .dd.open .dd-menu,#hama-bar .dd:focus-within .dd-menu{display:block}}
+@media (max-width:720px){#hama-bar .dd{display:block}#hama-bar .dd-btn{width:100%;font-size:16px;letter-spacing:.08em;padding:12px 14px;justify-content:space-between;color:#a2a5ab}#hama-bar .dd-menu{position:static;display:none;min-width:0;margin:2px 0 4px 14px;padding:0 0 0 10px;background:transparent;border:0;border-left:2px solid #2a2c31;border-radius:0;box-shadow:none}#hama-bar .dd.open .dd-menu{display:block}#hama-bar .dd-menu a,#hama-bar .dd-menu a.m{font-size:15px;padding:10px 12px}}
 #hama-bar .mb,#hama-bar a.m{display:none}
 #hama-bar .lk{display:contents}
 @media (max-width:720px){
@@ -210,9 +220,7 @@ body{overflow-wrap:anywhere}
 <button class="mb" type="button" aria-label="メニュー" aria-expanded="false" onclick="var o=document.getElementById('hama-bar').classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
 <div class="lk">
 <a href="index.html">TOP</a>
-<a class="m" href="tre.html">TREND</a>
-<a class="m on" href="nami.html">NAMITORE</a>
-<a class="m" href="mado.html">MADOUME</a>
+<div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a class="m" href="tre.html">TREND G3</a><a class="m on" href="nami.html">NAMITORE G4</a><a class="m" href="mado.html">MADOUME G7</a></div></div>
 <a href="setup.html">SETUP</a>
 <a href="license.html">LICENSE</a>
 <a href="report.html">REPORT</a>
