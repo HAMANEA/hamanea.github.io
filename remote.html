@@ -270,7 +270,7 @@ $('pgo').onclick = async () => {
   $('perr').textContent = ''; $('pgo').disabled = true;
   try {
     const r = await api('r_setpw', { tok: pwTok, pw: $('pw').value });
-    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); if (r.key) { store.set('hama_key', r.key); $('lkey').value = r.key; } history.replaceState(null, '', location.pathname + location.search); await load(true); return; }
+    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); if (r.key) { store.set('hama_key', r.key); $('lkey').value = r.key; } history.replaceState(null, '', location.pathname + location.search.replace(/[?&]pw=[^&]*/, '').replace(/^&/, '?')); await load(true); return; }
     $('perr').textContent = { expired: 'リンクの期限（1 時間）が切れました。もう一度リンクを送ってください', rule: 'パスワードの条件を満たしていません' }[r.ng] || '決められませんでした';
   } catch (e) { $('perr').textContent = 'つながりません'; }
   finally { checkPw(); }
@@ -391,7 +391,8 @@ document.querySelectorAll('#minseg button').forEach(b => b.onclick = () => saveP
 
 // はじめに
 (function start() {
-  const m = location.hash.match(/pw=([0-9a-f]{32,})/);
+  // メールのリンク: remote.html?pw=…（前の形の #pw=… も読む。メールのアプリによっては # から後ろが切れるため ? を使う）
+  const m = (location.search + location.hash).match(/pw=([0-9a-fA-F]{32,})/);
   if (m) { pwTok = m[1]; show('setpw'); return; }
   if (tok) load(true); else show('login');
 })();
