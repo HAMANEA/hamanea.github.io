@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261123r">
+<link rel="stylesheet" href="style.css?v=20261123t">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -24,10 +24,11 @@
     <a href="license.html">LICENSE</a>
     <a href="report.html">REPORT</a>
     <a href="faq.html">FAQ</a>
+    <a href="news.html">NEWS</a>
   </nav>
 </div></header>
 
-<div class="hero">
+<div class="hero hero-setup">
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">SETUP</span>
     <h1><span class="g">設置のしかた</span></h1>
@@ -46,10 +47,10 @@
       入れたら MT5 を一度閉じて、開き直します。</li>
     <li><b>ライセンスの確認の準備（どちらか 1 つ）</b><br>
       ライセンスの確認に使います。次の <b>①か②のどちらか 1 つ</b>をしてください。どちらもしていないと、新しい注文が止まります。<br>
-      <b>① URL を許可する</b>（MT5 の標準のやり方）：「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、次の 2 つを追加して「OK」。<br>
+      <b>① DLL を許可する</b>：手順 5 で EA を載せるときの設定画面の「共通」タブで、「DLL の使用を許可する」にチェック。URL の追加は要りません。<br>
+      <b>② URL を許可する</b>（MT5 の標準のやり方）：「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、次の 2 つを追加して「OK」。<br>
       <code>https://script.google.com</code><br>
-      <code>https://script.googleusercontent.com</code><br>
-      <b>② DLL を許可する</b>：手順 5 で EA を載せるときの設定画面の「共通」タブで、「DLL の使用を許可する」にチェック。URL の追加は要りません。</li>
+      <code>https://script.googleusercontent.com</code></li>
     <li><b>自動売買を ON にする</b><br>
       同じ画面の「アルゴリズム取引を許可する」にチェック。MT5 の上のボタン「アルゴリズム取引」も緑（ON）にします。</li>
     <li><b>EA の銘柄のチャートを開く</b><br>
