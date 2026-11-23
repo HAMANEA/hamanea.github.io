@@ -191,6 +191,9 @@ html{scroll-padding-top:64px}
 }
 /* 説明書の表紙の HAMA ロゴは、上の帯のロゴとかぶるのでホームページ版では出さない */
 .brand{display:none!important}
+/* 手順（ol.steps）の中の箇条書きは、ふつうの行に（手順用の 2 列のレイアウトが中の行にもかかって、文字が縦に並ぶのを防ぐ） */
+ol.steps li li{display:list-item!important;grid-template-columns:none!important}
+ol.steps li li::before{content:none!important}
 /* スマホで左右に動かないように（説明書そのものは変えず、ホームページ版だけで直す） */
 html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
 img,svg,video{max-width:100%;height:auto}
