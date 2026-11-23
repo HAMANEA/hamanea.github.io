@@ -560,14 +560,14 @@ body{overflow-wrap:anywhere}
 <section id="start">
   <h2><span class="no">03</span><span class="ttl">チャートに載せる</span></h2>
   <ol class="steps">
-    <li><div><b>EAを選ぶ</b>MT5のナビゲーターで「エキスパートアドバイザ」→「HAMA_TREND_G3_v2.47」を選び、ゴールド（XAUUSD）のチャートにドラッグします。時間足は何でも構いません。判定に使う時間足はEAの中で決めています。</div></li>
-    <li><div><b>「共通」タブを確認</b>「アルゴリズム取引を許可」にチェック。「DLL の使用を許可」にもチェックすると、パネルの「設定」ボタンが使え、ライセンスの確認もこれだけで済みます（下の「ライセンス」の②）。</div></li>
-    <li><div><b>ライセンスキーを入れる</b>「パラメーターの入力」タブの「ライセンス」に、受け取ったキー（HAMA-XXXX-XXXX-XXXX）を入れます。</div></li>
+    <li><div><b>EAを選ぶ</b>MT5のナビゲーターで「エキスパートアドバイザ」→「HAMA_TREND_G3_v2.48」を選び、ゴールド（XAUUSD）のチャートにドラッグします。時間足は何でも構いません。判定に使う時間足はEAの中で決めています。</div></li>
+    <li><div><b>「共通」タブを確認</b>「アルゴリズム取引を許可」にチェック。「DLL の使用を許可」にもチェックすると、パネルの「設定」ボタンが使え、ライセンスの確認もこれだけで済みます（下の「ライセンス」の①）。</div></li>
+    <li><div><b>ライセンスキーを入れる</b>「パラメーターの入力」タブの「ライセンス」に、受け取ったキー（XXXX-XXXX-XXXX-XXXX）を入れます。</div></li>
     <li><div><b>OKを押す</b>チャート左上にパネルが出れば動いています。ツールバーの「アルゴリズム取引」ボタンもONにしてください。</div></li>
   </ol>
   <h3>ライセンス</h3>
   <p>ライセンスを確かめるために、<b>①か②のどちらか1つ</b>をしておきます。</p>
-  <ol class="steps"><li><div><b>URLを許可する</b>MT5の「ツール」→「オプション」→「エキスパートアドバイザー」を開きます。「WebRequestを許可するURLリスト」に <code>https://script.google.com</code> と <code>https://script.googleusercontent.com</code> を追加します。</div></li><li><div><b>またはDLLを許可する</b>EAの設定（F7）の「共通」タブで、「DLL の使用を許可する」にチェックを入れます。</div></li></ol>
+  <ol class="steps"><li><div><b>DLLを許可する</b>EAの設定（F7）の「共通」タブで、「DLL の使用を許可する」にチェックを入れます。</div></li><li><div><b>またはURLを許可する</b>MT5の「ツール」→「オプション」→「エキスパートアドバイザー」を開きます。「WebRequestを許可するURLリスト」に <code>https://script.google.com</code> と <code>https://script.googleusercontent.com</code> を追加します。</div></li></ol>
   <p><b>はじめにネットにつながっている状態でEAを動かすと、設定を受け取ります。</b>ストラテジーテスターの前に、一度チャートでEAを動かしてください（ライセンスがOKになると受け取ります）。受け取るまでは、新しい注文を出しません。</p>
   <p>ライセンスについて、くわしくは<a href="https://hamanea.github.io/license.html">こちら</a></p>
   <div class="note info"><b>再起動しても大丈夫</b>MT5を閉じて開き直しても、保有中のポジション、パネルの位置、設定欄で変えた値はそのまま引き継ぎます。</div>
@@ -578,7 +578,7 @@ body{overflow-wrap:anywhere}
   <p>操作パネルは、チャートの左上に出ます。</p>
   <ul class="pts">
     <li>金色の見出し「HAMA TREND G3」をつかむと、好きな場所へ動かせます。</li>
-    <li>見出しの下の小さな文字に、バージョン（例：v2.47）と最大本数が出ます。</li>
+    <li>見出しの下の小さな文字に、バージョン（例：v2.48）と最大本数が出ます。</li>
     <li>見出しのすぐ下から、ボタンが並びます（05 ボタンの使い方）。</li>
   </ul>
   <p>今の状態は、右の<b>損益パネル（P / L）の下半分</b>に出ます。</p>
@@ -997,7 +997,7 @@ body{overflow-wrap:anywhere}
   <div class="tbl"><table>
 <thead><tr><th>項目</th><th>何をするか</th><th>初期値</th></tr></thead>
 <tbody>
-<tr><td class="k">ライセンス</td><td>ライセンスキー（HAMA-XXXX-XXXX-XXXX）。くわしくは「03 チャートに載せる」</td><td class="n">（空）</td></tr>
+<tr><td class="k">ライセンス</td><td>ライセンスキー（XXXX-XXXX-XXXX-XXXX）。くわしくは「03 チャートに載せる」</td><td class="n">（空）</td></tr>
 </tbody>
 </table></div>
   <h3 class="grp">売買のしかた</h3>
@@ -1110,9 +1110,9 @@ body{overflow-wrap:anywhere}
 </section>
 
 <footer class="license">
-  <p><b>HAMA TREND G3 v2.47</b>（HAMA_TREND_G3_v2.47.ex5）説明書 · 2026年11月23日時点の内容です。</p>
+  <p><b>HAMA TREND G3 v2.48</b>（HAMA_TREND_G3_v2.48.ex5）説明書 · 2026年11月23日時点の内容です。</p>
   <p class="copy">© 2026 HAMA. All rights reserved.</p>
-  <p>本EA（HAMA_TREND_G3_v2.47.ex5）・本説明書・成績レポートの著作権はHAMAに帰属します。許可なく、複製・転載・再配布・改変・リバースエンジニアリング（解析）・販売・貸与することを禁止します。使用は、HAMAから提供を受けた本人に限ります。</p>
+  <p>本EA（HAMA_TREND_G3_v2.48.ex5）・本説明書・成績レポートの著作権はHAMAに帰属します。許可なく、複製・転載・再配布・改変・リバースエンジニアリング（解析）・販売・貸与することを禁止します。使用は、HAMAから提供を受けた本人に限ります。</p>
   <p>本ソフトは投資助言ではありません。売買の判断・設定・資金の管理は、ご自身の責任で行ってください。本EAは投資の結果を保証するものではありません。過去の成績や検証結果は将来の利益を約束しません。FX・CFD取引には元本を超える損失のおそれがあります。ご利用は、ご自身の判断と責任でお願いします。本EAの使用によって生じた損害について、HAMAは責任を負いません。</p>
 </footer>
 </div>
