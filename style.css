@@ -449,3 +449,6 @@ nav.menu .dd-menu a:hover { background: var(--bg2); }
   nav.menu .dd.open .dd-menu { display: block; }
   nav.menu .dd-menu a { font-size: 15px; padding: 10px 12px; }
 }
+/* トップ: 「条件がそろうまで待つ EA」の説明 */
+.wait-note { margin: 14px 0 26px; padding: 14px 18px; border-left: 4px solid #d9b54a; border-radius: 0 10px 10px 0; background: rgba(217,181,74,.07); color: var(--sub); line-height: 1.9; }
+.wait-note b { color: var(--text); font-size: 1.05em; }
