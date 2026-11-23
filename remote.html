@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0c0e">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/hama_logo.svg">
+<title>HAMA リモート</title>
+<style>
+:root{--bg:#0b0c0e;--page:#050506;--card:#141518;--line:#2a2c31;--tx:#ececee;--sub:#a2a5ab;--inv:#0b0c0e;--btn:#f2f3f5;--plus:#9cc8ff;--minus:#ffa6a0;--tre:#e6c766;--nami:#7fd3ff;--mado:#7fdca2;--red:#ff7d75;--ok:#7fdca2;--wait:#e6c766;--alertbg:rgba(255,125,117,.08);--alertln:#5a2f2d;--alerttx:#ffd1cd}
+:root[data-theme="light"]{--bg:#ffffff;--page:#f2f3f5;--card:#ffffff;--line:#dfe1e5;--tx:#1b1c1f;--sub:#6b6f76;--inv:#ffffff;--btn:#1b1c1f;--plus:#1f6fd1;--minus:#d0372d;--tre:#a8860f;--nami:#1688c4;--mado:#1f9a55;--red:#d0372d;--ok:#1f9a55;--wait:#a8860f;--alertbg:rgba(208,55,45,.06);--alertln:#f1c2be;--alerttx:#a3271f}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#ffffff;--page:#f2f3f5;--card:#ffffff;--line:#dfe1e5;--tx:#1b1c1f;--sub:#6b6f76;--inv:#ffffff;--btn:#1b1c1f;--plus:#1f6fd1;--minus:#d0372d;--tre:#a8860f;--nami:#1688c4;--mado:#1f9a55;--red:#d0372d;--ok:#1f9a55;--wait:#a8860f;--alertbg:rgba(208,55,45,.06);--alertln:#f1c2be;--alerttx:#a3271f}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--page);color:var(--tx)}
+body{font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;line-height:1.6;-webkit-text-size-adjust:100%}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:460px;margin:0 auto;padding:14px 16px calc(40px + env(safe-area-inset-bottom))}
+.scr{display:none}.scr.on{display:block}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:12px;min-height:38px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.08em;color:var(--tx);text-decoration:none}
+.logo img{width:26px;height:26px}
+:root[data-theme="light"] .logo img{filter:invert(1)}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .logo img{filter:invert(1)}}
+.ibtn{background:transparent;border:1px solid var(--line);color:var(--tx);border-radius:10px;min-width:38px;height:34px;padding:0 8px;position:relative}
+.ml{margin-left:auto}
+.bell em{position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;font-style:normal;font-size:11px;font-weight:700;border-radius:999px;min-width:18px;height:18px;line-height:18px;text-align:center;padding:0 4px}
+.back{background:transparent;border:0;color:var(--sub);padding:0;font-size:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.lbl{font-size:12px;color:var(--sub)}
+.big{font-size:26px;font-weight:700}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.plus{color:var(--plus)}.minus{color:var(--minus)}
+.seg{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{flex:1;background:transparent;border:0;color:var(--sub);padding:8px 0;border-radius:9px;font-size:14px}
+.seg button.on{background:var(--c,var(--btn));color:var(--inv);font-weight:700}
+.seg.acc button.on.real{background:var(--tre)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.chips button{background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:999px;padding:3px 12px;font-size:13px}
+.chips button.on{color:var(--tx);border-color:var(--sub)}
+.accname{font-size:12px;color:var(--sub);margin:8px 2px 10px}
+.list{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.ea{display:grid;grid-template-columns:4px 1fr auto 14px;gap:12px;align-items:center;padding:13px 14px 13px 0;border:0;border-bottom:1px solid var(--line);width:100%;background:transparent;color:var(--tx);text-align:left}
+.ea:last-child{border-bottom:0}
+.ea .bar{align-self:stretch;min-height:42px;background:var(--c);border-radius:0 3px 3px 0}
+.ea .nm{font-weight:700;letter-spacing:.05em;color:var(--c);white-space:nowrap;font-size:15px}
+.ea .pl{text-align:right;font-weight:700;white-space:nowrap}
+.ea .ch{color:var(--sub)}
+.st{font-size:12px;white-space:nowrap}
+.st i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--sub)}
+.st.run i{background:var(--ok)}.st.wait i{background:var(--wait)}.st.bad i{background:var(--red)}
+.st.bad{color:var(--red)}
+.alert{border:1px solid var(--alertln);background:var(--alertbg);border-radius:14px;padding:10px 12px;font-size:13px;margin-bottom:12px;color:var(--alerttx)}
+.sw{position:relative;width:46px;height:26px;border-radius:999px;background:var(--line);border:0;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--sub);transition:.15s}
+.sw.on{background:var(--c,var(--ok))}.sw.on::after{left:23px;background:var(--inv)}
+.set{padding:12px 0;border-bottom:1px solid var(--line)}
+.set:last-child{border-bottom:0}
+.pend{margin-top:8px;font-size:12px;color:var(--wait);background:rgba(230,199,102,.10);border-radius:10px;padding:8px 10px}
+.in{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--tx);font-size:16px;padding:12px;border-radius:12px;margin:6px 0 14px;letter-spacing:.04em}
+.go{width:100%;background:var(--btn);color:var(--inv);border:0;font-weight:700;font-size:16px;padding:13px;border-radius:12px}
+.go:disabled{opacity:.4}
+.link{background:none;border:0;color:var(--nami);padding:0;font-size:13px;text-decoration:underline}
+.small{font-size:12px;color:var(--sub);margin-top:10px}
+.err{color:var(--red);font-size:13px;min-height:1.6em;margin:-6px 0 8px}
+.okmsg{color:var(--ok);font-size:13px}
+.pos .row{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
+.pos .row:last-child{border:0}
+h2{font-size:15px;margin:2px 0 8px}
+.dh{display:flex;align-items:center;gap:10px;margin:6px 0 12px;flex-wrap:wrap}
+.dh .nm{font-size:20px;font-weight:700;letter-spacing:.05em;color:var(--c)}
+.nt{display:grid;grid-template-columns:1fr;gap:2px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.nt:last-child{border:0}
+.nt .tm{font-size:12px;color:var(--sub)}
+.chip{display:inline-block;font-size:11px;border:1px solid var(--line);border-radius:999px;padding:0 8px;color:var(--sub);margin-left:6px}
+.rules{font-size:13px;line-height:2;margin:-6px 0 12px}
+.rules .y{color:var(--ok)}
+.empty{color:var(--sub);font-size:14px;padding:10px 0}
+.spin{opacity:.6}
+</style>
+<script>
+// 表示モード: auto（スマホの設定に合わせる）/ light / dark。この端末だけに覚える
+(function(){var m='auto';try{m=localStorage.getItem('hama_theme')||'auto';}catch(e){}if(m!=='auto')document.documentElement.setAttribute('data-theme',m);})();
+</script>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ログイン -->
+<div class="scr" id="login">
+<div class="top"><a class="logo" href="index.html"><img src="img/hama_logo.svg" alt="">HAMA</a><button class="ibtn ml" data-theme-btn title="表示モード">◐</button></div>
+<div class="card">
+<h2>EA のようすと設定</h2>
+<div class="lbl">ライセンスキー（お持ちのどれか 1 つ）</div>
+<input class="in" id="lkey" autocomplete="username" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX-XXXX">
+<div class="lbl">パスワード</div>
+<input class="in" id="lpw" type="password" autocomplete="current-password">
+<div class="err" id="lerr"></div>
+<button class="go" id="lgo">ログイン</button>
+<p class="small">同じメールアドレスで登録したキー（リアル・デモ）が、まとめて表示されます。</p>
+<p class="small"><button class="link" id="tofirst">はじめての方・パスワードを忘れた方</button></p>
+</div>
+</div>
+
+<!-- パスワードのリンクを送る -->
+<div class="scr" id="first">
+<div class="top"><button class="back" data-go="login">‹ ログインへ</button></div>
+<div class="card">
+<h2>パスワードを決める・決め直す</h2>
+<p class="small" style="margin-top:0">お持ちのライセンスキーを入れてください。キーに登録したメールアドレスに、パスワードを決めるためのリンクを送ります（1 時間だけ使えます）。</p>
+<div class="lbl">ライセンスキー</div>
+<input class="in" id="fkey" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX-XXXX">
+<div class="err" id="ferr"></div>
+<button class="go" id="fgo">リンクを送る</button>
+</div>
+</div>
+
+<!-- パスワードを決める（メールのリンクから） -->
+<div class="scr" id="setpw">
+<div class="top"><span class="logo"><img src="img/hama_logo.svg" alt="">HAMA</span></div>
+<div class="card">
+<h2>パスワードを決める</h2>
+<div class="lbl">新しいパスワード</div>
+<input class="in" id="pw" type="password" autocomplete="new-password">
+<div class="rules" id="rules">
+<div data-r="len">○ 10 文字以上</div>
+<div data-r="up">○ 大文字（A〜Z）</div>
+<div data-r="lo">○ 小文字（a〜z）</div>
+<div data-r="num">○ 数字（0〜9）</div>
+<div data-r="sym">○ 記号（! # $ % &amp; など）</div>
+</div>
+<div class="lbl">もう一度</div>
+<input class="in" id="pw2" type="password" autocomplete="new-password">
+<div class="err" id="perr"></div>
+<button class="go" id="pgo" disabled>この内容で決める</button>
+<p class="small">※ 5 回まちがえると、30 分ログインできなくなります。<br>※ パスワードはそのまま保存せず、元に戻せない形にして保存します。</p>
+</div>
+</div>
+
+<!-- 一覧 -->
+<div class="scr" id="home">
+<div class="top"><span class="logo"><img src="img/hama_logo.svg" alt="">HAMA</span>
+<button class="ibtn ml" data-theme-btn title="表示モード">◐</button>
+<button class="ibtn bell" data-go="notice" title="お知らせ">🔔<em id="badge" hidden></em></button></div>
+<div class="seg acc" id="accseg"><button class="real" data-acc="real">リアル口座</button><button data-acc="demo">デモ口座</button></div>
+<div class="chips" id="accchips"></div>
+<div class="accname" id="accname"></div>
+<div id="alerts"></div>
+<div class="card" id="sumcard">
+<div class="lbl">口座の残高</div>
+<div class="big" id="bal">—</div>
+<div class="grid2">
+<div><div class="lbl">きょうの損益</div><div style="font-size:17px;font-weight:700" id="day">—</div></div>
+<div><div class="lbl">いまの含み損益</div><div style="font-size:17px;font-weight:700" id="opn">—</div></div>
+</div>
+</div>
+<div class="list" id="ealist"></div>
+<p class="small">※ EA は 2 分ごとに知らせてきます。くわしい値動きは MT5 のスマホアプリでご確認ください。<br>※ 損益は、この EA の取引だけです（ほかの EA・手動の取引は入りません）。</p>
+<p class="small"><button class="link" id="logout">ログアウト</button></p>
+</div>
+
+<!-- EA の詳細 -->
+<div class="scr" id="detail">
+<div class="top"><button class="back" data-go="home">‹ 一覧へ</button><span class="ml lbl" id="dacc"></span></div>
+<div id="dbody"></div>
+</div>
+
+<!-- お知らせ -->
+<div class="scr" id="notice">
+<div class="top"><button class="back" data-go="home">‹ 一覧へ</button></div>
+<div class="card"><h2>お知らせ</h2><div id="notes"></div></div>
+<div class="card" id="prefs">
+<h2>メールで受け取る</h2>
+<div class="row set"><span>EA から連絡がなくなったとき</span><button class="sw" data-p="stop"></button></div>
+<div class="row set"><span>EA が起動・再起動したとき</span><button class="sw" data-p="start"></button></div>
+<div class="row set"><span>「自動売買」が OFF・ON になったとき</span><button class="sw" data-p="auto"></button></div>
+<div class="row set"><span>スマホからの設定が切り替わったとき</span><button class="sw" data-p="cfg"></button></div>
+<div class="set"><div class="lbl">連絡がないと判断するまで</div>
+<div class="seg" id="minseg" style="margin-top:8px"><button data-m="5">5 分</button><button data-m="10">10 分</button><button data-m="30">30 分</button></div></div>
+<p class="small">※ MT5 のスマホアプリの通知（MetaQuotes ID）を設定すると、起動・「自動売買」OFF・設定の切り替えは、EA からすぐプッシュ通知でも届きます。</p>
+</div>
+<div class="card">
+<h2>表示</h2>
+<div class="seg" id="themeseg"><button data-t="auto">自動</button><button data-t="light">ライト</button><button data-t="dark">ダーク</button></div>
+</div>
+</div>
+
+</div>
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbxVILsMUm1UMdNhgRQVQgXre6H6Kc50SF3V2KBowSc4ORi4PsX-drc23v-SNNxlBR5H/exec';
+const MOCK = /[?&]mock=1/.test(location.search);
+const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MADOUME G7', 'mado'] };
+const LOTN = ['攻め', '標準', '守り'];
+const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「途切れています」
+const $ = id => document.getElementById(id);
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} } };
+let tok = store.get('hama_tok'), data = null, cur = store.get('hama_acc') || 'real', accSel = null, sel = null, timer = null, seenNotes = Number(store.get('hama_seen') || 0);
+
+async function api(op, body) {
+  if (MOCK) return mockApi(op, Object.assign({ op }, body || {}));
+  const r = await fetch(API, { method: 'POST', body: JSON.stringify(Object.assign({ op, tok }, body || {})) });
+  return r.json();
+}
+function show(s) { document.querySelectorAll('.scr').forEach(e => e.classList.toggle('on', e.id === s)); window.scrollTo(0, 0); if (s === 'notice') markRead(); }
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => show(b.dataset.go));
+
+// 表示モード
+function setTheme(m) { store.set('hama_theme', m); if (m === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', m); paintTheme(); }
+function paintTheme() { const m = store.get('hama_theme') || 'auto'; document.querySelectorAll('#themeseg button').forEach(b => b.classList.toggle('on', b.dataset.t === m)); }
+document.querySelectorAll('#themeseg button').forEach(b => b.onclick = () => setTheme(b.dataset.t));
+document.querySelectorAll('[data-theme-btn]').forEach(b => b.onclick = () => {
+  const dark = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim() === '#0b0c0e';
+  setTheme(dark ? 'light' : 'dark');
+});
+paintTheme();
+
+// ログイン
+$('lgo').onclick = async () => {
+  $('lerr').textContent = ''; $('lgo').disabled = true;
+  try {
+    const r = await api('r_login', { key: $('lkey').value.trim(), pw: $('lpw').value });
+    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); $('lpw').value = ''; await load(true); return; }
+    $('lerr').textContent = { nomail: 'このキーには、メールアドレスが登録されていません。販売元にお問い合わせください', nopw: 'まだパスワードが決まっていません。下の「はじめての方」からどうぞ',
+      pw: 'キーかパスワードがちがいます（あと ' + r.left + ' 回で 30 分ロック）', lock: 'まちがいが続いたので、' + r.min + ' 分ほどログインできません' }[r.ng] || 'ログインできませんでした（' + (r.ng || '') + '）';
+  } catch (e) { $('lerr').textContent = 'つながりません。電波のよい所でもう一度どうぞ'; }
+  finally { $('lgo').disabled = false; }
+};
+$('lpw').onkeydown = e => { if (e.key === 'Enter') $('lgo').click(); };
+$('tofirst').onclick = () => { $('fkey').value = $('lkey').value; $('ferr').textContent = ''; show('first'); };
+$('fgo').onclick = async () => {
+  $('ferr').textContent = ''; $('fgo').disabled = true;
+  try {
+    const r = await api('r_reset', { key: $('fkey').value.trim() });
+    if (r.ok) { $('ferr').innerHTML = '<span class="okmsg">' + r.to + ' にリンクを送りました。メールのリンクを開いてください（届かないときは迷惑メールもご確認ください）</span>'; return; }
+    $('ferr').textContent = { nomail: 'このキーには、メールアドレスが登録されていません。販売元にお問い合わせください', wait: '少し前に送りました。5 分ほどたってからどうぞ', mail: 'いまメールを送れません。時間をおいてどうぞ' }[r.ng] || '送れませんでした';
+  } catch (e) { $('ferr').textContent = 'つながりません'; }
+  finally { $('fgo').disabled = false; }
+};
+// パスワードを決める
+let pwTok = '';
+function checkPw() {
+  const v = $('pw').value, ok = { len: v.length >= 10, up: /[A-Z]/.test(v), lo: /[a-z]/.test(v), num: /[0-9]/.test(v), sym: /[^A-Za-z0-9]/.test(v) };
+  document.querySelectorAll('#rules [data-r]').forEach(d => { const g = ok[d.dataset.r]; d.classList.toggle('y', g); d.textContent = (g ? '✓ ' : '○ ') + d.textContent.slice(2); });
+  $('pgo').disabled = !(Object.values(ok).every(x => x) && v === $('pw2').value);
+}
+$('pw').oninput = checkPw; $('pw2').oninput = checkPw;
+$('pgo').onclick = async () => {
+  $('perr').textContent = ''; $('pgo').disabled = true;
+  try {
+    const r = await api('r_setpw', { tok: pwTok, pw: $('pw').value });
+    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); history.replaceState(null, '', location.pathname + location.search); await load(true); return; }
+    $('perr').textContent = { expired: 'リンクの期限（1 時間）が切れました。もう一度リンクを送ってください', rule: 'パスワードの条件を満たしていません' }[r.ng] || '決められませんでした';
+  } catch (e) { $('perr').textContent = 'つながりません'; }
+  finally { checkPw(); }
+};
+$('logout').onclick = async () => { try { await api('r_logout'); } catch (e) {} tok = null; store.set('hama_tok', null); data = null; clearInterval(timer); show('login'); };
+
+// 表示用
+const money = (v, c) => { if (v === '' || v == null || isNaN(Number(v))) return '—'; const n = Number(v), s = (n > 0 ? '+' : n < 0 ? '−' : '') + Math.abs(n).toLocaleString('ja-JP'); return s + (c === 'JPY' || !c ? ' 円' : ' ' + c); };
+const plain = (v, c) => (v === '' || v == null) ? '—' : Number(v).toLocaleString('ja-JP') + (c === 'JPY' || !c ? ' 円' : ' ' + c);
+const cls = v => Number(v) > 0 ? 'plus' : Number(v) < 0 ? 'minus' : '';
+const ago = t => { if (!t) return 'まだ連絡がありません'; const m = Math.floor((data.now - t) / 60000); return m < 1 ? 'たった今更新' : m < 60 ? m + ' 分前に更新' : Math.floor(m / 60) + ' 時間前に更新'; };
+function status(u) {
+  const s = u.s || {}, st = String(s.st || '');
+  if (!u.seen || u.alerted || data.now - u.seen > LOST_MS) return ['bad', '連絡が途切れています'];
+  if (st === 'off') return ['bad', '自動売買が OFF'];
+  if (st === 'lic') return ['bad', 'ライセンスを確認してください'];
+  if (st === 'clash') return ['bad', 'マジックナンバーが重なっています'];
+  if (st === 'stop') return ['', 'エントリー停止中'];
+  if (st.indexOf('run') === 0) return ['run', 'ポジションあり ' + st.slice(3)];
+  return ['wait', '条件を待っています'];
+}
+const parseList = s => String(s || '').split(',').filter(x => x).map(x => { const a = x.split(':'); return [a[0] === 'B' ? '買い' : '売り', a[1]]; });
+
+async function load(go) {
+  if (!tok) { show('login'); return; }
+  let r;
+  try { r = await api('r_state'); } catch (e) { if (go) show('home'); return; }
+  if (!r.ok) { tok = null; store.set('hama_tok', null); show('login'); if (r.ng !== 'login') $('lerr').textContent = '読み込めませんでした'; return; }
+  data = r;
+  renderHome(); renderNotes();
+  if ($('detail').classList.contains('on')) renderDetail();
+  if (go) show('home');
+  clearInterval(timer); timer = setInterval(() => { if (!document.hidden) load(false); }, 60000);
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden && tok && data) load(false); });
+
+function accounts() {
+  const m = {};
+  data.units.filter(u => (cur === 'demo') === u.demo).forEach(u => { (m[u.acc] = m[u.acc] || []).push(u); });
+  return m;
+}
+function renderHome() {
+  const has = { real: data.units.some(u => !u.demo), demo: data.units.some(u => u.demo) };
+  if (!has[cur] && has[cur === 'real' ? 'demo' : 'real']) cur = cur === 'real' ? 'demo' : 'real';
+  document.querySelectorAll('#accseg button').forEach(b => b.classList.toggle('on', b.dataset.acc === cur));
+  const accs = accounts(), ids = Object.keys(accs);
+  if (!accSel || ids.indexOf(accSel) < 0) accSel = ids[0] || null;
+  $('accchips').innerHTML = ids.length > 1 ? ids.map(a => `<button data-a="${a}" class="${a === accSel ? 'on' : ''}">口座 ****${a.slice(-4)}</button>`).join('') : '';
+  $('accchips').querySelectorAll('button').forEach(b => b.onclick = () => { accSel = b.dataset.a; renderHome(); });
+  const us = accSel ? accs[accSel] : [];
+  if (!us.length) {
+    $('accname').textContent = ''; $('alerts').innerHTML = ''; $('sumcard').hidden = true;
+    $('ealist').innerHTML = `<div class="empty" style="padding:16px">${cur === 'real' ? 'リアル口座' : 'デモ口座'}で動いている EA は、まだありません。<br>EA が新しい版になり、チャートで動きはじめると、ここに出ます。</div>`;
+    return;
+  }
+  $('sumcard').hidden = false;
+  const latest = us.reduce((a, b) => (b.s && b.s.t || 0) > (a.s && a.s.t || 0) ? b : a, us[0]), ls = latest.s || {}, c = ls.cur;
+  $('accname').textContent = '口座 ****' + accSel.slice(-4) + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
+  $('bal').textContent = plain(ls.bal, c);
+  const day = us.reduce((s, u) => s + Number(u.s && u.s.day || 0), 0), opn = us.reduce((s, u) => s + Number(u.s && u.s.opn || 0), 0);
+  $('day').textContent = money(day, c); $('day').className = cls(day);
+  $('opn').textContent = money(opn, c); $('opn').className = cls(opn);
+  const bad = us.filter(u => status(u)[0] === 'bad');
+  $('alerts').innerHTML = bad.map(u => `<div class="alert">⚠ ${EA[u.ea] ? EA[u.ea][0] : u.ea}：${status(u)[1]}。${status(u)[1].indexOf('途切れ') >= 0 ? 'MT5 やパソコンが止まっていないか確認してください。' : ''}</div>`).join('');
+  const order = ['TRE', 'NAMI', 'MADO'];
+  us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
+  $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.day : '';
+    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div></span><span><div class="lbl" style="text-align:right">きょう</div><div class="pl ${cls(d)}">${money(d, c)}</div></span><span class="ch">›</span></button>`; }).join('');
+  $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
+}
+document.querySelectorAll('#accseg button').forEach(b => b.onclick = () => { cur = b.dataset.acc; store.set('hama_acc', cur); accSel = null; renderHome(); });
+
+function renderDetail() {
+  const u = data.units.find(x => x.unit === sel);
+  if (!u) { show('home'); return; }
+  const e = EA[u.ea] || [u.ea, 'tre'], s = u.s || {}, st = status(u), c = s.cur;
+  $('dacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4);
+  const lot = u.want && u.want.lot !== '' ? Number(u.want.lot) : Number(s.lot);
+  const en = u.want && u.want.en !== '' ? u.want.en === '1' : s.en !== '0';
+  const rows = a => a.length ? a.map(p => `<div class="row"><span>${p[0]}</span><span class="${cls(p[1])}">${money(p[1], c)}</span></div>`).join('') : '<div class="empty">ありません</div>';
+  $('dbody').innerHTML = `<div style="--c:var(--${e[1]})">
+  <div class="dh"><span class="nm">${e[0]}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
+  <div class="card"><div class="row"><span class="lbl">きょうの損益</span><span class="${cls(s.day)}" style="font-size:20px;font-weight:700">${money(s.day, c)}</span></div>
+  <div class="row" style="margin-top:4px"><span class="lbl">いまの含み損益</span><span class="${cls(s.opn)}">${money(s.opn, c)}</span></div>
+  <div class="small">${ago(u.seen)}${s.v ? '・' + s.v : ''}</div></div>
+  <div class="card pos"><h2>いま持っているポジション</h2>${rows(parseList(s.pos))}</div>
+  <div class="card pos"><h2>きょう決済した取引</h2>${rows(parseList(s.cl))}</div>
+  <div class="card"><h2>設定</h2>
+   <div class="set"><div class="lbl">ロットの量</div><div class="seg" id="lotseg" style="margin-top:8px">${LOTN.map((t, i) => `<button data-l="${i}" class="${i === lot ? 'on' : ''}">${t}</button>`).join('')}</div></div>
+   <div class="row set"><span>新しいエントリー<div class="lbl">OFF にすると、新しく建てません。持っているポジションは EA が最後まで管理します。</div></span><button class="sw ${en ? 'on' : ''}" id="entsw"></button></div>
+   ${u.want ? '<div class="pend">スマホから変えた設定を、EA が受け取るのを待っています（数分以内。ロットの量はポジションがなくなってから切り替わります）</div>' : ''}
+  </div>
+  <p class="small">※ 設定は、EA が次に知らせてくるとき（2 分以内）に届きます。</p></div>`;
+  $('lotseg').querySelectorAll('button').forEach(b => b.onclick = () => cmd(u, { lot: Number(b.dataset.l) }));
+  $('entsw').onclick = () => cmd(u, { en: en ? 0 : 1 });
+}
+async function cmd(u, body) {
+  if (body.en === 0 && !confirm('新しいエントリーを OFF にしますか？\n（持っているポジションは EA が管理を続けます）')) return;
+  $('dbody').classList.add('spin');
+  try { const r = await api('r_cmd', Object.assign({ unit: u.unit }, body)); if (!r.ok) alert('変えられませんでした'); await load(false); }
+  catch (e) { alert('つながりません'); }
+  finally { $('dbody').classList.remove('spin'); }
+}
+
+function renderNotes() {
+  const n = data.notes || [];
+  $('notes').innerHTML = n.length ? n.map(x => `<div class="nt"><div>${x.ea}：${x.text}<span class="chip">${x.acc}</span></div><div class="tm">${new Date(x.t).toLocaleString('ja-JP', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div></div>`).join('') : '<div class="empty">お知らせはありません</div>';
+  const unread = n.filter(x => x.t > seenNotes).length;
+  $('badge').hidden = !unread; $('badge').textContent = unread;
+  const p = data.prefs || {};
+  document.querySelectorAll('#prefs .sw').forEach(s => s.classList.toggle('on', Number(p[s.dataset.p]) === 1));
+  document.querySelectorAll('#minseg button').forEach(b => b.classList.toggle('on', Number(b.dataset.m) === Number(p.min || 10)));
+}
+function markRead() { if (!data) return; seenNotes = Math.max(seenNotes, ...(data.notes || []).map(x => x.t), 0); store.set('hama_seen', String(seenNotes)); $('badge').hidden = true; }
+async function savePrefs(p) { data.prefs = Object.assign({}, data.prefs, p); renderNotes(); try { await api('r_prefs', { prefs: data.prefs }); } catch (e) { alert('保存できませんでした'); } }
+document.querySelectorAll('#prefs .sw').forEach(s => s.onclick = () => savePrefs({ [s.dataset.p]: s.classList.contains('on') ? 0 : 1 }));
+document.querySelectorAll('#minseg button').forEach(b => b.onclick = () => savePrefs({ min: Number(b.dataset.m) }));
+
+// はじめに
+(function start() {
+  const m = location.hash.match(/pw=([0-9a-f]{32,})/);
+  if (m) { pwTok = m[1]; show('setpw'); return; }
+  if (tok) load(true); else show('login');
+})();
+
+// ---- 動作確認用（?mock=1 のときだけ。本物のサーバーには送らない）
+let MOCKDB = null;
+function mockApi(op, q) {
+  const now = Date.now();
+  if (!MOCKDB) MOCKDB = { prefs: { stop: 1, start: 1, auto: 1, cfg: 0, min: 10 }, units: [
+    { unit: 'K1|1234567|TRE', acc: '1234567', demo: false, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'run2', bal: '1284560', day: '12300', opn: '-3150', pos: 'B:1250,B:-4400', cl: 'B:8900,B:3400', lot: '1', en: '1', cur: 'JPY', v: 'v2.53' } },
+    { unit: 'K2|1234567|NAMI', acc: '1234567', demo: false, ea: 'NAMI', seen: now - 90000, alerted: false, want: null, s: { t: now - 90000, st: 'wait', bal: '1284560', day: '6120', opn: '0', pos: '', cl: 'S:6120', lot: '1', en: '1', cur: 'JPY', v: 'v1.22' } },
+    { unit: 'K3|1234567|MADO', acc: '1234567', demo: false, ea: 'MADO', seen: now - 40 * 60000, alerted: true, want: null, s: { t: now - 40 * 60000, st: 'wait', bal: '1284560', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.55' } },
+    { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } }],
+    notes: [{ t: now - 25 * 60000, acc: 'リアル', ea: 'MADOUME G7', text: '30 分以上連絡がありません。MT5 やパソコンが止まっていないか確認してください' },
+            { t: now - 5 * 3600000, acc: 'リアル', ea: 'TREND G3', text: '起動しました' }] };
+  const D = MOCKDB;
+  if (op === 'r_login') return q.pw === 'Example#2026' ? { ok: 1, tok: 'mock' } : { ng: 'pw', left: 4 };
+  if (op === 'r_reset') return { ok: 1, to: 'ex***@mail.jp' };
+  if (op === 'r_setpw') return { ok: 1, tok: 'mock' };
+  if (op === 'r_state') return { ok: 1, now: now, units: D.units, notes: D.notes, prefs: D.prefs, mail: 'ex***@mail.jp' };
+  if (op === 'r_cmd') { const u = D.units.find(x => x.unit === q.unit); u.want = { lot: q.lot !== undefined ? String(q.lot) : (u.want ? u.want.lot : ''), en: q.en !== undefined ? String(q.en) : (u.want ? u.want.en : '') }; return { ok: 1 }; }
+  if (op === 'r_prefs') { D.prefs = q.prefs; return { ok: 1 }; }
+  return { ok: 1 };
+}
+</script>
+</body>
+</html>
