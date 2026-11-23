@@ -183,11 +183,11 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="card"><h2>お知らせ</h2><div id="notes"></div></div>
 <div class="card" id="prefs">
 <h2>メールで受け取る</h2>
-<div class="row set"><span>EA から連絡がなくなったとき</span><button class="sw" data-p="stop"></button></div>
+<div class="row set"><span>EA がオフラインになったとき（戻ったときも）</span><button class="sw" data-p="stop"></button></div>
 <div class="row set"><span>EA が起動・再起動したとき</span><button class="sw" data-p="start"></button></div>
 <div class="row set"><span>「自動売買」が OFF・ON になったとき</span><button class="sw" data-p="auto"></button></div>
 <div class="row set"><span>スマホからの設定が切り替わったとき</span><button class="sw" data-p="cfg"></button></div>
-<div class="set"><div class="lbl">連絡がないと判断するまで</div>
+<div class="set"><div class="lbl">オフラインと判断するまで</div>
 <div class="seg" id="minseg" style="margin-top:8px"><button data-m="5">5 分</button><button data-m="10">10 分</button><button data-m="30">30 分</button></div></div>
 <p class="small">※ MT5 のスマホアプリの通知（MetaQuotes ID）を設定すると、起動・「自動売買」OFF・設定の切り替えは、EA からすぐプッシュ通知でも届きます。</p>
 </div>
@@ -203,7 +203,7 @@ const API = 'https://script.google.com/macros/s/AKfycbxVILsMUm1UMdNhgRQVQgXre6H6
 const MOCK = /[?&]mock=1/.test(location.search);
 const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MADOUME G7', 'mado'] };
 const LOTN = ['攻め', '標準', '守り'];
-const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「途切れています」
+const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 const $ = id => document.getElementById(id);
 const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} } };
 let tok = store.get('hama_tok'), data = null, cur = store.get('hama_acc') || 'real', accSel = null, sel = null, timer = null, seenNotes = Number(store.get('hama_seen') || 0);
@@ -281,16 +281,16 @@ $('logout').onclick = async () => { try { await api('r_logout'); } catch (e) {} 
 const money = (v, c) => { if (v === '' || v == null || isNaN(Number(v))) return '—'; const n = Number(v), s = (n > 0 ? '+' : n < 0 ? '−' : '') + Math.abs(n).toLocaleString('ja-JP'); return s + (c === 'JPY' || !c ? ' 円' : ' ' + c); };
 const plain = (v, c) => (v === '' || v == null) ? '—' : Number(v).toLocaleString('ja-JP') + (c === 'JPY' || !c ? ' 円' : ' ' + c);
 const cls = v => Number(v) > 0 ? 'plus' : Number(v) < 0 ? 'minus' : '';
-const ago = t => { if (!t) return 'まだ連絡がありません'; const m = Math.floor((data.now - t) / 60000); return m < 1 ? 'たった今更新' : m < 60 ? m + ' 分前に更新' : Math.floor(m / 60) + ' 時間前に更新'; };
+const ago = t => { if (!t) return 'まだ届いていません'; const m = Math.floor((data.now - t) / 60000); return m < 1 ? 'たった今更新' : m < 60 ? m + ' 分前に更新' : Math.floor(m / 60) + ' 時間前に更新'; };
 function status(u) {
   const s = u.s || {}, st = String(s.st || '');
-  if (!u.seen || u.alerted || data.now - u.seen > LOST_MS) return ['bad', '連絡が途切れています'];
-  if (st === 'off') return ['bad', '自動売買が OFF'];
-  if (st === 'lic') return ['bad', 'ライセンスを確認してください'];
-  if (st === 'clash') return ['bad', 'マジックナンバーが重なっています'];
-  if (st === 'stop') return ['', 'エントリー停止中'];
-  if (st.indexOf('run') === 0) return ['run', 'ポジションあり ' + st.slice(3)];
-  return ['wait', '条件を待っています'];
+  if (!u.seen || u.alerted || data.now - u.seen > LOST_MS) return ['bad', 'オフライン'];
+  if (st === 'off') return ['bad', '自動売買 OFF'];
+  if (st === 'lic') return ['bad', 'ライセンス要確認'];
+  if (st === 'clash') return ['bad', '番号の重なり'];
+  if (st === 'stop') return ['', 'エントリー停止'];
+  if (st.indexOf('run') === 0) return ['run', '保有中（' + st.slice(3) + '本）'];
+  return ['wait', '待機中'];
 }
 const parseList = s => String(s || '').split(',').filter(x => x).map(x => { const a = x.split(':'); return [a[0] === 'B' ? '買い' : '売り', a[1]]; });
 
@@ -334,7 +334,7 @@ function renderHome() {
   $('day').textContent = money(day, c); $('day').className = cls(day);
   $('opn').textContent = money(opn, c); $('opn').className = cls(opn);
   const bad = us.filter(u => status(u)[0] === 'bad');
-  $('alerts').innerHTML = bad.map(u => `<div class="alert">⚠ ${EA[u.ea] ? EA[u.ea][0] : u.ea}：${status(u)[1]}。${status(u)[1].indexOf('途切れ') >= 0 ? 'MT5 やパソコンが止まっていないか確認してください。' : ''}</div>`).join('');
+  $('alerts').innerHTML = bad.map(u => `<div class="alert">⚠ ${EA[u.ea] ? EA[u.ea][0] : u.ea}：${status(u)[1] === 'オフライン' ? 'オフラインです' : status(u)[1]}。${status(u)[1] === 'オフライン' ? 'MT5 やパソコンを確認してください。' : ''}</div>`).join('');
   const order = ['TRE', 'NAMI', 'MADO'];
   us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
   $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.day : '';
@@ -406,7 +406,7 @@ function mockApi(op, q) {
     { unit: 'K2|1234567|NAMI', acc: '1234567', demo: false, ea: 'NAMI', seen: now - 90000, alerted: false, want: null, s: { t: now - 90000, st: 'wait', bal: '1284560', day: '6120', opn: '0', pos: '', cl: 'S:6120', lot: '1', en: '1', cur: 'JPY', v: 'v1.22' } },
     { unit: 'K3|1234567|MADO', acc: '1234567', demo: false, ea: 'MADO', seen: now - 40 * 60000, alerted: true, want: null, s: { t: now - 40 * 60000, st: 'wait', bal: '1284560', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.55' } },
     { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } }],
-    notes: [{ t: now - 25 * 60000, acc: 'リアル', ea: 'MADOUME G7', text: '30 分以上連絡がありません。MT5 やパソコンが止まっていないか確認してください' },
+    notes: [{ t: now - 25 * 60000, acc: 'リアル', ea: 'MADOUME G7', text: 'オフラインです（30 分以上、EA から届いていません）。MT5 やパソコンを確認してください' },
             { t: now - 5 * 3600000, acc: 'リアル', ea: 'TREND G3', text: '起動しました' }] };
   const D = MOCKDB;
   if (op === 'r_login') return q.pw === 'Example#2026' ? { ok: 1, tok: 'mock' } : { ng: 'pw', left: 4 };
