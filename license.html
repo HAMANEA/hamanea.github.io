@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ライセンス | HAMA</title>
+<meta name="description" content="HAMA の EA のライセンスキーの種類・入れ方・パネルに出るメッセージ。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261123j">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <nav class="menu">
+    <a href="index.html">TOP</a>
+    <a href="tre.html">TREND</a>
+    <a href="nami.html">NAMITORE</a>
+    <a href="mado.html">MADOUME</a>
+    <a href="setup.html">SETUP</a>
+    <a href="license.html" class="on">LICENSE</a>
+    <a href="report.html">REPORT</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</div></header>
+
+<div class="hero">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px">
+    <span class="tag">LICENSE</span>
+    <h1><span class="g">ライセンス</span></h1>
+    <p class="lead">ライセンスキーの種類と入れ方、パネルに出るメッセージです。すべての HAMA の EA で同じです。</p>
+  </div>
+</div>
+
+<main>
+<section id="license"><div class="wrap">
+
+  <h3>キーの種類</h3>
+  <p class="sub" style="margin-bottom:12px">口座の種類で、使えるキーがちがいます。</p>
+  <div class="tblwrap"><table class="tbl keys">
+    <tr><th>キー</th><th>デモ口座</th><th>リアル口座</th></tr>
+    <tr><td class="kn">デモ用キー<br><span style="color:var(--sub);font-size:14px">（<a href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">申し込む</a>とメールで届きます・30 日間）</span></td><td data-l="デモ口座"><span class="ok">すべての EA が動く</span></td><td data-l="リアル口座"><span class="ng">動かない</span></td></tr>
+    <tr><td class="kn">リアル用キー<br><span style="color:var(--sub);font-size:14px">（ご購入の方にお送りします）</span></td><td data-l="デモ口座"><span class="ok">すべての EA が動く</span></td><td data-l="リアル口座"><span class="ok">そのキーの EA が、1 つの口座で動く</span></td></tr>
+  </table></div>
+  <div class="grid2" style="margin-top:24px">
+    <div class="box">
+      <h3 style="margin-top:0">確認のしかた</h3>
+      <ul class="check">
+        <li>起動したときと、その後 3 時間ごとに確認します</li>
+        <li>ネットにつながらないときも、前回の確認から 24 時間は動きます</li>
+        <li>ライセンスが確認できないあいだは、新しい注文だけ止めます。持っているポジションの損切り・利確・決済はいつもどおりです</li>
+        <li>ストラテジーテスターでは、キーなしで動きます</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3 style="margin-top:0">口座を変えるとき</h3>
+      <ul class="check">
+        <li>新しい口座の MT5 に、同じリアル用キーを入れるだけで使えます</li>
+        <li>前の口座の EA は、次の確認で新しい注文を止めます</li>
+        <li>口座を移せるのは 30 日で 3 回までです</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>キーの入れ方</h3>
+  <ol class="steps">
+    <li><b>確認の準備をする（どちらか 1 つ）</b><br>
+      ① 「ツール → オプション → エキスパートアドバイザー」で、「WebRequest を許可する URL リスト」にチェックを入れ、<code>https://script.google.com</code> と <code>https://script.googleusercontent.com</code> を追加<br>
+      ② EA を載せるときの設定画面の「共通」タブで、「DLL の使用を許可する」にチェック（URL の追加は要りません）<br>
+      <span style="color:var(--sub)">両方してもかまいません。Google のアカウントは要りません。</span></li>
+    <li><b>キーを入れる</b><br>
+      EA の設定（F7）の「パラメーターの入力」で、「ライセンスキー」にキーを入れて「OK」。スペース・ハイフン・大文字小文字は区別しません。</li>
+    <li><b>パネルで確かめる</b><br>
+      パネルの状態の行に「ライセンス OK（期限…）」と出れば使えます。</li>
+  </ol>
+
+  <h3>パネルに出るメッセージと、すること</h3>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>メッセージ（「ライセンス: …」）</th><th>意味・すること</th></tr>
+    <tr><td>OK（期限 … ／ 期限なし）</td><td>使えます。</td></tr>
+    <tr><td>キーが入っていません</td><td>EA の設定（F7）の「ライセンスキー」に、キーを入れてください。</td></tr>
+    <tr><td>確かめられません。次のどちらか 1 つをしてください</td><td>上の「キーの入れ方」の手順 1（① か ②）をしてから、EA をチャートに載せ直してください。</td></tr>
+    <tr><td>確かめられません。サーバーにつながりません</td><td>ネットにつながっているか確かめてください。前回の確認から 24 時間は動きます。</td></tr>
+    <tr><td>今は確かめられません … 前回の確認から 24 時間は動きます</td><td>そのまま動いています。つながると自動で確かめ直します。</td></tr>
+    <tr><td>このキーは登録されていません</td><td>キーを打ちまちがえていないか確かめてください。</td></tr>
+    <tr><td>期限（…）が切れています</td><td>期限が過ぎています。デモ用キーは申し込みから 30 日間です。</td></tr>
+    <tr><td>デモ用のキーです</td><td>デモ用キーはリアル口座では使えません。その EA 用のリアル用キーが必要です。</td></tr>
+    <tr><td>このキーは、ほかの EA 用です</td><td>リアル口座では、キーは 1 つの EA 用です。その EA のキーを入れてください。</td></tr>
+    <tr><td>このキーは別の口座に移りました</td><td>同じキーを、ほかの口座で使い始めました。この口座では新しい注文を止めています。</td></tr>
+    <tr><td>口座を移せる回数（30 日）を超えました</td><td>販売元にご連絡ください。</td></tr>
+    <tr><td>このキーは止められています ／ 今は販売元が稼働を止めています</td><td>販売元にご連絡ください。</td></tr>
+    <tr><td>サーバーの答えが正しくありません</td><td>しばらくして、もう一度お試しください。続くときは販売元にご連絡ください。</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:12px">OK でないあいだは、新しい注文だけを止めます。持っているポジションの損切り・利確・トレール・決済は、いつもどおり続けます。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。本ソフトは投資助言ではありません。売買の判断・設定・資金の管理は、ご自身の責任で行ってください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+</body>
+</html>
