@@ -332,3 +332,17 @@ h2.big-h { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: .02em; margin-bo
   nav.menu a { font-size: 16px; letter-spacing: .08em; padding: 12px 14px; border-radius: 10px; border: 1px solid transparent; }
   nav.menu a.on { border-color: var(--line); }
 }
+/* トップ: デモの申し込み（横長の帯） */
+.demo-cta { padding-top: 8px; }
+.demo-cta .cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; padding: 36px 40px; border: 3px solid #3a3d44; border-radius: 18px; background: radial-gradient(120% 140% at 100% 0%, #2a2b30 0%, #15171b 55%, #101114 100%); }
+.demo-cta h2 { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; font-weight: 900; font-size: clamp(26px, 3vw, 36px); margin: 10px 0 10px; color: #f2f3f5; }
+.demo-cta p { margin: 0; color: var(--sub); font-size: 16px; line-height: 1.9; }
+.demo-cta p b { color: #f2f3f5; }
+.demo-cta .cta-btn { font-size: 17px; font-weight: 700; padding: 16px 30px; border-radius: 999px; white-space: nowrap; background: #f2f3f5; color: #0b0c0e; border-color: #f2f3f5; }
+.demo-cta .cta-btn i { font-style: normal; margin-left: 6px; }
+.demo-cta .cta-btn:hover { background: #fff; color: #000; text-decoration: none; }
+@media (max-width: 720px) {
+  .demo-cta .cta { grid-template-columns: 1fr; gap: 20px; padding: 26px 20px; }
+  .demo-cta .cta-btn { text-align: center; width: 100%; }
+}.demo-cta .tag { display: inline-block; font-size: 12px; letter-spacing: .14em; padding: 3px 12px; border: 1px solid #5a5d66; border-radius: 999px; color: #c9cbd1; }.demo-cta p.cta-lead { color: #c9cbd1; font-size: 16px; margin: 0 0 12px; }
+.demo-cta p.cta-lead strong { display: inline-block; margin-top: 4px; font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; font-weight: 900; font-size: clamp(20px, 2.4vw, 28px); color: #fff; letter-spacing: .02em; line-height: 1.5; border-bottom: 3px solid #d9b54a; padding-bottom: 2px; }.demo-cta p.cta-lead strong { font-size: clamp(18px, 1.9vw, 23px); }
