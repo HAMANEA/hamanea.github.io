@@ -35,8 +35,7 @@ img { max-width: 100%; display: block; }
 /* ヘッダー */
 header.top {
   position: sticky; top: 0; z-index: 10;
-  background: rgba(11, 13, 18, .92);
-  backdrop-filter: blur(8px);
+  background: #0b0d12;   /* ぼかしなし（下の文字が透けない） */
   border-bottom: 1px solid var(--line);
 }
 header.top .wrap { display: flex; align-items: center; gap: 12px; height: 60px; }
