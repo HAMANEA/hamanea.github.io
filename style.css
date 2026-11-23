@@ -357,3 +357,57 @@ h2.big-h { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: .02em; margin-bo
   .demo-cta .cta-grid { grid-template-columns: 1fr; }
   .demo-cta .cta-grid .cta-btn { justify-self: stretch; text-align: center; }
 }
+/* トップ: 5 秒ごとに切り替わるバナー（ブランド → TREND → NAMITORE → MADOUME → REPORT） */
+.hslider { position: relative; background: #0b0c0f; border-bottom: 1px solid var(--line); }
+.hs-track { display: grid; }
+.hs-slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s linear .8s; }
+.hs-slide.is-on { opacity: 1; visibility: visible; transition: opacity .8s ease, visibility 0s; z-index: 1; }
+.hs-slide.hero { border-bottom: 0; }
+.hs-ea { position: relative; display: flex; align-items: center; overflow: hidden; color: inherit; text-decoration: none; background: #0b0c0f; min-height: 100%; }
+.hs-ea:hover { text-decoration: none; }
+.hs-bg { position: absolute; inset: 0; background-size: cover; background-position: center right; }
+.hs-bg::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #0b0c0f 0%, rgba(11,12,15,.92) 38%, rgba(11,12,15,.35) 75%, rgba(11,12,15,.15) 100%); }
+.hs-in { position: relative; z-index: 1; padding-top: 72px; padding-bottom: 88px; }
+.hs-nick { display: inline-block; font-size: 14px; letter-spacing: .14em; color: var(--c); border: 1px solid color-mix(in srgb, var(--c) 60%, transparent); border-radius: 999px; padding: 3px 14px; }
+.hs-title { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; font-weight: 900; font-size: clamp(34px, 5.4vw, 66px); line-height: 1.1; color: var(--c2); margin: 16px 0 16px; letter-spacing: .01em; }
+.hs-desc { font-size: clamp(15px, 1.7vw, 19px); line-height: 1.9; color: #c9ccd3; margin: 0 0 24px; }
+.hs-more { display: inline-block; font-family: "JetBrains Mono", monospace; font-weight: 600; letter-spacing: .12em; font-size: 14px; color: var(--c); border: 2px solid var(--c); border-radius: 999px; padding: 10px 22px; }
+.hs-report { background: radial-gradient(900px 420px at 85% 30%, rgba(255,255,255,.08), transparent 70%), #0e0f12; }
+.hs-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 36px; align-items: center; width: 100%; }
+.hs-shot { position: relative; border: 3px solid #4a4e57; border-radius: 14px; overflow: hidden; box-shadow: 0 18px 40px rgba(0,0,0,.5); }
+.hs-shot img { display: block; width: 100%; }
+.hs-badge { position: absolute; left: 12px; bottom: 12px; background: #d9b54a; color: #0b0c0e; font-weight: 700; font-size: 12px; padding: 4px 12px; border-radius: 999px; }
+.hs-ctl { position: absolute; left: 0; right: 0; bottom: 18px; z-index: 2; display: flex; justify-content: center; align-items: center; gap: 12px; pointer-events: none; }
+.hs-ctl > * { pointer-events: auto; }
+.hs-dots { display: flex; gap: 8px; }
+.hs-dots button { width: 10px; height: 10px; padding: 0; border-radius: 999px; border: 0; background: rgba(150,155,165,.55); cursor: pointer; transition: width .3s, background .3s; }
+.hs-dots button.on { width: 28px; background: #d9b54a; }
+.hs-arrow { width: 34px; height: 34px; border-radius: 999px; border: 1px solid rgba(150,155,165,.5); background: rgba(11,12,15,.55); color: #e6e7ea; font-size: 20px; line-height: 1; cursor: pointer; }
+.hs-arrow:hover { background: rgba(11,12,15,.85); }
+@media (max-width: 860px) {
+  .hs-split { grid-template-columns: 1fr; gap: 20px; }
+  .hs-in { padding-top: 48px; padding-bottom: 76px; }
+  .hs-desc br { display: none; }
+  .hs-bg { background-position: center; opacity: .55; }
+  .hs-bg::after { background: linear-gradient(180deg, rgba(11,12,15,.55) 0%, rgba(11,12,15,.92) 60%); }
+}
+@media (prefers-reduced-motion: reduce) { .hs-slide { transition: none; } }/* 切り替え: 前のスライドは下に残したまま、次のスライドを上からふわっと重ねる */
+.hs-slide { opacity: 0; visibility: hidden; z-index: 0; transition: opacity 0s linear .8s, visibility 0s linear .8s; }
+.hs-slide.is-on { opacity: 1; visibility: visible; z-index: 2; transition: opacity .8s ease; }
+.hs-slide.was-on { visibility: visible; opacity: 1; z-index: 1; }
+.hs-in { width: 100%; }
+/* デモ（金）とリアル口座（青）の枠に色 */
+.demo-cta .cta-grid .cta:not(.cta-real) { border-color: #d9b54a; background: radial-gradient(120% 140% at 100% 0%, rgba(217,181,74,.18) 0%, #16150f 55%, #101013 100%); }
+.demo-cta .cta-grid .cta:not(.cta-real) .tag { color: #f2d27a; border-color: #b8952f; }
+.demo-cta .cta-real { border-color: #4d8fd6; background: radial-gradient(120% 140% at 100% 0%, rgba(77,143,214,.18) 0%, #10151c 55%, #0f1013 100%); }
+.demo-cta .cta-real .tag { color: #9cc8ff; border-color: #3f74b0; }
+.demo-cta .cta-real p.cta-lead strong { border-bottom-color: #4d8fd6; }
+.demo-cta .cta-real .cta-btn.is-off { color: #9cb7d8; border-color: #34506f; }/* 強調の文の下の線: 2 つの枠で同じ高さにそろえ、枠と同じ色の横線にする */
+.demo-cta p.cta-lead { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 2px solid #d9b54a; }
+.demo-cta .cta-real p.cta-lead { border-bottom-color: #4d8fd6; }
+.demo-cta p.cta-lead strong, .demo-cta .cta-real p.cta-lead strong { display: block; border-bottom: 0; padding-bottom: 0; margin-top: 0; }
+@media (min-width: 861px) {
+  .demo-cta .cta-grid .cta-t h2 { min-height: 1.2em; }
+  .demo-cta p.cta-lead { min-height: calc(2 * 1.5 * clamp(18px, 1.9vw, 23px) + 14px); display: flex; align-items: flex-start; }
+}
+@media (min-width: 861px) { .demo-cta p.cta-lead { min-height: calc(2 * 1.5 * clamp(18px, 1.9vw, 23px) + 24px); } }

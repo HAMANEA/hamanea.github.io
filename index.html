@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261123p">
+<link rel="stylesheet" href="style.css?v=20261123r">
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -27,17 +27,88 @@
   </nav>
 </div></header>
 
-<div class="hero hero-brand">
-  <img class="hero-mark" src="img/hama_logo.svg" alt="">
-  <div class="wrap hero-grid">
-   <div class="hero-text">
-    <span class="tag">MT5 EA</span>
-    <p class="hero-title">HAMA <span>EA</span> series</p>
-    <h1>相場に合わせて選べるEA</h1>
+<div class="hslider" id="hslider" aria-roledescription="carousel" aria-label="HAMA EA の紹介">
+ <div class="hs-track">
+  <div class="hero hero-brand hs-slide is-on" aria-roledescription="slide" aria-label="1 / 5">
+   <img class="hero-mark" src="img/hama_logo.svg" alt="">
+   <div class="wrap hero-grid">
+    <div class="hero-text">
+     <span class="tag">MT5 EA</span>
+     <p class="hero-title">HAMA <span>EA</span> series</p>
+     <h1>相場に合わせて選べるEA</h1>
+    </div>
+    <img class="hero-candles" src="img/hero_candles.svg?v=2" alt="">
    </div>
-   <img class="hero-candles" src="img/hero_candles.svg?v=2" alt="">
   </div>
+  <a class="hs-slide hs-ea" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="2 / 5">
+   <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
+   <div class="wrap hs-in">
+    <span class="hs-nick">トレンド追従</span>
+    <p class="hs-title">HAMA TREND G3</p>
+    <p class="hs-desc">トレンドが出ている間だけ、その方向に、<br>価格が逆に動くたび決まった間隔で<br>最大 3 本までポジションを足していく EA です。</p>
+    <span class="hs-more">VIEW MORE →</span>
+   </div>
+  </a>
+  <a class="hs-slide hs-ea" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="3 / 5">
+   <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
+   <div class="wrap hs-in">
+    <span class="hs-nick">レンジ（逆張り）</span>
+    <p class="hs-title">HAMA NAMITORE G4</p>
+    <p class="hs-desc">攻めと守りの「ダブルロジック」で、<br>金の“波”をとらえるレンジ EA。</p>
+    <span class="hs-more">VIEW MORE →</span>
+   </div>
+  </a>
+  <a class="hs-slide hs-ea" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="4 / 5">
+   <div class="hs-bg" style="background-image:url(img/madoume_cover.jpg)"></div>
+   <div class="wrap hs-in">
+    <span class="hs-nick">押し目の積み増し</span>
+    <p class="hs-title">HAMA MADOUME G7</p>
+    <p class="hs-desc">大きな流れに乗って、<br>「窓」への押し目を少しずつ拾うゴールド EA。</p>
+    <span class="hs-more">VIEW MORE →</span>
+   </div>
+  </a>
+  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="5 / 5">
+   <div class="wrap hs-in hs-split">
+    <div>
+     <span class="hs-nick">成績表（すべての EA 共通）</span>
+     <p class="hs-title">HAMA <span style="color:#d9b54a">EA</span> REPORT</p>
+     <p class="hs-desc">EA ごと・銘柄ごとの損益、手動（裁量）の取引、<br>口座残高の動きを、グラフで一目で確かめられます。</p>
+     <span class="hs-more">VIEW MORE →</span>
+    </div>
+    <div class="hs-shot"><img src="img/report_sample.png" alt="成績表のイメージ"><span class="hs-badge">イメージ（架空の数値）</span></div>
+   </div>
+  </a>
+ </div>
+ <div class="hs-ctl">
+  <button class="hs-arrow" type="button" data-go="-1" aria-label="前へ">‹</button>
+  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button></div>
+  <button class="hs-arrow" type="button" data-go="1" aria-label="次へ">›</button>
+ </div>
 </div>
+<script>
+(function () {
+  var root = document.getElementById('hslider'); if (!root) return;
+  var slides = root.querySelectorAll('.hs-slide'), dots = root.querySelectorAll('.hs-dots button'), i = 0, t = null;
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function show(n) {
+    var prev = i; i = (n + slides.length) % slides.length;
+    for (var q = 0; q < slides.length; q++) slides[q].classList.remove('was-on');
+    if (prev !== i) { slides[prev].classList.add('was-on'); setTimeout(function (s) { return function () { s.classList.remove('was-on'); }; }(slides[prev]), 900); }
+    for (var k = 0; k < slides.length; k++) { slides[k].classList.toggle('is-on', k === i); slides[k].setAttribute('aria-hidden', k === i ? 'false' : 'true'); slides[k].tabIndex = k === i ? 0 : -1; dots[k].classList.toggle('on', k === i); }
+  }
+  function play() { stop(); if (!still) t = setInterval(function () { show(i + 1); }, 5000); }
+  function stop() { if (t) { clearInterval(t); t = null; } }
+  for (var k = 0; k < dots.length; k++) (function (k) { dots[k].addEventListener('click', function () { show(k); play(); }); })(k);
+  root.querySelectorAll('.hs-arrow').forEach(function (b) { b.addEventListener('click', function () { show(i + Number(b.getAttribute('data-go'))); play(); }); });
+  root.addEventListener('mouseenter', stop); root.addEventListener('mouseleave', play);
+  root.addEventListener('focusin', stop); root.addEventListener('focusout', play);
+  var x0 = null;
+  root.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; stop(); }, { passive: true });
+  root.addEventListener('touchend', function (e) { if (x0 !== null) { var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1)); } x0 = null; play(); });
+  document.addEventListener('visibilitychange', function () { document.hidden ? stop() : play(); });
+  show(0); play();
+})();
+</script>
 
 <main>
 <section id="ea"><div class="wrap">
