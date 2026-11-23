@@ -38,9 +38,45 @@ button{cursor:pointer}
 .seg button{flex:1;background:transparent;border:0;color:var(--sub);padding:8px 0;border-radius:9px;font-size:14px}
 .seg button.on{background:var(--c,var(--btn));color:var(--inv);font-weight:700}
 .seg.acc button.on.real{background:var(--tre)}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
-.chips button{background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:999px;padding:3px 12px;font-size:13px}
-.chips button.on{color:var(--tx);border-color:var(--sub)}
+.acctitle{font-size:13px;color:var(--sub);margin:4px 2px 8px}
+.acctitle b{color:var(--tx);font-size:15px;margin-right:6px}
+.accs{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.accs:empty{display:none}
+.accs button{display:grid;grid-template-columns:20px 1fr auto;gap:10px;align-items:center;width:100%;padding:11px 14px;background:transparent;border:0;border-bottom:1px solid var(--line);text-align:left;color:var(--sub)}
+.accs button:last-child{border-bottom:0}
+.accs button .rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--line)}
+.accs button.on{background:var(--bg);color:var(--tx)}
+.accs button.on .rd{border:5px solid var(--btn)}
+.accs .an{font-weight:700;font-size:15px;letter-spacing:.03em}
+.accs .as{font-size:12px;color:var(--sub)}
+.accs .ab{text-align:right;font-weight:700;font-size:14px;white-space:nowrap}
+.accs .ab .bad{display:block;font-size:11px;color:var(--red);font-weight:400}
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line)}
+.tabbar button{flex:1;max-width:150px;background:transparent;border:0;border-radius:10px;color:var(--sub);font-size:12px;padding:5px 0;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative}
+.tabbar button b{font-size:16px;line-height:1.3;position:relative;opacity:.45}
+.tabbar button.on{color:var(--tx);font-weight:700}
+.tabbar button.on b{opacity:1}
+.tabbar button.real b{color:var(--tre)}
+.tabbar button[data-acc="demo"] b{color:var(--nami)}
+.tabbar .bell b{opacity:1}
+#home{padding-bottom:70px}
+.menubtn{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.menubtn span{display:block;width:16px;height:2px;background:var(--tx);border-radius:2px}
+.menu{position:fixed;inset:0;z-index:20}
+.menu[hidden]{display:none}
+.mback{position:absolute;inset:0;background:rgba(0,0,0,.25)}
+.msheet{position:absolute;top:calc(10px + env(safe-area-inset-top));right:max(12px,calc((100vw - 460px) / 2 + 12px));width:min(300px,calc(100vw - 24px));background:var(--card);border:1px solid var(--line);border-radius:16px;padding:4px 16px 8px;box-shadow:0 14px 34px rgba(0,0,0,.35);transform-origin:top right;animation:pop .15s ease-out}
+@keyframes pop{from{transform:scale(.92);opacity:0}to{transform:none;opacity:1}}
+.mhead{display:flex;align-items:center;justify-content:space-between;padding:10px 0 6px}
+.mx{background:transparent;border:0;color:var(--sub);font-size:16px;padding:4px 8px}
+.mitem{display:block;width:100%;padding:13px 0;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left;color:var(--tx);font-size:15px}
+.mitem:last-child{border-bottom:0}
+.mlink{display:flex;justify-content:space-between;align-items:center;cursor:pointer;list-style:none}
+.mlink::-webkit-details-marker{display:none}
+details.mitem summary{padding:0}
+details[open] .ch{transform:rotate(90deg)}
+.ch{color:var(--sub);transition:transform .15s}
+.mout{color:var(--red)}
 .accname{font-size:12px;color:var(--sub);margin:8px 2px 10px}
 .list{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px}
 .ea{display:grid;grid-template-columns:4px 1fr auto 14px;gap:12px;align-items:center;padding:13px 14px 13px 0;border:0;border-bottom:1px solid var(--line);width:100%;background:transparent;color:var(--tx);text-align:left}
@@ -152,10 +188,9 @@ h2{font-size:15px;margin:2px 0 8px}
 <!-- 一覧 -->
 <div class="scr" id="home">
 <div class="top"><span class="logo"><img src="img/hama_logo.svg" alt="">HAMA</span>
-<button class="ibtn ml" data-theme-btn title="表示モード">◐</button>
-<button class="ibtn bell" data-go="notice" title="お知らせ">🔔<em id="badge" hidden></em></button></div>
-<div class="seg acc" id="accseg"><button class="real" data-acc="real">リアル口座</button><button data-acc="demo">デモ口座</button></div>
-<div class="chips" id="accchips"></div>
+<button class="ibtn ml menubtn" id="menubtn" title="メニュー" aria-label="メニュー"><span></span><span></span><span></span></button></div>
+<div class="acctitle" id="acctitle"></div>
+<div class="accs" id="accchips"></div>
 <div class="accname" id="accname"></div>
 <div id="alerts"></div>
 <div class="card" id="sumcard">
@@ -167,8 +202,25 @@ h2{font-size:15px;margin:2px 0 8px}
 </div>
 </div>
 <div class="list" id="ealist"></div>
-<p class="small">※ EA は 2 分ごとに知らせてきます。くわしい値動きは MT5 のスマホアプリでご確認ください。<br>※ 損益は、この EA の取引だけです（ほかの EA・手動の取引は入りません）。</p>
-<p class="small"><button class="link" id="logout">ログアウト</button></p>
+<nav class="tabbar" id="accseg">
+<button class="real" data-acc="real"><b>●</b>リアル口座</button>
+<button data-acc="demo"><b>●</b>デモ口座</button>
+<button class="bell" data-go="notice"><b>🔔<em id="badge" hidden></em></b>お知らせ</button>
+</nav>
+</div>
+
+<!-- メニュー -->
+<div class="menu" id="menu" hidden>
+<div class="mback" data-close></div>
+<div class="msheet">
+<div class="mhead"><b>メニュー</b><button class="mx" data-close aria-label="閉じる">✕</button></div>
+<div class="mitem"><div class="lbl" style="margin-bottom:8px">表示モード</div>
+<div class="seg" id="themeseg"><button data-t="auto">自動</button><button data-t="light">ライト</button><button data-t="dark">ダーク</button></div></div>
+<button class="mitem mlink" id="mprefs"><span>メールのお知らせの設定<div class="lbl" id="mmail"></div></span><span class="ch">›</span></button>
+<details class="mitem"><summary class="mlink"><span>このページについて</span><span class="ch">›</span></summary>
+<p class="small" style="margin:8px 0 0">※ EA は 2 分ごとに知らせてきます。くわしい値動きは MT5 のスマホアプリでご確認ください。<br>※ 損益は、この EA の取引だけです（ほかの EA・手動の取引は入りません）。</p></details>
+<button class="mitem mlink mout" id="logout"><span>ログアウト</span></button>
+</div>
 </div>
 
 <!-- EA の詳細 -->
@@ -190,10 +242,6 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="set"><div class="lbl">オフラインと判断するまで</div>
 <div class="seg" id="minseg" style="margin-top:8px"><button data-m="5">5 分</button><button data-m="10">10 分</button><button data-m="30">30 分</button></div></div>
 <p class="small">※ MT5 のスマホアプリの通知（MetaQuotes ID）を設定すると、起動・「自動売買」OFF・設定の切り替えは、EA からすぐプッシュ通知でも届きます。</p>
-</div>
-<div class="card">
-<h2>表示</h2>
-<div class="seg" id="themeseg"><button data-t="auto">自動</button><button data-t="light">ライト</button><button data-t="dark">ダーク</button></div>
 </div>
 </div>
 
@@ -275,7 +323,12 @@ $('pgo').onclick = async () => {
   } catch (e) { $('perr').textContent = 'つながりません'; }
   finally { checkPw(); }
 };
-$('logout').onclick = async () => { try { await api('r_logout'); } catch (e) {} tok = null; store.set('hama_tok', null); data = null; clearInterval(timer); show('login'); };
+// メニュー
+function menu(open) { $('menu').hidden = !open; if (open) { paintTheme(); $('mmail').textContent = data && data.mail ? '送り先: ' + data.mail : ''; } }
+$('menubtn').onclick = () => menu(true);
+document.querySelectorAll('#menu [data-close]').forEach(b => b.onclick = () => menu(false));
+$('mprefs').onclick = () => { menu(false); show('notice'); setTimeout(() => $('prefs').scrollIntoView({ behavior: 'smooth', block: 'start' }), 50); };
+$('logout').onclick = async () => { menu(false); try { await api('r_logout'); } catch (e) {} tok = null; store.set('hama_tok', null); data = null; clearInterval(timer); show('login'); };
 
 // 表示用
 const money = (v, c) => { if (v === '' || v == null || isNaN(Number(v))) return '—'; const n = Number(v), s = (n > 0 ? '+' : n < 0 ? '−' : '') + Math.abs(n).toLocaleString('ja-JP'); return s + (c === 'JPY' || !c ? ' 円' : ' ' + c); };
@@ -315,10 +368,13 @@ function accounts() {
 function renderHome() {
   const has = { real: data.units.some(u => !u.demo), demo: data.units.some(u => u.demo) };
   if (!has[cur] && has[cur === 'real' ? 'demo' : 'real']) cur = cur === 'real' ? 'demo' : 'real';
-  document.querySelectorAll('#accseg button').forEach(b => b.classList.toggle('on', b.dataset.acc === cur));
+  document.querySelectorAll('#accseg button[data-acc]').forEach(b => b.classList.toggle('on', b.dataset.acc === cur));
   const accs = accounts(), ids = Object.keys(accs);
   if (!accSel || ids.indexOf(accSel) < 0) accSel = ids[0] || null;
-  $('accchips').innerHTML = ids.length > 1 ? ids.map(a => `<button data-a="${a}" class="${a === accSel ? 'on' : ''}">口座 ****${a.slice(-4)}</button>`).join('') : '';
+  const kind = cur === 'real' ? 'リアル口座' : 'デモ口座';
+  $('acctitle').innerHTML = `<b>${kind}</b>` + (ids.length > 1 ? `${ids.length} つの口座で動いています。見たい口座を選んでください` : '');
+  $('accchips').innerHTML = ids.length > 1 ? ids.map(a => { const g = accs[a], l = g.reduce((x, y) => (y.s && y.s.t || 0) > (x.s && x.s.t || 0) ? y : x, g[0]).s || {}, nb = g.filter(u => status(u)[0] === 'bad').length;
+    return `<button data-a="${a}" class="${a === accSel ? 'on' : ''}"><span class="rd"></span><span><div class="an">口座 ****${a.slice(-4)}</div><div class="as">EA ${g.length} つ ・ ${ago(Math.max(...g.map(u => u.seen || 0)))}</div></span><span class="ab">${plain(l.bal, l.cur)}${nb ? `<span class="bad">⚠ 要確認 ${nb}</span>` : ''}</span></button>`; }).join('') : '';
   $('accchips').querySelectorAll('button').forEach(b => b.onclick = () => { accSel = b.dataset.a; renderHome(); });
   const us = accSel ? accs[accSel] : [];
   if (!us.length) {
@@ -328,7 +384,7 @@ function renderHome() {
   }
   $('sumcard').hidden = false;
   const latest = us.reduce((a, b) => (b.s && b.s.t || 0) > (a.s && a.s.t || 0) ? b : a, us[0]), ls = latest.s || {}, c = ls.cur;
-  $('accname').textContent = '口座 ****' + accSel.slice(-4) + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
+  $('accname').textContent = ids.length > 1 ? '' : '口座 ****' + accSel.slice(-4) + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
   $('bal').textContent = plain(ls.bal, c);
   const day = us.reduce((s, u) => s + Number(u.s && u.s.day || 0), 0), opn = us.reduce((s, u) => s + Number(u.s && u.s.opn || 0), 0);
   $('day').textContent = money(day, c); $('day').className = cls(day);
@@ -341,7 +397,7 @@ function renderHome() {
     return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div></span><span><div class="lbl" style="text-align:right">本日損益</div><div class="pl ${cls(d)}">${money(d, c)}</div></span><span class="ch">›</span></button>`; }).join('');
   $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
 }
-document.querySelectorAll('#accseg button').forEach(b => b.onclick = () => { cur = b.dataset.acc; store.set('hama_acc', cur); accSel = null; renderHome(); });
+document.querySelectorAll('#accseg button[data-acc]').forEach(b => b.onclick = () => { cur = b.dataset.acc; store.set('hama_acc', cur); accSel = null; renderHome(); });
 
 function renderDetail() {
   const u = data.units.find(x => x.unit === sel);
@@ -405,7 +461,9 @@ function mockApi(op, q) {
     { unit: 'K1|1234567|TRE', acc: '1234567', demo: false, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'run2', bal: '1284560', day: '12300', opn: '-3150', pos: 'B:1250,B:-4400', cl: 'B:8900,B:3400', lot: '1', en: '1', cur: 'JPY', v: 'v2.53' } },
     { unit: 'K2|1234567|NAMI', acc: '1234567', demo: false, ea: 'NAMI', seen: now - 90000, alerted: false, want: null, s: { t: now - 90000, st: 'wait', bal: '1284560', day: '6120', opn: '0', pos: '', cl: 'S:6120', lot: '1', en: '1', cur: 'JPY', v: 'v1.22' } },
     { unit: 'K3|1234567|MADO', acc: '1234567', demo: false, ea: 'MADO', seen: now - 40 * 60000, alerted: true, want: null, s: { t: now - 40 * 60000, st: 'wait', bal: '1284560', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.55' } },
-    { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } }],
+    { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } },
+    { unit: 'K1|5197956|TRE', acc: '5197956', demo: true, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'wait', bal: '200767', day: '0', opn: '0', pos: '', cl: '', lot: '1', en: '1', cur: 'JPY', v: 'v2.53' } },
+    { unit: 'K3|5197956|MADO', acc: '5197956', demo: true, ea: 'MADO', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'wait', bal: '200767', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.57' } }],
     notes: [{ t: now - 25 * 60000, acc: 'リアル', ea: 'MADOUME G7', text: 'オフラインです（30 分以上、EA から届いていません）。MT5 やパソコンを確認してください' },
             { t: now - 5 * 3600000, acc: 'リアル', ea: 'TREND G3', text: '起動しました' }] };
   const D = MOCKDB;
