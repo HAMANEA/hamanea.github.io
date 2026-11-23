@@ -80,6 +80,13 @@ h2{font-size:15px;margin:2px 0 8px}
 .rules .y{color:var(--ok)}
 .empty{color:var(--sub);font-size:14px;padding:10px 0}
 .spin{opacity:.6}
+.in.key{font-family:ui-monospace,"SFMono-Regular",Consolas,monospace;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
+.hint{font-size:12px;color:var(--sub);margin:-10px 0 14px}
+.pwbox{position:relative}
+.pwbox .in{padding-right:64px}
+.eye{position:absolute;right:8px;top:12px;height:32px;padding:0 10px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--sub);font-size:13px}
+.remember{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--sub);margin:-6px 0 12px}
+.remember input{width:18px;height:18px}
 </style>
 <script>
 // 表示モード: auto（スマホの設定に合わせる）/ light / dark。この端末だけに覚える
@@ -95,9 +102,11 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="card">
 <h2>EA のようすと設定</h2>
 <div class="lbl">ライセンスキー（お持ちのどれか 1 つ）</div>
-<input class="in" id="lkey" autocomplete="username" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX-XXXX">
+<input class="in key" id="lkey" autocomplete="username" autocapitalize="characters" autocorrect="off" spellcheck="false" inputmode="text" maxlength="24" placeholder="XXXX-XXXX-XXXX-XXXX">
+<div class="hint">小文字・ハイフンなしでも大丈夫です（自動で直します）。コピーして貼り付けもできます。</div>
 <div class="lbl">パスワード</div>
-<input class="in" id="lpw" type="password" autocomplete="current-password">
+<div class="pwbox"><input class="in" id="lpw" type="password" autocomplete="current-password"><button class="eye" type="button" data-eye="lpw" aria-label="パスワードを表示">表示</button></div>
+<label class="remember"><input type="checkbox" id="lrem" checked> このスマホにキーを覚える（次からパスワードだけ）</label>
 <div class="err" id="lerr"></div>
 <button class="go" id="lgo">ログイン</button>
 <p class="small">同じメールアドレスで登録したキー（リアル・デモ）が、まとめて表示されます。</p>
@@ -112,7 +121,7 @@ h2{font-size:15px;margin:2px 0 8px}
 <h2>パスワードを決める・決め直す</h2>
 <p class="small" style="margin-top:0">お持ちのライセンスキーを入れてください。キーに登録したメールアドレスに、パスワードを決めるためのリンクを送ります（1 時間だけ使えます）。</p>
 <div class="lbl">ライセンスキー</div>
-<input class="in" id="fkey" autocapitalize="characters" placeholder="XXXX-XXXX-XXXX-XXXX">
+<input class="in key" id="fkey" autocapitalize="characters" autocorrect="off" spellcheck="false" maxlength="24" placeholder="XXXX-XXXX-XXXX-XXXX">
 <div class="err" id="ferr"></div>
 <button class="go" id="fgo">リンクを送る</button>
 </div>
@@ -217,12 +226,22 @@ document.querySelectorAll('[data-theme-btn]').forEach(b => b.onclick = () => {
 });
 paintTheme();
 
+// キーの入力: 英数字だけ拾って大文字にし、4 文字ごとにハイフンを入れる（貼り付けも同じ）
+function fmtKey(v) { const s = String(v).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 16); return s.replace(/(.{4})(?=.)/g, '$1-'); }
+document.querySelectorAll('.in.key').forEach(el => el.addEventListener('input', () => {
+  const before = el.value, pos = el.selectionStart, raw = before.slice(0, pos).replace(/[^A-Za-z0-9]/g, '').length;
+  el.value = fmtKey(before);
+  let p = 0, n = 0; while (p < el.value.length && n < raw) { if (/[A-Z0-9]/.test(el.value[p])) n++; p++; }
+  try { el.setSelectionRange(p, p); } catch (e) {}
+}));
+document.querySelectorAll('[data-eye]').forEach(b => b.onclick = () => { const i = $(b.dataset.eye), sh = i.type === 'password'; i.type = sh ? 'text' : 'password'; b.textContent = sh ? '隠す' : '表示'; });
+if (store.get('hama_key')) $('lkey').value = store.get('hama_key');
 // ログイン
 $('lgo').onclick = async () => {
   $('lerr').textContent = ''; $('lgo').disabled = true;
   try {
-    const r = await api('r_login', { key: $('lkey').value.trim(), pw: $('lpw').value });
-    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); $('lpw').value = ''; await load(true); return; }
+    const r = await api('r_login', { key: fmtKey($('lkey').value), pw: $('lpw').value });
+    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); store.set('hama_key', $('lrem').checked ? fmtKey($('lkey').value) : null); $('lpw').value = ''; await load(true); return; }
     $('lerr').textContent = { nomail: 'このキーには、メールアドレスが登録されていません。販売元にお問い合わせください', nopw: 'まだパスワードが決まっていません。下の「はじめての方」からどうぞ',
       pw: 'キーかパスワードがちがいます（あと ' + r.left + ' 回で 30 分ロック）', lock: 'まちがいが続いたので、' + r.min + ' 分ほどログインできません' }[r.ng] || 'ログインできませんでした（' + (r.ng || '') + '）';
   } catch (e) { $('lerr').textContent = 'つながりません。電波のよい所でもう一度どうぞ'; }
@@ -233,7 +252,7 @@ $('tofirst').onclick = () => { $('fkey').value = $('lkey').value; $('ferr').text
 $('fgo').onclick = async () => {
   $('ferr').textContent = ''; $('fgo').disabled = true;
   try {
-    const r = await api('r_reset', { key: $('fkey').value.trim() });
+    const r = await api('r_reset', { key: fmtKey($('fkey').value) });
     if (r.ok) { $('ferr').innerHTML = '<span class="okmsg">' + r.to + ' にリンクを送りました。メールのリンクを開いてください（届かないときは迷惑メールもご確認ください）</span>'; return; }
     $('ferr').textContent = { nomail: 'このキーには、メールアドレスが登録されていません。販売元にお問い合わせください', wait: '少し前に送りました。5 分ほどたってからどうぞ', mail: 'いまメールを送れません。時間をおいてどうぞ' }[r.ng] || '送れませんでした';
   } catch (e) { $('ferr').textContent = 'つながりません'; }
@@ -251,7 +270,7 @@ $('pgo').onclick = async () => {
   $('perr').textContent = ''; $('pgo').disabled = true;
   try {
     const r = await api('r_setpw', { tok: pwTok, pw: $('pw').value });
-    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); history.replaceState(null, '', location.pathname + location.search); await load(true); return; }
+    if (r.ok) { tok = r.tok; store.set('hama_tok', tok); if (r.key) { store.set('hama_key', r.key); $('lkey').value = r.key; } history.replaceState(null, '', location.pathname + location.search); await load(true); return; }
     $('perr').textContent = { expired: 'リンクの期限（1 時間）が切れました。もう一度リンクを送ってください', rule: 'パスワードの条件を満たしていません' }[r.ng] || '決められませんでした';
   } catch (e) { $('perr').textContent = 'つながりません'; }
   finally { checkPw(); }
