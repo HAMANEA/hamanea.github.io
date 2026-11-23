@@ -174,7 +174,21 @@ html{scroll-padding-top:64px}
 #hama-bar a.b img{width:26px;height:26px}
 #hama-bar a.d{margin-left:auto;background:#f2f3f5;color:#0b0c0e;font-weight:700}
 #hama-bar a.d:hover{background:#fff;color:#000}
-@media (max-width:640px){#hama-bar .in{gap:2px}#hama-bar a{padding:5px 7px;font-size:13px}#hama-bar a.d{margin-left:0}}
+#hama-bar .mb,#hama-bar a.m{display:none}
+#hama-bar .lk{display:contents}
+@media (max-width:720px){
+#hama-bar .in{position:relative;flex-wrap:nowrap;gap:8px;padding:8px 16px}
+#hama-bar .mb{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:0 11px;margin:0;background:transparent;border:1px solid #2a2c31;border-radius:10px;cursor:pointer;order:3;-webkit-appearance:none;appearance:none}
+#hama-bar .mb span{display:block;width:18px;height:2px;margin:0;background:#ececee;border-radius:2px;transition:transform .2s,opacity .2s}
+#hama-bar.open .mb span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#hama-bar.open .mb span:nth-child(2){opacity:0}
+#hama-bar.open .mb span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#hama-bar a.d{margin-left:auto;order:2;padding:8px 12px;font-size:13px}
+#hama-bar .lk{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:4px;padding:8px 16px 16px;background:rgba(11,12,14,.98);border-bottom:1px solid #2a2c31;box-shadow:0 12px 24px rgba(0,0,0,.45)}
+#hama-bar.open .lk{display:flex}
+#hama-bar .lk a,#hama-bar .lk a.m{display:block;font-size:16px;letter-spacing:.08em;padding:12px 14px;border-radius:10px;color:#a2a5ab;border:1px solid transparent}
+#hama-bar .lk a.on{color:#f2d27a;background:#141518;border-color:#2a2c31}
+}
 /* 説明書の表紙の HAMA ロゴは、上の帯のロゴとかぶるのでホームページ版では出さない */
 .brand{display:none!important}
 /* スマホで左右に動かないように（説明書そのものは変えず、ホームページ版だけで直す） */
@@ -190,11 +204,17 @@ body{overflow-wrap:anywhere}
 </style>
 <nav id="hama-bar"><div class="in">
 <a class="b" href="index.html"><img src="img/hama_logo.svg" alt="">HAMA</a>
+<button class="mb" type="button" aria-label="メニュー" aria-expanded="false" onclick="var o=document.getElementById('hama-bar').classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
+<div class="lk">
 <a href="index.html">TOP</a>
+<a class="m" href="tre.html">TREND</a>
+<a class="m on" href="nami.html">NAMITORE</a>
+<a class="m" href="mado.html">MADOUME</a>
 <a href="setup.html">SETUP</a>
 <a href="license.html">LICENSE</a>
 <a href="report.html">REPORT</a>
 <a href="faq.html">FAQ</a>
+</div>
 <a class="d" href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">デモを申し込む</a>
 </div></nav>
 

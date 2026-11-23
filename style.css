@@ -318,3 +318,17 @@ h2.big-h { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: .02em; margin-bo
   table.tbl.keys td[data-l] { display: flex; gap: 12px; align-items: baseline; }
   table.tbl.keys td[data-l]::before { content: attr(data-l); flex: 0 0 5.5em; color: var(--sub); font-size: 14px; }
 }
+/* スマホ: メニューは ☰ ボタンで開く */
+.menu-btn { display: none; }
+@media (max-width: 720px) {
+  header.top .wrap { height: 56px; flex-wrap: nowrap; padding-top: 0; padding-bottom: 0; position: relative; }
+  .menu-btn { display: flex; flex-direction: column; justify-content: center; gap: 5px; margin-left: auto; width: 44px; height: 44px; padding: 0 11px; background: transparent; border: 1px solid var(--line); border-radius: 10px; cursor: pointer; }
+  .menu-btn span { display: block; height: 2px; background: var(--text); border-radius: 2px; transition: transform .2s, opacity .2s; }
+  header.top.open .menu-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  header.top.open .menu-btn span:nth-child(2) { opacity: 0; }
+  header.top.open .menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  nav.menu { display: none; position: absolute; top: 100%; left: 0; right: 0; width: auto; margin: 0; padding: 8px 16px 16px; flex-direction: column; gap: 4px; overflow: visible; background: rgba(11, 13, 18, .98); border-bottom: 1px solid var(--line); box-shadow: 0 12px 24px rgba(0, 0, 0, .45); }
+  header.top.open nav.menu { display: flex; }
+  nav.menu a { font-size: 16px; letter-spacing: .08em; padding: 12px 14px; border-radius: 10px; border: 1px solid transparent; }
+  nav.menu a.on { border-color: var(--line); }
+}
