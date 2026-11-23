@@ -293,6 +293,9 @@ img,svg,video{max-width:100%;height:auto}
 table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
 pre{overflow-x:auto;max-width:100%}
 body{overflow-wrap:anywhere}
+/* 設定カードの表：左の列（方式名）も折り返して、右の 2 列に幅をゆずる */
+.scard .tbl td.k{white-space:normal!important;width:6.5em}
+.scard .tbl td,.scard .tbl th{padding:7px 8px!important}
 }
 </style>
 <nav id="hama-bar"><div class="in">
@@ -728,7 +731,7 @@ HAMA MADOUME G7 は、この考え方のうち、数字で決められる部分�
 </div>
 
 <div class="scard">
-<div class="sc-hd"><b>TP / SL</b><span class="sc-ja">利確・損切り</span><span class="sc-def">初期 RR方式・$15</span></div>
+<div class="sc-hd"><b>TP/SL</b><span class="sc-ja">利確・損切り</span><span class="sc-def">初期 RR方式・$15</span></div>
 <p>損切りと利確の置き方を、3つの方式から選びます。</p>
 <p>選んだ方式に●が付き、その方式の欄だけが出ます。</p>
 <div class="tbl"><table>
