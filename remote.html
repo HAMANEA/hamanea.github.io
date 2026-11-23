@@ -159,11 +159,11 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="accname" id="accname"></div>
 <div id="alerts"></div>
 <div class="card" id="sumcard">
-<div class="lbl">口座の残高</div>
+<div class="lbl">口座残高</div>
 <div class="big" id="bal">—</div>
 <div class="grid2">
-<div><div class="lbl">きょうの損益</div><div style="font-size:17px;font-weight:700" id="day">—</div></div>
-<div><div class="lbl">いまの含み損益</div><div style="font-size:17px;font-weight:700" id="opn">—</div></div>
+<div><div class="lbl">本日損益</div><div style="font-size:17px;font-weight:700" id="day">—</div></div>
+<div><div class="lbl">現在損益</div><div style="font-size:17px;font-weight:700" id="opn">—</div></div>
 </div>
 </div>
 <div class="list" id="ealist"></div>
@@ -338,7 +338,7 @@ function renderHome() {
   const order = ['TRE', 'NAMI', 'MADO'];
   us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
   $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.day : '';
-    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div></span><span><div class="lbl" style="text-align:right">きょう</div><div class="pl ${cls(d)}">${money(d, c)}</div></span><span class="ch">›</span></button>`; }).join('');
+    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div></span><span><div class="lbl" style="text-align:right">本日損益</div><div class="pl ${cls(d)}">${money(d, c)}</div></span><span class="ch">›</span></button>`; }).join('');
   $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
 }
 document.querySelectorAll('#accseg button').forEach(b => b.onclick = () => { cur = b.dataset.acc; store.set('hama_acc', cur); accSel = null; renderHome(); });
@@ -353,11 +353,11 @@ function renderDetail() {
   const rows = a => a.length ? a.map(p => `<div class="row"><span>${p[0]}</span><span class="${cls(p[1])}">${money(p[1], c)}</span></div>`).join('') : '<div class="empty">ありません</div>';
   $('dbody').innerHTML = `<div style="--c:var(--${e[1]})">
   <div class="dh"><span class="nm">${e[0]}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
-  <div class="card"><div class="row"><span class="lbl">きょうの損益</span><span class="${cls(s.day)}" style="font-size:20px;font-weight:700">${money(s.day, c)}</span></div>
-  <div class="row" style="margin-top:4px"><span class="lbl">いまの含み損益</span><span class="${cls(s.opn)}">${money(s.opn, c)}</span></div>
+  <div class="card"><div class="row"><span class="lbl">本日損益</span><span class="${cls(s.day)}" style="font-size:20px;font-weight:700">${money(s.day, c)}</span></div>
+  <div class="row" style="margin-top:4px"><span class="lbl">現在損益</span><span class="${cls(s.opn)}">${money(s.opn, c)}</span></div>
   <div class="small">${ago(u.seen)}${s.v ? '・' + s.v : ''}</div></div>
-  <div class="card pos"><h2>いま持っているポジション</h2>${rows(parseList(s.pos))}</div>
-  <div class="card pos"><h2>きょう決済した取引</h2>${rows(parseList(s.cl))}</div>
+  <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos))}</div>
+  <div class="card pos"><h2>本日の決済</h2>${rows(parseList(s.cl))}</div>
   <div class="card"><h2>設定</h2>
    <div class="set"><div class="lbl">ロットの量</div><div class="seg" id="lotseg" style="margin-top:8px">${LOTN.map((t, i) => `<button data-l="${i}" class="${i === lot ? 'on' : ''}">${t}</button>`).join('')}</div></div>
    <div class="row set"><span>新しいエントリー<div class="lbl">OFF にすると、新しく建てません。持っているポジションは EA が最後まで管理します。</div></span><button class="sw ${en ? 'on' : ''}" id="entsw"></button></div>
@@ -398,7 +398,7 @@ document.querySelectorAll('#minseg button').forEach(b => b.onclick = () => saveP
 })();
 
 // ---- 動作確認用（?mock=1 のときだけ。本物のサーバーには送らない）
-let MOCKDB = null;
+var MOCKDB = null;   // var: はじめの読み込み（上の start）より前から使えるように
 function mockApi(op, q) {
   const now = Date.now();
   if (!MOCKDB) MOCKDB = { prefs: { stop: 1, start: 1, auto: 1, cfg: 0, min: 10 }, units: [
