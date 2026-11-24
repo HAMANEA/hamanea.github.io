@@ -37,6 +37,10 @@ button{cursor:pointer}
 .lbl{font-size:12px;color:var(--sub)}
 .big{font-size:26px;font-weight:700}
 .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pl3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.pl3>div+div{border-left:1px solid var(--line);padding-left:8px}
+.pl3 .pv{font-size:16px;font-weight:700;white-space:nowrap}
+.pl3 .ps,.pls{font-size:10.5px;color:var(--sub)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 .plus{color:var(--plus)}.minus{color:var(--minus)}
 .seg{display:flex;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:3px}
@@ -237,9 +241,10 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="card" id="sumcard">
 <div class="row"><span class="lbl">口座残高</span><span class="today" id="today"></span></div>
 <div class="big" id="bal">—</div>
-<div class="grid2">
-<div><div class="lbl">本日損益</div><div style="font-size:17px;font-weight:700" id="day">—</div></div>
-<div><div class="lbl">現在損益</div><div style="font-size:17px;font-weight:700" id="opn">—</div></div>
+<div class="pl3">
+<div><div class="lbl">含み損益</div><div class="pv" id="opn">—</div><div class="ps">持っている分</div></div>
+<div><div class="lbl">決済した損益</div><div class="pv" id="day">—</div><div class="ps">今日 確定した分</div></div>
+<div><div class="lbl">今日の合計</div><div class="pv" id="dsum">—</div><div class="ps">含み ＋ 決済</div></div>
 </div>
 </div>
 <div class="list" id="ealist"></div>
@@ -303,7 +308,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124p';
+const PAGE_VER = '20261124q';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -477,14 +482,15 @@ function renderHome() {
   $('today').textContent = today();
   $('bal').textContent = plain(ls.bal, c);
   const day = us.reduce((s, u) => s + Number(u.s && u.s.day || 0), 0), opn = us.reduce((s, u) => s + Number(u.s && u.s.opn || 0), 0);
-  $('day').textContent = money(day, c); $('day').className = cls(day);
-  $('opn').textContent = money(opn, c); $('opn').className = cls(opn);
+  $('day').textContent = money(day, c); $('day').className = 'pv ' + cls(day);
+  $('opn').textContent = money(opn, c); $('opn').className = 'pv ' + cls(opn);
+  $('dsum').textContent = money(day + opn, c); $('dsum').className = 'pv ' + cls(day + opn);
   const bad = us.filter(u => status(u)[0] === 'bad');
   $('alerts').innerHTML = bad.map(u => `<div class="alert">⚠ ${EA[u.ea] ? EA[u.ea][0] : u.ea}：${status(u)[1] === 'オフライン' ? 'オフラインです' : status(u)[1]}。${status(u)[1] === 'オフライン' ? 'MT5 やパソコンを確認してください。' : ''}</div>`).join('');
   const order = ['TRE', 'NAMI', 'MADO'];
   us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
-  $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.opn : '';
-    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">現在損益</div><div class="pl ${cls(d)}">${money(d, c)}</div></span><span class="ch">›</span></button>`; }).join('');
+  $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.opn : '', dd = u.s ? u.s.day : '';
+    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; }).join('');
   $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
 }
 document.querySelectorAll('#accseg button[data-acc]').forEach(b => b.onclick = () => { cur = b.dataset.acc; store.set('hama_acc', cur); accSel = null; renderHome(); });
@@ -508,8 +514,10 @@ function renderDetail() {
   $('dbody').innerHTML = `<div style="--c:var(--${e[1]})">
   <div class="dh"><span class="nm">${e[0]}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
   <div class="today dtoday">${today()}</div>
-  <div class="card"><div class="row"><span class="lbl">本日損益</span><span class="${cls(s.day)}" style="font-size:20px;font-weight:700">${money(s.day, c)}</span></div>
-  <div class="row" style="margin-top:4px"><span class="lbl">現在損益</span><span class="${cls(s.opn)}">${money(s.opn, c)}</span></div>
+  <div class="card"><div class="pl3" style="margin-top:0;padding-top:0;border-top:0">
+  <div><div class="lbl">含み損益</div><div class="pv ${cls(s.opn)}">${money(s.opn, c)}</div><div class="ps">持っている分</div></div>
+  <div><div class="lbl">決済した損益</div><div class="pv ${cls(s.day)}">${money(s.day, c)}</div><div class="ps">今日 確定した分</div></div>
+  <div><div class="lbl">今日の合計</div><div class="pv ${cls(Number(s.day || 0) + Number(s.opn || 0))}">${money(Number(s.day || 0) + Number(s.opn || 0), c)}</div><div class="ps">含み ＋ 決済</div></div></div>
   <div class="small">${ago(u.seen)}${s.v ? '・' + s.v : ''}</div></div>
   ${detailOf(u) ? `<div class="card"><h2>${st[1] === 'オフライン' ? '最後に届いたときの状態' : '今の状態'}</h2><div class="dtl">${esc(detailOf(u))}</div></div>` : ''}
   <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos), s.opn)}</div>
