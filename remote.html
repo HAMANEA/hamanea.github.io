@@ -275,7 +275,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124k';
+const PAGE_VER = '20261124l';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -496,6 +496,11 @@ function renderDetail() {
   $('entsw').onclick = () => cmd(u, { en: en ? 0 : 1 });
 }
 async function cmd(u, body) {
+  if (body.lot !== undefined) {
+    const now = u.want && u.want.lot !== '' ? Number(u.want.lot) : Number(u.s && u.s.lot);
+    if (body.lot === now) return;   // もう選ばれている
+    if (!confirm('ロットの量を「' + LOTN[body.lot] + '」に切り替えますか？\n（ポジションを持っているときは、全部決済されてから切り替わります）')) return;
+  }
   if (body.en === 0 && !confirm('新しいエントリーを OFF にしますか？\n（持っているポジションは EA が管理を続けます）')) return;
   $('dbody').classList.add('spin');
   try { const r = await api('r_cmd', Object.assign({ unit: u.unit }, body)); if (!r.ok) alert('変えられませんでした'); await load(false); }
