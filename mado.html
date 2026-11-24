@@ -378,12 +378,15 @@ header.top .waveart, header.top img { display: none !important; }
 .chara-top .ci-full, .chara-top .ci-body { position: relative; z-index: 1; }
 @media (min-width: 861px) { .chara-top .ci-row { column-gap: 60px; } }
 @media (max-width: 860px) { .chara-top .ci-row::before { width: auto; right: 0; bottom: auto; height: var(--bh, 364px); } .chara-top .ci-tre { --bh: 392px; } .chara-top .ci-mado { --bh: 374px; } }
+.chara-top .ci-row::before { display: none; } /* 校門の上の3人の写真から、その子の立っている場所を切り取って使う */
+.chara-top .ci-full, .chara-top .ci-tre .ci-full, .chara-top .ci-mado .ci-full { width: 100%; max-width: 400px; height: auto; filter: none; border-radius: 12px; }
+@media (max-width: 640px) { .chara-top .ci-full, .chara-top .ci-tre .ci-full, .chara-top .ci-mado .ci-full { max-width: none; height: auto; } }
 .chara-top .ci-lead { font-size: 13px; color: #a2a5ab; margin: 0 0 8px; letter-spacing: .04em; }
 .chara-top .ci-text, .chara-top .ci-st, .chara-top .ci-tag, .chara-top .ci-name small { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; }
 </style>
 <div class="chara-top">
   <div class="ci-row ci-mado">
-    <img class="ci-full" src="img/chara/ume_full.webp?v=20261125" alt="うめちゃん">
+    <img class="ci-full" src="img/chara/gate_ume.webp?v=20261125" alt="うめちゃん">
     <div class="ci-body">
       <span class="ci-name">UME<small>うめちゃん</small></span>
       <span class="ci-st" style="margin-top:10px">勉強中の戦略：押し目買い・窓埋め</span>
