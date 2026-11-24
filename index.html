@@ -50,7 +50,7 @@
   <button class="menu-btn" type="button" aria-label="メニュー" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
   <nav class="menu">
     <a href="index.html" class="on">TOP</a>
-    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="tre.html">TREND G3</a><a href="nami.html">NAMITORE G4</a><a href="mado.html">MADOUME G7</a></div></div>
+    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="nami.html">NAMITORE G4</a><a href="tre.html">TREND G3</a><a href="mado.html">MADOUME G7</a></div></div>
     <a href="setup.html">SETUP</a>
     <a href="license.html">LICENSE</a>
     <a href="report.html">REPORT</a>
@@ -73,21 +73,21 @@
     <img class="hero-candles" src="img/hero_candles.svg?v=2" alt="">
    </div>
   </div>
-  <a class="hs-slide hs-ea" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="2 / 6">
-   <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
-   <div class="wrap hs-in">
-    <span class="hs-nick">トレンド追従</span>
-    <p class="hs-title">HAMA TREND G3</p>
-    <p class="hs-desc">トレンドが出ている間だけ、その方向に、<br>価格が逆に動くたび決まった間隔で<br>最大 3 本までポジションを足していく EA です。</p>
-    <span class="hs-more">VIEW MORE →</span>
-   </div>
-  </a>
-  <a class="hs-slide hs-ea" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="3 / 6">
+  <a class="hs-slide hs-ea" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="2 / 6">
    <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
    <div class="wrap hs-in">
     <span class="hs-nick">レンジ（逆張り）</span>
     <p class="hs-title">HAMA NAMITORE G4</p>
     <p class="hs-desc">攻めと守りの「ダブルロジック」で、<br>金の“波”をとらえるレンジ EA。</p>
+    <span class="hs-more">VIEW MORE →</span>
+   </div>
+  </a>
+  <a class="hs-slide hs-ea" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="3 / 6">
+   <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
+   <div class="wrap hs-in">
+    <span class="hs-nick">トレンド追従</span>
+    <p class="hs-title">HAMA TREND G3</p>
+    <p class="hs-desc">トレンドが出ている間だけ、その方向に、<br>価格が逆に動くたび決まった間隔で<br>最大 3 本までポジションを足していく EA です。</p>
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
@@ -110,6 +110,7 @@
     </div>
     <div class="hs-phones"><img src="img/report_monitor.png" alt="成績表の画面のイメージ（架空の数値）"></div>
    </div>
+  </a>
   <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="6 / 6">
    <div class="wrap hs-in hs-split">
     <div>
@@ -160,21 +161,21 @@
   <p class="wait-note"><b>条件がそろうまで、じっと待つ EA です。</b><br>HAMA の EA は、決められた条件がそろったときだけエントリーします。短い時間にエントリーと決済を何度もくり返すタイプの EA ではないので、取引のない日が続くこともあります。</p>
   <h3 class="cat xau">ゴールド（XAUUSD）</h3>
   <div class="cards rows">
-    <a class="card ea-tre" href="tre.html">
-      <div class="img" style="background-image:url(img/trend_cover.jpg)"></div>
-      <div class="body">
-        <span class="nick">トレンド追従</span>
-        <h3>HAMA TREND G3</h3>
-        <p>トレンドが出ている間だけ、その方向に、<br>価格が逆に動くたび決まった間隔で最大 3 本まで<br>ポジションを足していく EA です。</p>
-        <span class="more">VIEW MORE <i>→</i></span>
-      </div>
-    </a>
     <a class="card ea-nami" href="nami.html">
       <div class="img" style="background-image:url(img/namitore_cover.jpg)"></div>
       <div class="body">
         <span class="nick">レンジ（逆張り）</span>
         <h3>HAMA NAMITORE G4</h3>
         <p>攻めと守りの「ダブルロジック」で、金の“波”をとらえるレンジ EA。</p>
+        <span class="more">VIEW MORE <i>→</i></span>
+      </div>
+    </a>
+    <a class="card ea-tre" href="tre.html">
+      <div class="img" style="background-image:url(img/trend_cover.jpg)"></div>
+      <div class="body">
+        <span class="nick">トレンド追従</span>
+        <h3>HAMA TREND G3</h3>
+        <p>トレンドが出ている間だけ、その方向に、<br>価格が逆に動くたび決まった間隔で最大 3 本まで<br>ポジションを足していく EA です。</p>
         <span class="more">VIEW MORE <i>→</i></span>
       </div>
     </a>
@@ -191,7 +192,7 @@
 </div></section>
 
 <section><div class="wrap">
-  <h2>成績表</h2>
+  <h2>HAMA EA REPORT</h2>
   <p class="sub">HAMA の EA には、口座の成績をまとめて見られる成績表が付いています。</p>
   <div class="cards rows">
     <a class="card ea-report" href="report.html">

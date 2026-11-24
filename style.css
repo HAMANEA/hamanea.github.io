@@ -94,7 +94,7 @@ h3 { font-size: 19px; margin: 28px 0 8px; color: var(--gold2); }
 .cards.rows .card .body { padding: 22px 26px; justify-content: center; }
 .cards.rows .card h3 { font-size: 22px; }
 .cards.rows .card p { font-size: 16px; }
-/* EA ごとの色（各 EA の説明書のテーマ色: TREND = ゴールド / NAMITORE = 海の青 / MADOUME = グリーン） */
+/* EA ごとの色（各 EA の説明書のテーマ色: NAMITORE = 海の青 / TREND = ゴールド / MADOUME = グリーン） */
 .card.ea-tre  { --c: #d9b54a; --c2: #fff1b8; --cbg: #2c2817; }
 .card.ea-nami { --c: #4dc3ff; --c2: #bfe9ff; --cbg: #0c2440; }
 .card.ea-mado { --c: #4fc27f; --c2: #c9f2d9; --cbg: #17281e; }
@@ -356,7 +356,7 @@ h2.big-h { font-size: clamp(22px, 2.4vw, 30px); letter-spacing: .02em; margin-bo
   .demo-cta .cta-grid { grid-template-columns: 1fr; }
   .demo-cta .cta-grid .cta-btn { justify-self: stretch; text-align: center; }
 }
-/* トップ: 5 秒ごとに切り替わるバナー（ブランド → TREND → NAMITORE → MADOUME → REPORT） */
+/* トップ: 5 秒ごとに切り替わるバナー（ブランド → NAMITORE → TREND → MADOUME → REPORT → REMOTE） */
 .hslider { position: relative; background: #0b0c0f; border-bottom: 1px solid var(--line); }
 .hs-track { display: grid; }
 .hs-slide { grid-area: 1 / 1; opacity: 0; visibility: hidden; transition: opacity .8s ease, visibility 0s linear .8s; }
