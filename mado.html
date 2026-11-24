@@ -372,6 +372,12 @@ header.top .waveart, header.top img { display: none !important; }
 .ci-mado .ci-full { height: 556px; }
 @media (max-width: 640px) { .ci-tre .ci-full { height: 368px; } .ci-mado .ci-full { height: 350px; } }
 .chara-top { margin: 24px 0 8px; padding: 0; }
+/* 立ち絵のうしろに学園の校門（おためし） */
+.chara-top .ci-row { position: relative; overflow: hidden; }
+.chara-top .ci-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 456px; background: url(img/chara/gate_bg_1600.webp?v=20261125) 50% 75% / cover no-repeat; pointer-events: none; }
+.chara-top .ci-full, .chara-top .ci-body { position: relative; z-index: 1; }
+@media (min-width: 861px) { .chara-top .ci-row { column-gap: 60px; } }
+@media (max-width: 860px) { .chara-top .ci-row::before { width: auto; right: 0; bottom: auto; height: var(--bh, 364px); } .chara-top .ci-tre { --bh: 392px; } .chara-top .ci-mado { --bh: 374px; } }
 .chara-top .ci-lead { font-size: 13px; color: #a2a5ab; margin: 0 0 8px; letter-spacing: .04em; }
 .chara-top .ci-text, .chara-top .ci-st, .chara-top .ci-tag, .chara-top .ci-name small { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; }
 </style>

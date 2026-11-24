@@ -101,6 +101,12 @@
   /* トレンはツインテールと指さしで横に広いので、右へ寄せて少し小さく */
   .hs-chara-left:not(.hs-nami):not(.hs-mado) .hs-chara { right: -118px; height: 84%; }
   .hs-chara-left .hs-title, .hs-chara-left .hs-desc { text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+  /* スマホの背景：ナミは濃いめの青、うめちゃんは濃いめの緑（おためし） */
+  .hs-nami .hs-bg, .hs-mado .hs-bg { opacity: 1; }
+  .hs-nami .hs-chara { right: 4px; }
+  .hs-nami .hs-bg { background: radial-gradient(120% 80% at 80% 70%, #1d5fa8 0%, #0e3570 45%, #081f45 100%) !important; }
+  .hs-mado .hs-bg { background: radial-gradient(120% 80% at 80% 70%, #2a8a55 0%, #14532f 45%, #0a2e1b 100%) !important; }
+  .hs-nami .hs-bg::after, .hs-mado .hs-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 60%); }
 }
 </style>
 </head>
