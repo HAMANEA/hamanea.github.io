@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ストーリー | HAMA EA学園</title>
+<meta name="description" content="HAMA EA学園の生徒たちの紹介。相場と EA の勉強をしている女の子たちのストーリーです。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261124a">
+<style>
+/* ヒーロー（3人） */
+.story-hero { position: relative; overflow: hidden; min-height: 440px; display: flex; align-items: center; }
+.story-hero .wrap { position: relative; z-index: 2; width: 100%; }
+.story-hero .lead b { color: #fff; }
+.sh-trio { position: absolute; z-index: 1; right: max(0px, calc(50% - 620px)); bottom: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
+.sh-school { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: clamp(34px, 4.6vw, 56px) !important; line-height: 1.2; letter-spacing: .03em; }
+@media (max-width: 860px) {
+  .story-hero { flex-direction: column; min-height: 0; }
+  .story-hero .wrap { order: 1; }
+  .sh-trio { order: 2; position: static; display: block; width: 100%; height: auto; max-width: 460px; margin: 0 auto; }
+}
+/* 学校のしくみ */
+.grades { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 8px 0 18px; }
+.grade { border: 1px solid #2a2c31; border-radius: 14px; padding: 16px 16px 18px; background: #16171b; }
+.grade b { display: block; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 22px; font-weight: 900; color: #fff; }
+.grade span { display: inline-block; margin: 6px 0 8px; font-size: 12px; font-weight: 700; border-radius: 99px; padding: 2px 10px; background: #2a2c31; color: #c9ced8; }
+.grade p { margin: 0; font-size: 14px; line-height: 1.75; color: #c9ccd2; }
+.grade.g4 { border-color: #d9b54a; background: linear-gradient(140deg, #2c2817, #16171b 70%); }
+.grade.g4 span { background: #d9b54a; color: #1a1406; }
+.grade.g4 b { color: #fff1b8; }
+.exam { border-left: 3px solid #d9b54a; padding: 4px 0 4px 14px; margin: 0; color: #c9ccd2; font-size: 15px; line-height: 1.85; }
+.exam b { color: #fff; }
+@media (max-width: 860px) { .grades { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 生徒紹介カード（トップの EA カードと同じバナーの形・大きさ） */
+.card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img { overflow: hidden; }
+.card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img { container-type: inline-size; --ks: 1.37; }
+.card.ea-nami .img::before { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(12,36,64,.6); }
+.card.ea-tre { --k: 1; --eye: .397; }
+.card.ea-nami { --k: 1.12; --eye: .272; }
+.card.ea-mado { --k: .82; --eye: .505; }
+.card-chara { position: absolute; z-index: 1; left: 50%; width: calc(var(--k) * var(--ks) * 100cqw); height: auto; max-width: none; top: calc(52% - var(--eye) * var(--k) * var(--ks) * 100cqw); transform: translateX(-50%); pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 88%); mask-image: linear-gradient(180deg, #000 70%, transparent 88%); }
+.card.ea-tre .img::after, .card.ea-nami .img::after, .card.ea-mado .img::after { z-index: 0; } /* 影は背景の写真だけに。キャラの上にはかけない */
+.card.ea-mado .chara-name { color: #0d2a19; background: linear-gradient(180deg, #e8fbef, #9fe6bb 60%, #4fc27f); border-color: #f2fff6; box-shadow: 0 4px 0 #2a7a4c, 0 10px 22px rgba(0,0,0,.45); }
+.card.ea-mado .chara-name::before, .card.ea-mado .chara-name::after { color: #e8fbef; text-shadow: 0 0 6px rgba(150,230,180,.9); }
+.card.ea-nami .chara-name { color: #0b2a44; background: linear-gradient(180deg, #e6f7ff, #8fd6ff 60%, #4dc3ff); border-color: #f2fbff; box-shadow: 0 4px 0 #1f6f9e, 0 10px 22px rgba(0,0,0,.45); }
+.card.ea-nami .chara-name::before, .card.ea-nami .chara-name::after { color: #e6f7ff; text-shadow: 0 0 6px rgba(140,215,255,.9); }
+.chara-name { position: absolute; z-index: 3; font-family: "Fredoka", "Zen Kaku Gothic New", sans-serif; font-weight: 700; letter-spacing: .08em; color: #2a2208;
+  background: linear-gradient(180deg, #fff3c4, #e9c45a 60%, #c99a2e); border: 2px solid #fff6d6; border-radius: 999px; padding: .18em .8em .22em;
+  box-shadow: 0 4px 0 #8a6a1c, 0 10px 22px rgba(0,0,0,.45); transform: rotate(-6deg); pointer-events: none; white-space: nowrap; line-height: 1; }
+.chara-name::before, .chara-name::after { content: "✦"; position: absolute; color: #fff1b8; text-shadow: 0 0 6px rgba(255,220,120,.9); }
+.chara-name::before { left: -.75em; top: -.55em; font-size: .7em; }
+.chara-name::after { right: -.6em; bottom: -.5em; font-size: .55em; }
+.card-name { font-size: 20px; left: 16px; bottom: 14px; }
+@media (max-width: 640px) { .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img, .cards.rows .card.st-secret .img { --ks: 1.65; aspect-ratio: 1 / 1; width: 100%; min-height: 0; } }
+
+/* カードの中身（自己紹介） */
+.st-card .body { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; }
+.st-grade { display: inline-block; align-self: flex-start; font-size: 13px; font-weight: 900; color: #0b0c0e; background: var(--c); border-radius: 99px; padding: 2px 12px; margin-bottom: 8px; }
+.cards.rows .st-card h3 { display: flex; align-items: baseline; gap: 10px; margin: 0 0 4px; }
+.st-card h3 small { font-family: "Fredoka", sans-serif; font-size: 15px; color: var(--c); letter-spacing: .08em; }
+.st-study { display: block; font-size: 13px; font-weight: 700; color: var(--c2); margin: 0 0 10px; }
+.cards.rows .st-card p.st-text { font-size: 15px; line-height: 1.9; color: #e4e5e8; margin: 0 0 12px; }
+.st-good { display: inline-block; align-self: flex-start; font-size: 13px; font-weight: 700; color: var(--c2); border: 1px solid var(--c); border-radius: 8px; padding: 2px 10px; }
+
+/* ひみつの生徒（紫） */
+.card.st-secret { --c: #a970ff; --c2: #e2ccff; --cbg: #1e1430; border-style: dashed; border-color: #6b4aa3; }
+.st-secret .img { position: relative; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 45%, #4a2d7a, #1e1430 70%); }
+.st-secret .q { font-family: "Fredoka", sans-serif; font-size: 140px; font-weight: 700; color: #c9a6ff; opacity: .85; text-shadow: 0 0 28px rgba(169,112,255,.8); line-height: 1; }
+.st-secret .chara-name { color: #2a0f44; background: linear-gradient(180deg, #f2e6ff, #c9a6ff 60%, #a970ff); border-color: #f6efff; box-shadow: 0 4px 0 #5e3a99, 0 10px 22px rgba(0,0,0,.45); }
+.st-secret .chara-name::before, .st-secret .chara-name::after { color: #f2e6ff; text-shadow: 0 0 6px rgba(200,160,255,.9); }
+.fiction { font-size: 13px; color: #8d9098; margin-top: 20px; }
+/* 五角形のステータス（数字は出さない・形だけ） */
+.st-stat { width: 260px; margin: 14px auto 0; }
+.st-stat svg { display: block; width: 100%; height: auto; overflow: visible; }
+.st-stat .lb { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 12px; font-weight: 700; fill: #c9ccd2; }
+.st-stat .note { display: block; text-align: center; font-size: 11px; color: #8d9098; margin-top: 2px; }
+@media (min-width: 861px) {
+  .cards.rows .st-card .body { padding-right: 310px; }
+  .st-stat { position: absolute; right: 22px; top: 22px; margin: 0; }
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <button class="menu-btn" type="button" aria-label="メニュー" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
+  <nav class="menu">
+    <a href="index.html">TOP</a>
+    <a href="news.html">NEWS</a>
+    <a href="story.html" class="on">STORY</a>
+    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="tre.html">TREND G3</a><a href="nami.html">NAMITORE G4</a><a href="mado.html">MADOUME G7</a></div></div>
+    <a href="setup.html">SETUP</a>
+    <a href="license.html">LICENSE</a>
+    <a href="report.html">REPORT</a>
+    <a href="app.html">REMOTE</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+</div></header>
+
+<div class="hero story-hero">
+  <img class="sh-trio" src="img/chara/trio_full.webp" alt="うめちゃん・トレン・ナミ">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px">
+    <span class="tag">STORY</span>
+    <h1 class="sh-school"><span class="g">HAMA EA学園</span></h1>
+    <p class="lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b>「EAマスター」</b>をめざして操縦の練習をしています。</p>
+  </div>
+</div>
+
+<main>
+<section><div class="wrap">
+  <h2>学校のしくみ</h2>
+  <p class="sub">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>4年制で、1〜3年生はシミュレーター（デモ口座）で練習し、4年生でリアルの操縦免許をとります。</p>
+  <div class="grades">
+    <div class="grade"><b>1年生</b><span>シミュレーター</span><p>相場のきほんと、操縦のきほんを学びます。</p></div>
+    <div class="grade"><b>2年生</b><span>シミュレーター</span><p>担当の機体（EA）で、自分の戦略をじっくり練習します。</p></div>
+    <div class="grade"><b>3年生</b><span>シミュレーター</span><p>リアルへ進む前の、さいごの仕上げです。</p></div>
+    <div class="grade g4"><b>4年生</b><span>リアル免許</span><p>「EAマスター」に。その子の“くせ”が入った EA が、世界中の MT5 でいっしょに動きます。</p></div>
+  </div>
+  <p class="exam">上の学年へ進むには、きびしい<b>進級試験</b>に合格しないといけません。<br>だから、学年と年齢は関係なし。ずっと1年生のままの生徒も、めずらしくないんだとか…。<br>授業は<b>平日だけ</b>。相場がお休みの土日は、学校もお休みです。</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>生徒紹介</h2>
+  <p class="sub">それぞれ、担当の機体で、自分の戦略を練習中です。</p>
+  <div class="cards rows">
+    <a class="card ea-tre st-card" href="tre.html">
+      <div class="img" style="background-image:url(img/trend_cover.jpg)"><img class="card-chara" src="img/chara/tren_serious.webp" alt=""><span class="chara-name card-name" aria-hidden="true">TOREN</span></div>
+      <div class="body">
+        <span class="st-grade">2年生</span>
+        <h3>トレン<small>TOREN</small></h3>
+        <span class="st-study">勉強中の戦略：トレンドフォロー（順張り）</span>
+        <p class="st-text">いつも元気いっぱい！ 勉強中なのは「トレンドフォロー」。流れが出てきたら「いまだっ～！」と、流れにぴょんと乗っていきます。でも、流れがないときは、ちゃんとおやすみ。気持ちの切りかえも上手な、がんばり屋さんです。</p>
+        <span class="st-good">得意：流れに乗ること</span>
+        <div class="st-stat" data-v="4,3,3,5,3"></div>
+        <span class="more">HAMA TREND G3 <i>→</i></span>
+      </div>
+    </a>
+    <a class="card ea-nami st-card" href="nami.html">
+      <div class="img" style="background-image:url(img/namitore_cover.jpg)"><img class="card-chara" src="img/chara/nami_front.webp" alt=""><span class="chara-name card-name" aria-hidden="true">NAMI</span></div>
+      <div class="body">
+        <span class="st-grade">2年生</span>
+        <h3>ナミ<small>NAMI</small></h3>
+        <span class="st-study">勉強中の戦略：レンジ（逆張り）</span>
+        <p class="st-text">みんなのいやし係。勉強中なのは「レンジ（逆張り）」。上がったり下がったりする相場を「波」に見立てて、行きすぎたところで反対側をそ～っとねらいます。攻めと守り、ふたつの考え方を、じょうずに使い分けているみたい。</p>
+        <span class="st-good">得意：波をながめること</span>
+        <div class="st-stat" data-v="3,5,3,4,4"></div>
+        <span class="more">HAMA NAMITORE G4 <i>→</i></span>
+      </div>
+    </a>
+    <a class="card ea-mado st-card" href="mado.html">
+      <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"><img class="card-chara" src="img/chara/ume_front.webp" alt=""><span class="chara-name card-name" aria-hidden="true">UME</span></div>
+      <div class="body">
+        <span class="st-grade">2年生</span>
+        <h3>うめちゃん<small>UME</small></h3>
+        <span class="st-study">勉強中の戦略：押し目買い・窓埋め</span>
+        <p class="st-text">SMCがだいすきな、おっとりおんなのこ。いつも小さなノートを持ち歩いています。勉強中なのは「押し目買い」と「窓埋め」。大きな流れをたしかめてから、値段が「窓」に向かって下がってきたところを、少しずつ拾っていくのが好きなんだとか。「あわてない、あわてない」が口ぐせです。</p>
+        <span class="st-good">得意：のんびり待つこと</span>
+        <div class="st-stat" data-v="3,2,4,2,5"></div>
+        <span class="more">HAMA MADOUME G7 <i>→</i></span>
+      </div>
+    </a>
+    <div class="card st-secret st-card">
+      <div class="img"><span class="q">?</span><span class="chara-name card-name" aria-hidden="true">???</span></div>
+      <div class="body">
+        <span class="st-grade">？年生</span>
+        <h3>ひみつの生徒<small>COMING SOON</small></h3>
+        <span class="st-study">うわさ：購買部のうらで、なにか売っているらしい…</span>
+        <p class="st-text">いつまでたっても進級できない、ちょっと問題児な生徒がいるみたい。校則では、こっそり EA を売ったら退学なんだけど…。先生には、まだナイショ。</p>
+        <span class="st-good">得意：？？？</span>
+        <div class="st-stat" data-v="?"></div>
+      </div>
+    </div>
+  </div>
+  <p class="fiction">※ ストーリーと登場人物はフィクションです。<br>※ EA は、お客さまの MT5 で自動で動きます。だれかが口座を操作することはありません。<br>※ 五角形は、EA どうしのとくちょうを比べたイメージです。利益を約束するものではありません。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。本ソフトは投資助言ではありません。売買の判断・設定・資金の管理は、ご自身の責任で行ってください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+<script>
+/* 五角形のステータスを描く（5 段階・数字は出さない） */
+(function () {
+  var L = ["収益", "エントリー数", "DDの小ささ", "攻め", "守り"];
+  var cx = 115, cy = 104, R = 72, N = 5;
+  function pt(i, r) { var a = -Math.PI / 2 + i * 2 * Math.PI / N; return [cx + r * Math.cos(a), cy + r * Math.sin(a)]; }
+  function poly(r) { var s = []; for (var i = 0; i < N; i++) { s.push(pt(i, r).join(",")); } return s.join(" "); }
+  document.querySelectorAll(".st-stat").forEach(function (el) {
+    var raw = el.getAttribute("data-v"), unknown = raw === "?";
+    var v = unknown ? [0, 0, 0, 0, 0] : raw.split(",").map(Number);
+    var c = getComputedStyle(el).getPropertyValue("--c").trim() || "#d9b54a";
+    var s = '<svg viewBox="-30 0 290 205" role="img" aria-label="とくちょう：' + L.join("・") + '">';
+    for (var k = 5; k >= 1; k--) s += '<polygon points="' + poly(R * k / 5) + '" fill="' + (k % 2 ? "rgba(255,255,255,.03)" : "none") + '" stroke="#3a3d44" stroke-width="1"/>';
+    for (var i = 0; i < N; i++) { var p = pt(i, R); s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + p[0] + '" y2="' + p[1] + '" stroke="#3a3d44"/>'; }
+    if (unknown) {
+      s += '<text x="' + cx + '" y="' + (cy + 14) + '" text-anchor="middle" font-family="Fredoka, sans-serif" font-size="40" font-weight="700" fill="' + c + '">???</text>';
+    } else {
+      var d = v.map(function (x, i) { return pt(i, R * x / 5).join(","); }).join(" ");
+      s += '<polygon points="' + d + '" fill="' + c + '" fill-opacity=".35" stroke="' + c + '" stroke-width="2" stroke-linejoin="round"/>';
+      v.forEach(function (x, i) { var p = pt(i, R * x / 5); s += '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="' + c + '"/>'; });
+    }
+    for (var j = 0; j < N; j++) {
+      var q = pt(j, R + 16), an = Math.abs(q[0] - cx) < 4 ? "middle" : (q[0] > cx ? "start" : "end");
+      s += '<text class="lb" x="' + q[0] + '" y="' + (q[1] + 4) + '" text-anchor="' + an + '">' + L[j] + '</text>';
+    }
+    el.innerHTML = s + '</svg>';
+  });
+})();
+</script>
+</body>
+</html>
