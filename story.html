@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Mochiy+Pop+One&text=HAMEA%E5%AD%A6%E5%9C%92%E2%98%85%E2%9C%A6&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261124a">
 <style>
 /* ヒーロー（3人） */
@@ -76,20 +75,11 @@
 .st-secret .chara-name::before, .st-secret .chara-name::after { color: #f2e6ff; text-shadow: 0 0 6px rgba(200,160,255,.9); }
 .gate-banner { margin: 0; line-height: 0; background: #0b0c0f; border-bottom: 1px solid var(--line); }
 .gate-banner img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
+@media (max-width: 640px) { .gate-banner img { aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 50%; } } /* スマホは左右を切って正方形に */
 .school-sec { position: relative; overflow: hidden; }
 .school-sec::before { content: ""; position: absolute; inset: 0; background: url(img/chara/classroom_1nen.webp?v=20261125) center 40% / cover no-repeat; opacity: .16; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); pointer-events: none; }
 .school-sec .wrap { position: relative; z-index: 1; }
 .story-hero p.lead.sh-lead2 { margin-top: 14px; font-size: 15px; max-width: 560px; }
-/* かわいいロゴ（E2：まるっこい・立体） */
-.story-hero h1.sh-logo { position: relative; display: block; width: max-content; margin: 14px 0 22px 26px; line-height: 1; text-align: center; transform: rotate(-3deg); }
-.sh-logo .en { display: block; font-family: "Baloo 2", sans-serif; font-weight: 800; font-size: 46px; letter-spacing: .04em; }
-.sh-logo .jp { display: block; font-family: "Mochiy Pop One", sans-serif; font-weight: 400; font-size: 96px; letter-spacing: .04em; margin-top: 2px; }
-.sh-logo .c3 { display: inline-block; color: var(--f); -webkit-text-stroke: 6px #fff; paint-order: stroke fill; text-shadow: 0 1px 0 var(--d), 0 2px 0 var(--d), 0 3px 0 var(--d), 0 4px 0 var(--d), 0 5px 0 var(--d), 0 6px 0 var(--d), 0 7px 0 #14305c, 0 8px 0 #14305c, 0 14px 16px rgba(0,0,0,.45); }
-.sh-logo .jp .c3 { -webkit-text-stroke: 11px #fff; text-shadow: 0 1px 0 var(--d), 0 2px 0 var(--d), 0 3px 0 var(--d), 0 4px 0 var(--d), 0 5px 0 var(--d), 0 6px 0 var(--d), 0 7px 0 var(--d), 0 8px 0 var(--d), 0 9px 0 var(--d), 0 10px 0 #14305c, 0 11px 0 #14305c, 0 12px 0 #14305c, 0 18px 20px rgba(0,0,0,.45); }
-.sh-logo .y { --f: #ffd23f; --d: #d39a12; } .sh-logo .b { --f: #5cc8ff; --d: #2789c9; } .sh-logo .g { --f: #5fdc8f; --d: #2a9e5a; } .sh-logo .gd { --f: #ffd23f; --d: #c98a0c; }
-.sh-logo .lg-sp { position: absolute; font-size: 32px; -webkit-text-stroke: 4px #fff; paint-order: stroke fill; line-height: 1; }
-.sh-logo .s1 { left: -30px; top: 60px; color: #5cc8ff; } .sh-logo .s2 { right: -32px; top: 40px; color: #ff7ab8; } .sh-logo .s3 { right: 8px; top: -22px; color: #5fdc8f; font-size: 24px; }
-@media (max-width: 640px) { .story-hero h1.sh-logo { margin-left: 24px; } .sh-logo .en { font-size: 34px; } .sh-logo .jp { font-size: 72px; } .sh-logo .lg-sp { font-size: 24px; } .sh-logo .s1 { left: -26px; top: 46px; } .sh-logo .s2 { right: -26px; top: 30px; } }
 .fiction { font-size: 13px; color: #8d9098; margin-top: 20px; }
 /* 五角形のステータス（数字は出さない・形だけ） */
 .st-stat { width: 260px; margin: 14px auto 0; }
@@ -123,7 +113,7 @@
 <div class="hero story-hero">
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">STORY</span>
-    <h1 class="sh-logo" aria-label="HAMA EA学園"><span class="lg-sp s1" aria-hidden="true">★</span><span class="lg-sp s2" aria-hidden="true">★</span><span class="lg-sp s3" aria-hidden="true">✦</span><span class="en" aria-hidden="true"><span class="c3 y">HA</span><span class="c3 b">MA</span> <span class="c3 g">EA</span></span><span class="jp" aria-hidden="true"><span class="c3 gd">学園</span></span></h1>
+    <h1 class="sh-school"><span class="g">HAMA EA学園</span></h1>
     <p class="lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b>「EAマスター」</b>をめざして操縦の練習をしています。</p>
     <p class="lead sh-lead2">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>4年制で、1〜3年生はシミュレーター（デモ口座）で練習し、4年生でリアルの操縦免許をとります。</p>
   </div>
