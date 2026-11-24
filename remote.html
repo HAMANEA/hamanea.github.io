@@ -308,7 +308,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124q';
+const PAGE_VER = '20261124r';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -654,6 +654,19 @@ document.querySelectorAll('#minseg button').forEach(b => b.onclick = () => saveP
   // メールのリンク: remote.html?pw=…（前の形の #pw=… も読む。メールのアプリによっては # から後ろが切れるため ? を使う）
   const m = (location.search + location.hash).match(/pw=([0-9a-fA-F]{32,})/);
   if (m) { pwTok = m[1]; show('setpw'); return; }
+  // 説明ページの画面写真用（?mock=1&shot=…。見本の数字だけで、覚えた内容には書かない）
+  const sh = MOCK && (location.search.match(/[?&]shot=(\w+)/) || [])[1];
+  if (sh) {
+    if (/[?&]dark=1/.test(location.search)) document.documentElement.setAttribute('data-theme', 'dark');
+    if (sh === 'first' || sh === 'setpw' || sh === 'login') { show(sh); return; }
+    tok = 'mock';
+    load(true).then(() => {
+      if (sh === 'detail' || sh === 'set') { const b = document.querySelector('#ealist .ea'); if (b) b.click(); if (sh === 'set') { const l = $('lotseg'); if (l) $('dbody').querySelectorAll('.card.pos').forEach(c => c.style.display = 'none'); } }
+      else if (sh === 'score') openScore();
+      else if (sh === 'notice') show('notice');
+    });
+    return;
+  }
   if (tok) load(true); else show('login');
 })();
 
@@ -666,8 +679,8 @@ function mockApi(op, q) {
     { unit: 'K2|1234567|NAMI', acc: '1234567', demo: false, ea: 'NAMI', seen: now - 90000, alerted: false, want: null, s: { t: now - 90000, st: 'wait', bal: '1284560', day: '6120', opn: '0', pos: '', cl: 'S:6120', lot: '1', en: '1', cur: 'JPY', v: 'v1.22', dt: 'レンジの端に届くのを待っています' } },
     { unit: 'K3|1234567|MADO', acc: '1234567', demo: false, ea: 'MADO', seen: now - 40 * 60000, alerted: true, want: null, s: { t: now - 40 * 60000, st: 'wait', bal: '1284560', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.55' } },
     { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } },
-    { unit: 'K1|5197956|TRE', acc: '5197956', demo: true, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'wait', bal: '200767', day: '0', opn: '0', pos: '', cl: '', lot: '1', en: '1', cur: 'JPY', v: 'v2.53', dt: '上の時間足と今の足の向きがそろうのを待っています\n次の足が確定したら、もう一度見ます' } },
-    { unit: 'K3|5197956|MADO', acc: '5197956', demo: true, ea: 'MADO', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'wait', bal: '200767', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.57', dt: '取引しない時間帯です（再開まで待っています）' } }],
+    { unit: 'K1|7654321|TRE', acc: '7654321', demo: true, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'wait', bal: '200767', day: '0', opn: '0', pos: '', cl: '', lot: '1', en: '1', cur: 'JPY', v: 'v2.53', dt: '上の時間足と今の足の向きがそろうのを待っています\n次の足が確定したら、もう一度見ます' } },
+    { unit: 'K3|7654321|MADO', acc: '7654321', demo: true, ea: 'MADO', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'wait', bal: '200767', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.57', dt: '取引しない時間帯です（再開まで待っています）' } }],
     notes: [{ t: now - 25 * 60000, acc: 'リアル', ea: 'MADOUME G7', text: 'オフラインです（30 分以上、EA から届いていません）。MT5 やパソコンを確認してください' },
             { t: now - 5 * 3600000, acc: 'リアル', ea: 'TREND G3', text: '起動しました' }] };
   const D = MOCKDB;

@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>スマホのページ | HAMA</title>
+<meta name="description" content="HAMA の EA のようすと設定を、スマホで見られるページ。登録のしかたと画面の見方。すべての EA で共通です。">
+<link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261124a">
+<style>
+.shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
+.shots.three { grid-template-columns: repeat(3, 1fr); max-width: 760px; }
+.shots figure { margin: 0; }
+/* 画面写真: 背景（黒）と同化しないよう、スマホの枠のように縁取る */
+.shots .ph { display: block; padding: 7px; border-radius: 26px;
+  background: linear-gradient(160deg, #55585f, #26282e 45%, #3a3c43); border: 1px solid #62656e;
+  box-shadow: 0 14px 34px rgba(0,0,0,.65), 0 0 30px rgba(217,181,74,.12); }
+.shots .ph img { display: block; width: 100%; border-radius: 19px; }
+.shots figcaption { margin-top: 8px; font-size: 14px; line-height: 1.6; }
+.shots figcaption b { display: block; color: var(--text); }
+.shots figcaption span { color: var(--sub); font-size: 13px; }
+.shotnote { color: var(--sub); font-size: 13px; margin-top: 10px; }
+.open-app { margin-top: 18px; }
+@media (max-width: 820px) { .shots, .shots.three { grid-template-columns: repeat(2, 1fr); gap: 14px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="img/hama_logo.svg" alt="" width="34" height="34">HAMA</a>
+  <button class="menu-btn" type="button" aria-label="メニュー" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
+  <nav class="menu">
+    <a href="index.html">TOP</a>
+    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="tre.html">TREND G3</a><a href="nami.html">NAMITORE G4</a><a href="mado.html">MADOUME G7</a></div></div>
+    <a href="setup.html">SETUP</a>
+    <a href="license.html">LICENSE</a>
+    <a href="report.html">REPORT</a>
+    <a href="app.html" class="on">APP</a>
+    <a href="faq.html">FAQ</a>
+    <a href="news.html">NEWS</a>
+  </nav>
+</div></header>
+
+<div class="hero" style="--hc1:#d8f5e6;--hc2:#4fc27f">
+  <div class="wrap" style="padding-top:48px;padding-bottom:48px">
+    <span class="tag">APP</span>
+    <h1><span class="g">スマホのページ</span></h1>
+    <p class="lead">EA のようすと損益を、外出先からスマホで確かめられるページです。ロットの量の切り替えや、新しいエントリーの停止もできます。すべての HAMA の EA で共通です。</p>
+    <a class="btn open-app" href="remote.html">スマホのページを開く <i>→</i></a>
+  </div>
+</div>
+
+<main>
+<section><div class="wrap">
+  <h2>できること</h2>
+  <div class="shots">
+    <figure><span class="ph"><img src="img/app/app_home.png" alt="一覧の画面" loading="lazy"></span><figcaption><b>一覧</b><span>口座残高、含み損益、今日決済した損益と、EA ごとの状態が一目でわかります。</span></figcaption></figure>
+    <figure><span class="ph"><img src="img/app/app_set.png" alt="EA の詳細と設定の画面" loading="lazy"></span><figcaption><b>EA の詳細・設定</b><span>今の状態を確かめられます。ロットの量（攻め・標準・守り）と、新しいエントリーの ON・OFF を切り替えられます。</span></figcaption></figure>
+    <figure><span class="ph"><img src="img/app/app_score.png" alt="成績の画面" loading="lazy"></span><figcaption><b>成績</b><span>直近 1 週間の日ごとの損益と、週・月・年ごとのまとめです。</span></figcaption></figure>
+    <figure><span class="ph"><img src="img/app/app_notice.png" alt="お知らせの画面" loading="lazy"></span><figcaption><b>お知らせ</b><span>EA が止まったとき・起動したときなどに知らせます。メールでも受け取れます。</span></figcaption></figure>
+  </div>
+  <p class="shotnote">画面はイメージです。数値は説明のための架空のもので、実際の成績ではありません。</p>
+  <ul class="check" style="margin-top:18px">
+    <li>同じメールアドレスで登録したキーの EA が、まとめて出ます。リアル口座とデモ口座は、下のボタンで切り替えます</li>
+    <li>アプリを入れる必要はありません。ブラウザで開くページです（iPhone・Android どちらでも使えます）</li>
+    <li>止まった EA や MT5 を、スマホから起動し直すことはできません。パソコン（VPS）で起動し直してください</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <h2>使う前の準備</h2>
+  <ol class="steps">
+    <li><b>EA を最新版にする</b><br>
+      スマホのページに対応した版の EA を使ってください。対応した版は、EA が自動で、2 分ごとにようすを知らせます。EA の設定で、何かを入れる必要はありません。</li>
+    <li><b>EA がサーバーにつながるようにする</b><br>
+      ライセンスの確認と同じ準備です（「DLL の使用を許可する」か「WebRequest を許可する URL リスト」）。くわしくは <a href="license.html">ライセンス</a> の「キーの入れ方」の手順 1 をご覧ください。ライセンス OK と出ていれば、準備はできています。</li>
+    <li><b>キーにメールアドレスが登録されていること</b><br>
+      パスワードを決めるリンクは、キーを申し込んだときのメールアドレスに届きます。</li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <h2>登録のしかた</h2>
+  <p class="sub">はじめに 1 度だけ、パスワードを決めます。お持ちのライセンスキーのどれか 1 つと、そのパスワードでログインします。</p>
+  <ol class="steps">
+    <li><b>スマホのページを開く</b><br>
+      スマホのブラウザで <a href="remote.html">hamanea.github.io/remote.html</a> を開きます。</li>
+    <li><b>「はじめての方・パスワードを忘れた方」を押す</b><br>
+      ライセンスキーを入れて「リンクを送る」を押します。小文字やハイフンなしで入れても、自動で直します。</li>
+    <li><b>メールのリンクを開く</b><br>
+      キーに登録したメールアドレスに、パスワードを決めるためのリンクが届きます。リンクは 1 時間だけ使えます。届かないときは、迷惑メールのフォルダもご確認ください。</li>
+    <li><b>パスワードを決める</b><br>
+      10 文字以上で、大文字・小文字・数字・記号を、それぞれ 1 つ以上入れてください。条件を満たすと、画面の ○ が ● に変わります。決めると、そのままログインします。</li>
+    <li><b>次からはログインするだけ</b><br>
+      キーとパスワードでログインします。「このスマホにキーを覚える」にチェックを入れておくと、次からはパスワードだけで入れます。</li>
+  </ol>
+  <div class="shots three">
+    <figure><span class="ph"><img src="img/app/app_login.png" alt="ログインの画面" loading="lazy"></span><figcaption><b>ログイン</b><span>はじめての方は、いちばん下のリンクから。</span></figcaption></figure>
+    <figure><span class="ph"><img src="img/app/app_first.png" alt="リンクを送る画面" loading="lazy"></span><figcaption><b>リンクを送る</b><span>キーを入れて「リンクを送る」。</span></figcaption></figure>
+    <figure><span class="ph"><img src="img/app/app_setpw.png" alt="パスワードを決める画面" loading="lazy"></span><figcaption><b>パスワードを決める</b><span>メールのリンクから開きます。</span></figcaption></figure>
+  </div>
+  <div class="box note" style="margin-top:22px">
+    <b>ホーム画面に置くと便利です</b><br>
+    iPhone（Safari）：共有ボタン →「ホーム画面に追加」<br>
+    Android（Chrome）：右上の ︙ →「ホーム画面に追加」<br>
+    アプリのように、アイコンから開けます。
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>画面の見方</h2>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>場所</th><th>出ているもの・できること</th></tr>
+    <tr><td>口座残高</td><td>EA が最後に知らせてきたときの口座残高です。</td></tr>
+    <tr><td>含み損益</td><td>いま持っているポジションの損益です（まだ決済していない分）。</td></tr>
+    <tr><td>決済した損益</td><td>今日決済して、確定した損益です。</td></tr>
+    <tr><td>今日の合計</td><td>含み損益と決済した損益を足したものです。</td></tr>
+    <tr><td>EA の状態</td><td>「保有中」「待機中」「オフライン」などです。EA を押すと、今の状態のくわしい説明、ポジションごとの損益、今日の決済が出ます。</td></tr>
+    <tr><td>ロットの量</td><td>攻め・標準・守りを切り替えます。ポジションを持っているときは、全部決済されてから切り替わります。</td></tr>
+    <tr><td>新しいエントリー</td><td>OFF にすると、新しくポジションを建てません。持っているポジションは、EA が最後まで管理します。</td></tr>
+    <tr><td>成績</td><td>EA ごとの、直近 1 週間の日ごとの損益と、期間ごとのまとめです。</td></tr>
+    <tr><td>お知らせ</td><td>EA から届いたお知らせです。まだ見ていないものがあると、数字が付きます。</td></tr>
+    <tr><td>☰ メニュー</td><td>表示モード（自動・ライト・ダーク）、お知らせの受け取り方、ログアウトです。</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:12px">損益は、HAMA の EA の取引だけです。ほかの EA や手動の取引は入りません。くわしい値動きは、MT5 のスマホアプリでご確認ください。</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>お知らせの受け取り方</h2>
+  <p class="sub">どのお知らせも、スマホのページの「お知らせ」に出ます。「メール＋アプリ」にしたものは、メールでも届きます。</p>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>お知らせ</th><th>いつ</th></tr>
+    <tr><td>EA がオフラインになった・戻った</td><td>EA から、決めた時間（5 分・10 分・30 分から選べます）知らせが届かなかったとき。MT5 やパソコンが止まったときなどです。</td></tr>
+    <tr><td>EA が起動・再起動した</td><td>EA をチャートに載せたときや、MT5 を起動し直したとき。</td></tr>
+    <tr><td>「自動売買」が OFF・ON になった</td><td>MT5 の「自動売買」ボタンが切り替わったとき。</td></tr>
+    <tr><td>スマホからの設定が切り替わった</td><td>スマホで変えた設定を、EA が受け取って切り替えたとき。</td></tr>
+  </table></div>
+  <div class="box note" style="margin-top:18px">
+    <b>MT5 のスマホアプリの通知も使えます</b><br>
+    MT5 のスマホアプリの「MetaQuotes ID」を、パソコンの MT5 の「ツール → オプション → 通知」に入れて「プッシュ通知を有効にする」にチェックを入れると、起動・「自動売買」OFF・設定の切り替えは、EA からすぐにプッシュ通知でも届きます。
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <h2>困ったとき</h2>
+  <div class="tblwrap"><table class="tbl">
+    <tr><th>こんなとき</th><th>すること</th></tr>
+    <tr><td>リンクのメールが届かない</td><td>迷惑メールのフォルダを確かめてください。続けて送るときは、5 分ほどあけてください。</td></tr>
+    <tr><td>「リンクの期限が切れました」と出る</td><td>リンクは 1 時間だけ使えます。もう一度「はじめての方・パスワードを忘れた方」からリンクを送ってください。</td></tr>
+    <tr><td>パスワードを忘れた</td><td>「はじめての方・パスワードを忘れた方」から、決め直せます。</td></tr>
+    <tr><td>ログインできない（30 分ロック）</td><td>5 回まちがえると、30 分ログインできなくなります。時間をおいてからお試しください。</td></tr>
+    <tr><td>「メールアドレスが登録されていません」と出る</td><td>販売元にご連絡ください。</td></tr>
+    <tr><td>EA が一覧に出てこない</td><td>EA が対応した版か、パネルに「ライセンス OK」と出ているかを確かめてください。EA を動かしてから、数分で出ます。</td></tr>
+    <tr><td>EA が「オフライン」のまま</td><td>MT5 とパソコン（VPS）が動いているか、ネットにつながっているかを確かめてください。</td></tr>
+    <tr><td>設定がなかなか切り替わらない</td><td>EA が次に知らせてくるとき（2 分以内）に届きます。ロットの量は、持っているポジションが全部決済されてから切り替わります。</td></tr>
+  </table></div>
+  <p style="color:var(--sub);margin-top:12px">パスワードは、そのまま保存せず、元に戻せない形にして保存しています。</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p class="disc">投資にはリスクがあります。EA は利益を約束するものではなく、過去の検証結果は将来の成績を保証しません。本ソフトは投資助言ではありません。売買の判断・設定・資金の管理は、ご自身の責任で行ってください。</p>
+  <span>© 2026 HAMA</span>
+</div></footer>
+</body>
+</html>
