@@ -196,7 +196,7 @@
     if (prev !== i) { slides[prev].classList.add('was-on'); setTimeout(function (s) { return function () { s.classList.remove('was-on'); }; }(slides[prev]), 900); }
     for (var k = 0; k < slides.length; k++) { slides[k].classList.toggle('is-on', k === i); slides[k].setAttribute('aria-hidden', k === i ? 'false' : 'true'); slides[k].tabIndex = k === i ? 0 : -1; dots[k].classList.toggle('on', k === i); }
   }
-  function play() { stop(); if (!still) t = setInterval(function () { show(i + 1); }, 5000); }
+  function play() { stop(); if (!still) t = setInterval(function () { show(i + 1); }, (window.matchMedia && window.matchMedia('(max-width: 640px)').matches) ? 8000 : 5000); }
   function stop() { if (t) { clearInterval(t); t = null; } }
   for (var k = 0; k < dots.length; k++) (function (k) { dots[k].addEventListener('click', function () { show(k); play(); }); })(k);
   root.querySelectorAll('.hs-arrow').forEach(function (b) { b.addEventListener('click', function () { show(i + Number(b.getAttribute('data-go'))); play(); }); });
