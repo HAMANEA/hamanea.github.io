@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="style.css?v=20261124a">
 <style>
 /* ヒーロー（3人） */
-.story-hero { position: relative; overflow: hidden; min-height: 440px; display: flex; align-items: center; }
+.story-hero { position: relative; overflow: hidden; min-height: 0; border-bottom: 0; display: flex; align-items: center; }
 .story-hero .wrap { position: relative; z-index: 2; width: 100%; }
 .story-hero .lead b { color: #fff; }
 .sh-trio { position: absolute; z-index: 1; right: max(0px, calc(50% - 620px)); bottom: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
@@ -73,11 +73,12 @@
 .st-secret .q { font-family: "Fredoka", sans-serif; font-size: 140px; font-weight: 700; color: #c9a6ff; opacity: .85; text-shadow: 0 0 28px rgba(169,112,255,.8); line-height: 1; }
 .st-secret .chara-name { color: #2a0f44; background: linear-gradient(180deg, #f2e6ff, #c9a6ff 60%, #a970ff); border-color: #f6efff; box-shadow: 0 4px 0 #5e3a99, 0 10px 22px rgba(0,0,0,.45); }
 .st-secret .chara-name::before, .st-secret .chara-name::after { color: #f2e6ff; text-shadow: 0 0 6px rgba(200,160,255,.9); }
-.gate-banner { margin: 0; line-height: 0; border-top: 1px solid var(--line); background: #0b0c0f; }
+.gate-banner { margin: 0; line-height: 0; background: #0b0c0f; border-bottom: 1px solid var(--line); }
 .gate-banner img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
 .school-sec { position: relative; overflow: hidden; }
 .school-sec::before { content: ""; position: absolute; inset: 0; background: url(img/chara/classroom_1nen.webp?v=20261125) center 40% / cover no-repeat; opacity: .16; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); pointer-events: none; }
 .school-sec .wrap { position: relative; z-index: 1; }
+.story-hero p.lead.sh-lead2 { margin-top: 14px; font-size: 15px; max-width: 560px; }
 .fiction { font-size: 13px; color: #8d9098; margin-top: 20px; }
 /* 五角形のステータス（数字は出さない・形だけ） */
 .st-stat { width: 260px; margin: 14px auto 0; }
@@ -108,19 +109,17 @@
 </div></header>
 
 <div class="hero story-hero">
-  <img class="sh-trio" src="img/chara/trio_full.webp?v=20261125" alt="うめちゃん・トレン・ナミ">
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">STORY</span>
     <h1 class="sh-school"><span class="g">HAMA EA学園</span></h1>
     <p class="lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b>「EAマスター」</b>をめざして操縦の練習をしています。</p>
+    <p class="lead sh-lead2">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>4年制で、1〜3年生はシミュレーター（デモ口座）で練習し、4年生でリアルの操縦免許をとります。</p>
   </div>
 </div>
 
 <main>
 <div class="gate-banner"><img src="img/chara/gate_trio_1920.webp?v=20261125" alt="HAMA EA学園の校門の前に立つ、うめちゃん・トレン・ナミ"></div>
 <section class="school-sec"><div class="wrap">
-  <h2>学校のしくみ</h2>
-  <p class="sub">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>4年制で、1〜3年生はシミュレーター（デモ口座）で練習し、4年生でリアルの操縦免許をとります。</p>
   <div class="grades">
     <div class="grade"><b>1年生</b><span>シミュレーター</span><p>相場のきほんと、操縦のきほんを学びます。</p></div>
     <div class="grade"><b>2年生</b><span>シミュレーター</span><p>担当の機体（EA）で、自分の戦略をじっくり練習します。</p></div>
