@@ -146,10 +146,10 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="card">
 <h2>EA のようすと設定</h2>
 <div class="lbl">ライセンスキー（お持ちのどれか 1 つ）</div>
-<input class="in key" id="lkey" autocomplete="username" autocapitalize="characters" autocorrect="off" spellcheck="false" inputmode="text" maxlength="24" placeholder="XXXX-XXXX-XXXX-XXXX">
+<input class="in key" id="lkey" name="username" autocomplete="username" autocapitalize="characters" autocorrect="off" spellcheck="false" inputmode="url" lang="en" maxlength="40" placeholder="XXXX-XXXX-XXXX-XXXX">
 <div class="hint">小文字・ハイフンなしでも大丈夫です（自動で直します）。コピーして貼り付けもできます。</div>
 <div class="lbl">パスワード</div>
-<div class="pwbox"><input class="in" id="lpw" type="password" autocomplete="current-password"><button class="eye" type="button" data-eye="lpw" aria-label="パスワードを表示">表示</button></div>
+<div class="pwbox"><input class="in" id="lpw" name="password" type="password" autocomplete="current-password"><button class="eye" type="button" data-eye="lpw" aria-label="パスワードを表示">表示</button></div>
 <label class="remember"><input type="checkbox" id="lrem" checked> このスマホにキーを覚える（次からパスワードだけ）</label>
 <div class="err" id="lerr"></div>
 <button class="go" id="lgo">ログイン</button>
@@ -261,7 +261,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124g';
+const PAGE_VER = '20261124h';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -298,12 +298,22 @@ paintTheme();
 
 // キーの入力: 英数字だけ拾って大文字にし、4 文字ごとにハイフンを入れる（貼り付けも同じ）
 function fmtKey(v) { const s = String(v).toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 16); return s.replace(/(.{4})(?=.)/g, '$1-'); }
-document.querySelectorAll('.in.key').forEach(el => el.addEventListener('input', () => {
-  const before = el.value, pos = el.selectionStart, raw = before.slice(0, pos).replace(/[^A-Za-z0-9]/g, '').length;
-  el.value = fmtKey(before);
-  let p = 0, n = 0; while (p < el.value.length && n < raw) { if (/[A-Z0-9]/.test(el.value[p])) n++; p++; }
-  try { el.setSelectionRange(p, p); } catch (e) {}
-}));
+// 日本語キーボードの変換中に書きかえると、文字が二重に入る。変換中は触らず、変換が終わってから・欄を出るときに直す
+document.querySelectorAll('.in.key').forEach(el => {
+  let comp = false;
+  const fix = () => {
+    const before = el.value, pos = el.selectionStart == null ? before.length : el.selectionStart, raw = before.slice(0, pos).replace(/[^A-Za-z0-9]/g, '').length;
+    const v = fmtKey(before);
+    if (v === before) return;
+    el.value = v;
+    let p = 0, n = 0; while (p < v.length && n < raw) { if (/[A-Z0-9]/.test(v[p])) n++; p++; }
+    if (document.activeElement === el) try { el.setSelectionRange(p, p); } catch (e) {}
+  };
+  el.addEventListener('compositionstart', () => { comp = true; });
+  el.addEventListener('compositionend', () => { comp = false; setTimeout(fix, 0); });
+  el.addEventListener('input', e => { if (!comp && !e.isComposing) fix(); });
+  el.addEventListener('blur', fix);
+});
 document.querySelectorAll('[data-eye]').forEach(b => b.onclick = () => { const i = $(b.dataset.eye), sh = i.type === 'password'; i.type = sh ? 'text' : 'password'; b.textContent = sh ? '隠す' : '表示'; });
 if (store.get('hama_key')) $('lkey').value = store.get('hama_key');
 // ログイン
