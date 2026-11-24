@@ -248,6 +248,75 @@ h3.grp{font-size:18px;margin-top:32px;color:var(--gold)}
 .lead2{font-size:16.5px;margin:10px 0 4px}
 </style>
 
+<style>
+html{scroll-padding-top:64px}
+#hama-bar{margin:-8px -24px 0;position:sticky;top:0;z-index:2147483000;background:#0b0c0e;border-bottom:1px solid #2a2c31;font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;font-size:14px;line-height:1.4}
+#hama-bar .in{max-width:1048px;margin:0 auto;padding:8px 24px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#hama-bar a{color:#a2a5ab;text-decoration:none;padding:6px 10px;border-radius:8px;white-space:nowrap}
+#hama-bar a:hover{color:#fff;background:#141518}
+#hama-bar a.b{color:#ececee;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:8px;padding-left:0}
+#hama-bar a.b img{width:26px;height:26px}
+#hama-bar a.d{margin-left:auto;background:#f2f3f5;color:#0b0c0e;font-weight:700}
+#hama-bar a.d:hover{background:#fff;color:#000}
+#hama-bar .dd{position:relative;display:flex}
+#hama-bar .dd-btn{background:transparent;border:0;color:#a2a5ab;font:inherit;padding:6px 10px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:4px}
+#hama-bar .dd-btn:hover,#hama-bar .dd.open .dd-btn{color:#fff;background:#141518}
+#hama-bar .dd-ar{font-size:11px;opacity:.8}
+#hama-bar .dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:210px;padding:6px;background:rgba(11,12,14,.98);border:1px solid #2a2c31;border-radius:12px;box-shadow:0 14px 30px rgba(0,0,0,.45);z-index:5}
+#hama-bar .dd-menu a,#hama-bar .dd-menu a.m{display:block;padding:9px 12px}
+#hama-bar .dd-menu a:nth-child(1){color:#e6c766}#hama-bar .dd-menu a:nth-child(2){color:#7fd3ff}#hama-bar .dd-menu a:nth-child(3){color:#7fdca2}
+#hama-bar .dd-menu a.on{background:#141518}
+@media (min-width:721px){#hama-bar .dd:hover .dd-menu,#hama-bar .dd.open .dd-menu,#hama-bar .dd:focus-within .dd-menu{display:block}}
+@media (max-width:720px){#hama-bar .dd{display:block}#hama-bar .dd-btn{width:100%;font-size:16px;letter-spacing:.08em;padding:12px 14px;justify-content:space-between;color:#a2a5ab}#hama-bar .dd-menu{position:static;display:none;min-width:0;margin:2px 0 4px 14px;padding:0 0 0 10px;background:transparent;border:0;border-left:2px solid #2a2c31;border-radius:0;box-shadow:none}#hama-bar .dd.open .dd-menu{display:block}#hama-bar .dd-menu a,#hama-bar .dd-menu a.m{font-size:15px;padding:10px 12px}}
+#hama-bar .mb,#hama-bar a.m{display:none}
+#hama-bar .lk{display:contents}
+@media (max-width:720px){
+#hama-bar .in{position:relative;flex-wrap:nowrap;gap:8px;padding:8px 16px}
+#hama-bar .mb{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:0 11px;margin:0;background:transparent;border:1px solid #2a2c31;border-radius:10px;cursor:pointer;order:3;-webkit-appearance:none;appearance:none}
+#hama-bar .mb span{display:block;width:18px;height:2px;margin:0;background:#ececee;border-radius:2px;transition:transform .2s,opacity .2s}
+#hama-bar.open .mb span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+#hama-bar.open .mb span:nth-child(2){opacity:0}
+#hama-bar.open .mb span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+#hama-bar a.d{margin-left:auto;order:2;padding:8px 12px;font-size:13px}
+#hama-bar .lk{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:4px;padding:8px 16px 16px;background:rgba(11,12,14,.98);border-bottom:1px solid #2a2c31;box-shadow:0 12px 24px rgba(0,0,0,.45)}
+#hama-bar.open .lk{display:flex}
+#hama-bar .lk a,#hama-bar .lk a.m{display:block;font-size:16px;letter-spacing:.08em;padding:12px 14px;border-radius:10px;color:#a2a5ab;border:1px solid transparent}
+#hama-bar .lk a.on{color:#f2d27a;background:#141518;border-color:#2a2c31}
+}
+/* 説明書の表紙の HAMA ロゴは、上の帯のロゴとかぶるのでホームページ版では出さない */
+.brand{display:none!important}
+/* 手順（ol.steps）の中の箇条書きは、ふつうの行に（手順用の 2 列のレイアウトが中の行にもかかって、文字が縦に並ぶのを防ぐ） */
+ol.steps li li{display:list-item!important;grid-template-columns:none!important}
+ol.steps li li::before{content:none!important}
+/* スマホで左右に動かないように（説明書そのものは変えず、ホームページ版だけで直す） */
+html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
+img,svg,video{max-width:100%;height:auto}
+@media (max-width:640px){
+#hama-bar{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
+#hama-bar .in{padding:8px 16px}
+table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
+pre{overflow-x:auto;max-width:100%}
+body{overflow-wrap:anywhere}
+/* 設定カードの表：左の列（方式名）も折り返して、右の 2 列に幅をゆずる */
+.scard .tbl td.k{white-space:normal!important;width:6.5em}
+.scard .tbl td,.scard .tbl th{padding:7px 8px!important}
+}
+</style>
+<nav id="hama-bar"><div class="in">
+<a class="b" href="index.html"><img src="img/hama_logo.svg" alt="">HAMA</a>
+<button class="mb" type="button" aria-label="メニュー" aria-expanded="false" onclick="var o=document.getElementById('hama-bar').classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
+<div class="lk">
+<a href="index.html">TOP</a>
+    <a href="news.html">NEWS</a>
+<div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a class="m on" href="tre.html">TREND G3</a><a class="m" href="nami.html">NAMITORE G4</a><a class="m" href="mado.html">MADOUME G7</a></div></div>
+<a href="setup.html">SETUP</a>
+<a href="license.html">LICENSE</a>
+<a href="report.html">REPORT</a>
+<a href="app.html">REMOTE</a>
+<a href="faq.html">FAQ</a>
+</div>
+<a class="d" href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">デモを申し込む</a>
+</div></nav>
 <div class="wrap">
 <header class="top">
   <div class="hd-text">
@@ -589,75 +658,6 @@ header.top .waveart, header.top img { display: none !important; }
 .hama-lic code { word-break: break-all; }
 .hama-lic .hama-lic-note { opacity: .8; font-size: .92em; }
 </style>
-<style>
-html{scroll-padding-top:64px}
-#hama-bar{margin:-8px -24px 0;position:sticky;top:0;z-index:2147483000;background:#0b0c0e;border-bottom:1px solid #2a2c31;font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic","Meiryo",sans-serif;font-size:14px;line-height:1.4}
-#hama-bar .in{max-width:1048px;margin:0 auto;padding:8px 24px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-#hama-bar a{color:#a2a5ab;text-decoration:none;padding:6px 10px;border-radius:8px;white-space:nowrap}
-#hama-bar a:hover{color:#fff;background:#141518}
-#hama-bar a.b{color:#ececee;font-weight:700;letter-spacing:.08em;display:flex;align-items:center;gap:8px;padding-left:0}
-#hama-bar a.b img{width:26px;height:26px}
-#hama-bar a.d{margin-left:auto;background:#f2f3f5;color:#0b0c0e;font-weight:700}
-#hama-bar a.d:hover{background:#fff;color:#000}
-#hama-bar .dd{position:relative;display:flex}
-#hama-bar .dd-btn{background:transparent;border:0;color:#a2a5ab;font:inherit;padding:6px 10px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:4px}
-#hama-bar .dd-btn:hover,#hama-bar .dd.open .dd-btn{color:#fff;background:#141518}
-#hama-bar .dd-ar{font-size:11px;opacity:.8}
-#hama-bar .dd-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:210px;padding:6px;background:rgba(11,12,14,.98);border:1px solid #2a2c31;border-radius:12px;box-shadow:0 14px 30px rgba(0,0,0,.45);z-index:5}
-#hama-bar .dd-menu a,#hama-bar .dd-menu a.m{display:block;padding:9px 12px}
-#hama-bar .dd-menu a:nth-child(1){color:#e6c766}#hama-bar .dd-menu a:nth-child(2){color:#7fd3ff}#hama-bar .dd-menu a:nth-child(3){color:#7fdca2}
-#hama-bar .dd-menu a.on{background:#141518}
-@media (min-width:721px){#hama-bar .dd:hover .dd-menu,#hama-bar .dd.open .dd-menu,#hama-bar .dd:focus-within .dd-menu{display:block}}
-@media (max-width:720px){#hama-bar .dd{display:block}#hama-bar .dd-btn{width:100%;font-size:16px;letter-spacing:.08em;padding:12px 14px;justify-content:space-between;color:#a2a5ab}#hama-bar .dd-menu{position:static;display:none;min-width:0;margin:2px 0 4px 14px;padding:0 0 0 10px;background:transparent;border:0;border-left:2px solid #2a2c31;border-radius:0;box-shadow:none}#hama-bar .dd.open .dd-menu{display:block}#hama-bar .dd-menu a,#hama-bar .dd-menu a.m{font-size:15px;padding:10px 12px}}
-#hama-bar .mb,#hama-bar a.m{display:none}
-#hama-bar .lk{display:contents}
-@media (max-width:720px){
-#hama-bar .in{position:relative;flex-wrap:nowrap;gap:8px;padding:8px 16px}
-#hama-bar .mb{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:0 11px;margin:0;background:transparent;border:1px solid #2a2c31;border-radius:10px;cursor:pointer;order:3;-webkit-appearance:none;appearance:none}
-#hama-bar .mb span{display:block;width:18px;height:2px;margin:0;background:#ececee;border-radius:2px;transition:transform .2s,opacity .2s}
-#hama-bar.open .mb span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-#hama-bar.open .mb span:nth-child(2){opacity:0}
-#hama-bar.open .mb span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-#hama-bar a.d{margin-left:auto;order:2;padding:8px 12px;font-size:13px}
-#hama-bar .lk{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:4px;padding:8px 16px 16px;background:rgba(11,12,14,.98);border-bottom:1px solid #2a2c31;box-shadow:0 12px 24px rgba(0,0,0,.45)}
-#hama-bar.open .lk{display:flex}
-#hama-bar .lk a,#hama-bar .lk a.m{display:block;font-size:16px;letter-spacing:.08em;padding:12px 14px;border-radius:10px;color:#a2a5ab;border:1px solid transparent}
-#hama-bar .lk a.on{color:#f2d27a;background:#141518;border-color:#2a2c31}
-}
-/* 説明書の表紙の HAMA ロゴは、上の帯のロゴとかぶるのでホームページ版では出さない */
-.brand{display:none!important}
-/* 手順（ol.steps）の中の箇条書きは、ふつうの行に（手順用の 2 列のレイアウトが中の行にもかかって、文字が縦に並ぶのを防ぐ） */
-ol.steps li li{display:list-item!important;grid-template-columns:none!important}
-ol.steps li li::before{content:none!important}
-/* スマホで左右に動かないように（説明書そのものは変えず、ホームページ版だけで直す） */
-html,body{overflow-x:hidden;overflow-x:clip;max-width:100%}
-img,svg,video{max-width:100%;height:auto}
-@media (max-width:640px){
-#hama-bar{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw)}
-#hama-bar .in{padding:8px 16px}
-table{display:block;overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}
-pre{overflow-x:auto;max-width:100%}
-body{overflow-wrap:anywhere}
-/* 設定カードの表：左の列（方式名）も折り返して、右の 2 列に幅をゆずる */
-.scard .tbl td.k{white-space:normal!important;width:6.5em}
-.scard .tbl td,.scard .tbl th{padding:7px 8px!important}
-}
-</style>
-<nav id="hama-bar"><div class="in">
-<a class="b" href="index.html"><img src="img/hama_logo.svg" alt="">HAMA</a>
-<button class="mb" type="button" aria-label="メニュー" aria-expanded="false" onclick="var o=document.getElementById('hama-bar').classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
-<div class="lk">
-<a href="index.html">TOP</a>
-    <a href="news.html">NEWS</a>
-<div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a class="m on" href="tre.html">TREND G3</a><a class="m" href="nami.html">NAMITORE G4</a><a class="m" href="mado.html">MADOUME G7</a></div></div>
-<a href="setup.html">SETUP</a>
-<a href="license.html">LICENSE</a>
-<a href="report.html">REPORT</a>
-<a href="app.html">REMOTE</a>
-<a href="faq.html">FAQ</a>
-</div>
-<a class="d" href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">デモを申し込む</a>
-</div></nav>
   <h3>設定を受け取る</h3>
   <p><b>はじめにネットにつながっている状態でEAを動かすと、設定を受け取ります。</b>ストラテジーテスターの前に、一度チャートでEAを動かしてください（ライセンスがOKになると受け取ります）。受け取るまでは、新しい注文を出しません。</p>
   <div class="note info"><b>再起動しても大丈夫</b>MT5を閉じて開き直しても、保有中のポジション、パネルの位置、設定欄で変えた値はそのまま引き継ぎます。</div>
