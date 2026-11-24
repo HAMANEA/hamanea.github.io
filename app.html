@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HAMA REMOTE（リモート） | HAMA</title>
+<title>HAMA REMOTE | HAMA</title>
 <meta name="description" content="HAMA の EA のようすと設定を、スマホで見られるページ。登録のしかたと画面の見方。すべての EA で共通です。">
 <link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,7 +42,10 @@ main a:not(.btn):active { color: #1a0b12; background: var(--pk); }
 .shots .ph::before { left: -5px; top: 18%; height: 7%; }
 .shots .ph::after  { right: -5px; top: 24%; height: 12%; }
 .shots .ph .vol { position: absolute; left: -5px; top: 29%; width: 3px; height: 10%; border-radius: 2px; background: linear-gradient(90deg, #6d7077, #a4a7ae); }
-.shots .scrn { position: relative; display: block; overflow: hidden; border-radius: 28px; background: #000; }
+/* 画面は実際の iPhone と同じ比率（393 × 852）: 上のステータスバー 54、中身 764、下のホームバー 34 */
+.shots .scrn { position: relative; display: flex; flex-direction: column; overflow: hidden; border-radius: 28px; background: #000; aspect-ratio: 393 / 852; }
+.shots .scrn .sb { flex: 0 0 6.34%; height: auto; }
+.shots .scrn img { flex: 0 0 89.67%; height: 89.67%; min-height: 0; object-fit: cover; object-position: top; }
 .shots .sb { display: flex; align-items: center; justify-content: space-between; height: 24px; padding: 0 14px 0 18px;
   color: #fff; font: 600 9.5px/1 -apple-system, "Helvetica Neue", Arial, sans-serif; letter-spacing: .02em; }
 .shots .sb svg { height: 8px; width: auto; display: block; }
@@ -78,7 +81,7 @@ main a:not(.btn):active { color: #1a0b12; background: var(--pk); }
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">REMOTE</span>
     <h1><span class="g">HAMA REMOTE</span></h1>
-    <p class="lead">HAMA REMOTE（リモート）は、EA のようすと損益を、外出先からスマホで確かめられるページです。ロットの量の切り替えや、新しいエントリーの停止もできます。すべての HAMA の EA で共通です。</p>
+    <p class="lead">HAMA REMOTE は、EA のようすと損益を、外出先からスマホで確かめられるページです。ロットの量の切り替えや、新しいエントリーの停止もできます。すべての HAMA の EA で共通です。</p>
     <a class="btn open-app" href="remote.html">リモートを開く <i>→</i></a>
   </div>
 </div>
@@ -156,6 +159,22 @@ main a:not(.btn):active { color: #1a0b12; background: var(--pk); }
     <tr><td>☰ メニュー</td><td>表示モード（自動・ライト・ダーク）、お知らせの受け取り方、ログアウトです。</td></tr>
   </table></div>
   <p style="color:var(--sub);margin-top:12px">損益は、HAMA の EA の取引だけです。ほかの EA や手動の取引は入りません。くわしい値動きは、MT5 のスマホアプリでご確認ください。</p>
+</div></section>
+
+<section><div class="wrap">
+  <h2>表示モード（自動・ライト・ダーク）</h2>
+  <p class="sub">画面の明るさは、右上の ☰ メニューの「表示モード」で選べます。はじめは「自動」です。</p>
+  <div class="shots three">
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_menu.png" alt="メニューの表示モード" loading="lazy"><i class="home"></i></span></span><figcaption><b>メニュー → 表示モード</b><span>右上の ☰ から選びます。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_home_light.png" alt="ライトモードの一覧" loading="lazy"><i class="home"></i></span></span><figcaption><b>ライト</b><span>明るい画面です。屋外でも見やすくなります。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_home.png" alt="ダークモードの一覧" loading="lazy"><i class="home"></i></span></span><figcaption><b>ダーク</b><span>暗い画面です。夜もまぶしくありません。</span></figcaption></figure>
+  </div>
+  <ul class="check" style="margin-top:18px">
+    <li><b>自動</b>：スマホの設定（ライト・ダーク）に合わせて、自動で切り替わります</li>
+    <li><b>ライト</b>：いつも明るい画面で表示します</li>
+    <li><b>ダーク</b>：いつも暗い画面で表示します</li>
+    <li>選んだモードは、このスマホが覚えています。次に開いたときも同じです</li>
+  </ul>
 </div></section>
 
 <section><div class="wrap">

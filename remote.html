@@ -61,6 +61,7 @@ button{cursor:pointer}
 .accs .ab{text-align:right;font-weight:700;font-size:14px;white-space:nowrap}
 .accs .ab .bad{display:block;font-size:11px;color:var(--red);font-weight:400}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line)}
+.tabbar[hidden]{display:none}
 .tabbar button{flex:1;max-width:150px;background:transparent;border:0;border-radius:10px;color:var(--sub);font-size:12px;padding:5px 0;display:flex;flex-direction:column;align-items:center;gap:1px;position:relative}
 .tabbar button b{font-size:16px;line-height:1.3;position:relative;opacity:.45}
 .tabbar button.on{color:var(--tx);font-weight:700}
@@ -87,7 +88,7 @@ button{cursor:pointer}
 .st2 tr.sum td{border-top:2px solid var(--line)}
 .scroll-x{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .chart{display:block;width:100%;height:auto}
-#home{padding-bottom:70px}
+#home,#detail,#score,#notice{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
 .menubtn{display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
 .menubtn span{display:block;width:16px;height:2px;background:var(--tx);border-radius:2px}
 .menu{position:fixed;inset:0;z-index:20}
@@ -248,13 +249,15 @@ h2{font-size:15px;margin:2px 0 8px}
 </div>
 </div>
 <div class="list" id="ealist"></div>
-<nav class="tabbar" id="accseg">
+</div>
+
+<!-- 下のボタン（ログインしたあとの、どの画面にも出す） -->
+<nav class="tabbar" id="accseg" hidden>
 <button class="real" data-acc="real"><b>●</b>リアル口座</button>
 <button data-acc="demo"><b>●</b>デモ口座</button>
 <button class="sc" id="toscore"><b>📊</b>成績</button>
-<button class="bell" data-go="notice"><b>🔔<em id="badge" hidden></em></b>お知らせ</button>
+<button class="bell" id="tonotice"><b>🔔<em id="badge" hidden></em></b>お知らせ</button>
 </nav>
-</div>
 
 <!-- メニュー -->
 <div class="menu" id="menu" hidden>
@@ -308,7 +311,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124s';
+const PAGE_VER = '20261124u';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -330,7 +333,17 @@ async function api(op, body) {
   const r = await fetch(API, { method: 'POST', body: JSON.stringify(Object.assign({ op, tok }, body || {})) });
   return r.json();
 }
-function show(s) { document.querySelectorAll('.scr').forEach(e => e.classList.toggle('on', e.id === s)); window.scrollTo(0, 0); if (s === 'notice') markRead(); }
+// 下のボタンは、ログインしたあとの画面（一覧・詳細・成績・お知らせ）すべてに出す。今の画面のボタンを光らせる
+const TAB_SCR = ['home', 'detail', 'score', 'notice'];
+let curScr = '';
+function paintTabs() {
+  const t = $('accseg'); if (!t) return;
+  t.hidden = TAB_SCR.indexOf(curScr) < 0;
+  t.querySelectorAll('button[data-acc]').forEach(b => b.classList.toggle('on', (curScr === 'home' || curScr === 'detail') && b.dataset.acc === cur));
+  $('toscore').classList.toggle('on', curScr === 'score');
+  $('tonotice').classList.toggle('on', curScr === 'notice');
+}
+function show(s) { curScr = s; document.querySelectorAll('.scr').forEach(e => e.classList.toggle('on', e.id === s)); window.scrollTo(0, 0); paintTabs(); if (s === 'notice') markRead(); }
 document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => show(b.dataset.go));
 
 // 表示モード
@@ -462,7 +475,7 @@ function accounts() {
 function renderHome() {
   const has = { real: data.units.some(u => !u.demo), demo: data.units.some(u => u.demo) };
   if (!has[cur] && has[cur === 'real' ? 'demo' : 'real']) cur = cur === 'real' ? 'demo' : 'real';
-  document.querySelectorAll('#accseg button[data-acc]').forEach(b => b.classList.toggle('on', b.dataset.acc === cur));
+  paintTabs();
   const accs = accounts(), ids = Object.keys(accs);
   if (!accSel || ids.indexOf(accSel) < 0) accSel = ids[0] || null;
   const kind = cur === 'real' ? 'リアル口座' : 'デモ口座';
@@ -493,7 +506,9 @@ function renderHome() {
     return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; }).join('');
   $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
 }
-document.querySelectorAll('#accseg button[data-acc]').forEach(b => b.onclick = () => { cur = b.dataset.acc; store.set('hama_acc', cur); accSel = null; renderHome(); });
+// リアル口座・デモ口座: どの画面からでも、その口座の一覧に戻る
+document.querySelectorAll('#accseg button[data-acc]').forEach(b => b.onclick = () => { const same = cur === b.dataset.acc; cur = b.dataset.acc; store.set('hama_acc', cur); if (!same) accSel = null; renderHome(); show('home'); });
+$('tonotice').onclick = () => show('notice');
 
 function renderDetail() {
   const u = data.units.find(x => x.unit === sel);
@@ -658,12 +673,14 @@ document.querySelectorAll('#minseg button').forEach(b => b.onclick = () => saveP
   const sh = MOCK && (location.search.match(/[?&]shot=(\w+)/) || [])[1];
   if (sh) {
     if (/[?&]dark=1/.test(location.search)) document.documentElement.setAttribute('data-theme', 'dark');
+    if (/[?&]light=1/.test(location.search)) document.documentElement.setAttribute('data-theme', 'light');
     if (sh === 'first' || sh === 'setpw' || sh === 'login') { show(sh); return; }
     tok = 'mock';
     load(true).then(() => {
       if (sh === 'detail' || sh === 'set') { const b = document.querySelector('#ealist .ea'); if (b) b.click(); if (sh === 'set') { const l = $('lotseg'); if (l) $('dbody').querySelectorAll('.card.pos').forEach(c => c.style.display = 'none'); } }
       else if (sh === 'score') openScore();
       else if (sh === 'notice') show('notice');
+      else if (sh === 'menu') { menu(true); document.querySelector('.msheet').style.animation = 'none'; }
     });
     return;
   }
