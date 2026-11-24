@@ -98,6 +98,8 @@
   .hs-chara-left .hs-desc { font-size: 14px; line-height: 1.75; }
   .hs-chara-left .hs-nick { font-size: 12px; }
   .hs-name { right: 14px; bottom: 16px; font-size: 18px; }
+  /* 下の成績表・REMOTE のカード: 絵の高さに枠をあわせる（横長の枠だとモニターや iPhone がはみ出して、下の「すべての EA 共通」の文字にかぶるため） */
+  .cards.rows .card.ea-report .img, .cards.rows .card.ea-remote .img { aspect-ratio: auto; }
   /* 切りかえのとき、前のスライドの文字やキャラが新しいスライド（モニターなど）のうしろに透けて見えないよう、先にすっと消す */
   .hs-slide.was-on .hs-in, .hs-slide.was-on .hs-chara, .hs-slide.was-on .chara-name { opacity: 0; transition: opacity .25s ease; }
   /* トレンはツインテールと指さしで横に広いので、右へ寄せて少し小さく */
