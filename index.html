@@ -90,6 +90,18 @@
   .hs-chara { left: auto; right: -30px; transform: none; top: 40px; height: 115%; opacity: .45; }
   .hs-chara-left .hs-in { padding-left: 16px; padding-right: 16px; }
 }
+/* スマホ: キャラは透けさせず、右に小さめに全身で置く。文字は左の列に */
+@media (max-width: 640px) {
+  .hs-chara, .hs-nami .hs-chara, .hs-mado .hs-chara { opacity: 1; top: auto; bottom: 0; right: -34px; height: 90%; }
+  .hs-chara-left .hs-in { padding-right: 49%; }
+  .hs-chara-left .hs-title { font-size: 27px; line-height: 1.15; }
+  .hs-chara-left .hs-desc { font-size: 14px; line-height: 1.75; }
+  .hs-chara-left .hs-nick { font-size: 12px; }
+  .hs-name { right: 14px; bottom: 16px; font-size: 18px; }
+  /* トレンはツインテールと指さしで横に広いので、右へ寄せて少し小さく */
+  .hs-chara-left:not(.hs-nami):not(.hs-mado) .hs-chara { right: -118px; height: 84%; }
+  .hs-chara-left .hs-title, .hs-chara-left .hs-desc { text-shadow: 0 2px 8px rgba(0,0,0,.8); }
+}
 </style>
 </head>
 <body>
@@ -113,7 +125,7 @@
  <div class="hs-track">
   <a class="hs-slide hs-ea hs-chara-left is-on" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="1 / 5">
    <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
-   <img class="hs-chara" src="img/chara/tren_full.webp" alt="">
+   <img class="hs-chara" src="img/chara/tren_full.webp?v=20261125" alt="">
    <span class="chara-name hs-name" aria-hidden="true">TOREN</span>
    <div class="wrap hs-in">
     <span class="hs-nick">トレンド追従</span>
@@ -124,7 +136,7 @@
   </a>
   <a class="hs-slide hs-ea hs-chara-left hs-nami" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="2 / 5">
    <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
-   <img class="hs-chara" src="img/chara/nami_full.webp" alt="ナミ">
+   <img class="hs-chara" src="img/chara/nami_full.webp?v=20261125" alt="ナミ">
    <span class="chara-name hs-name" aria-hidden="true">NAMI</span>
    <div class="wrap hs-in">
     <span class="hs-nick">レンジ（逆張り）</span>
@@ -135,7 +147,7 @@
   </a>
   <a class="hs-slide hs-ea hs-chara-left hs-mado" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="3 / 5">
    <div class="hs-bg" style="background-image:url(img/madoume_cover_chart.jpg)"></div>
-   <img class="hs-chara" src="img/chara/ume_full.webp" alt="うめちゃん">
+   <img class="hs-chara" src="img/chara/ume_full.webp?v=20261125" alt="うめちゃん">
    <span class="chara-name hs-name" aria-hidden="true">UME</span>
    <div class="wrap hs-in">
     <span class="hs-nick">押し目の積み増し</span>
@@ -206,7 +218,7 @@
   <h3 class="cat xau">ゴールド（XAUUSD）</h3>
   <div class="cards rows">
     <a class="card ea-tre" href="tre.html">
-      <div class="img" style="background-image:url(img/trend_cover.jpg)"><img class="card-chara" src="img/chara/tren_serious.webp" alt=""><span class="chara-name card-name" aria-hidden="true">TOREN</span></div>
+      <div class="img" style="background-image:url(img/trend_cover.jpg)"><img class="card-chara" src="img/chara/tren_serious.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">TOREN</span></div>
       <div class="body">
         <span class="nick">トレンド追従</span>
         <h3>HAMA TREND G3</h3>
@@ -215,7 +227,7 @@
       </div>
     </a>
     <a class="card ea-nami" href="nami.html">
-      <div class="img" style="background-image:url(img/namitore_cover.jpg)"><img class="card-chara" src="img/chara/nami_front.webp" alt=""><span class="chara-name card-name" aria-hidden="true">NAMI</span></div>
+      <div class="img" style="background-image:url(img/namitore_cover.jpg)"><img class="card-chara" src="img/chara/nami_front.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">NAMI</span></div>
       <div class="body">
         <span class="nick">レンジ（逆張り）</span>
         <h3>HAMA NAMITORE G4</h3>
@@ -224,7 +236,7 @@
       </div>
     </a>
     <a class="card ea-mado" href="mado.html">
-      <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"><img class="card-chara" src="img/chara/ume_front.webp" alt=""><span class="chara-name card-name" aria-hidden="true">UME</span></div>
+      <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"><img class="card-chara" src="img/chara/ume_front.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">UME</span></div>
       <div class="body">
         <span class="nick">押し目の積み増し</span>
         <h3>HAMA MADOUME G7</h3>
