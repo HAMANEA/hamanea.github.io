@@ -113,7 +113,21 @@ details[open] .ch{transform:rotate(90deg)}
 .okmsg{color:var(--ok);font-size:13px}
 .pos .row{padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}
 .pos .row:last-child{border:0}
+.pos .row.sub{color:var(--sub);font-size:13.5px}
+.pos .row.sub:first-of-type,.pos .row:not(.sub):not(.tot)+.row.sub{border-top:2px solid var(--line)}
+.today{font-size:12.5px;color:var(--sub);font-weight:400}
+.dtoday{margin:-4px 0 8px}
+.card h2 small.today{margin-left:8px}
+.score table{width:100%;border-collapse:collapse;font-size:14px}
+.score th,.score td{padding:8px 4px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.score tr:first-child th{font-size:12px;color:var(--sub);font-weight:400}
+.score th:first-child{text-align:left;font-weight:700}
+.score tr:last-child th,.score tr:last-child td{border:0}
+.pos .row.tot{font-weight:700;font-size:15.5px}
+.pos .row small{color:var(--sub);font-weight:400;font-size:12px;margin-left:4px}
 h2{font-size:15px;margin:2px 0 8px}
+#dbody .card h2{color:var(--c);border-left:4px solid var(--c);padding-left:9px;margin-left:-2px;line-height:1.3}
+#dbody .card h2 small.today{color:var(--sub)}
 .dh{display:flex;align-items:center;gap:10px;margin:6px 0 12px;flex-wrap:wrap}
 .dh .nm{font-size:20px;font-weight:700;letter-spacing:.05em;color:var(--c)}
 .nt{display:grid;grid-template-columns:1fr;gap:2px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
@@ -202,7 +216,7 @@ h2{font-size:15px;margin:2px 0 8px}
 <div class="accname" id="accname"></div>
 <div id="alerts"></div>
 <div class="card" id="sumcard">
-<div class="lbl">口座残高</div>
+<div class="row"><span class="lbl">口座残高</span><span class="today" id="today"></span></div>
 <div class="big" id="bal">—</div>
 <div class="grid2">
 <div><div class="lbl">本日損益</div><div style="font-size:17px;font-weight:700" id="day">—</div></div>
@@ -261,7 +275,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124h';
+const PAGE_VER = '20261124k';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -379,7 +393,19 @@ function status(u) {
 }
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 const detailOf = u => String(u.s && u.s.dt || '').trim();
-const parseList =s => String(s || '').split(',').filter(x => x).map(x => { const a = x.split(':'); return [a[0] === 'B' ? '買い' : '売り', a[1]]; });
+const today = () => { const d = new Date(data && data.now || Date.now()); return d.getFullYear() + '年' + (d.getMonth() + 1) + '月' + d.getDate() + '日（' + '日月火水木金土'[d.getDay()] + '）'; };
+// この EA の成績 "w:損益,回数,勝ち;m:…;y:…;a:…"
+function scoreCard(s, c) {
+  const m = {};
+  String(s.sc || '').split(';').forEach(x => { const a = x.split(':'); if (a.length === 2) { const b = a[1].split(','); m[a[0]] = { pl: Number(b[0]), n: Number(b[1]), w: Number(b[2]) }; } });
+  if (!Object.keys(m).length) return '';
+  const cl = parseList(s.cl), td = { pl: Number(s.day || 0), n: cl.length, w: cl.filter(p => Number(p[1]) > 0).length };
+  const rs = [['本日', td], ['今週', m.w], ['今月', m.m], ['今年', m.y], ['これまで', m.a]].filter(r => r[1]);
+  return `<div class="card score"><h2>この EA の成績</h2><table><tr><th></th><th>損益</th><th>決済</th><th>勝率</th></tr>` +
+    rs.map(([k, v]) => `<tr><th>${k}</th><td class="${cls(v.pl)}">${money(v.pl, c)}</td><td>${v.n}回</td><td>${v.n ? Math.round(v.w / v.n * 100) + '%' : '—'}</td></tr>`).join('') +
+    `</table><p class="small">この EA がこの口座で決済した取引の合計です（スワップ・手数料こみ）。週は月曜から。日付は FX 会社の時間です。</p></div>`;
+}
+const parseList = s => String(s || '').split(',').filter(x => x).map(x => { const a = x.split(':'); return [a[0] === 'B' ? '買い' : '売り', a[1]]; });
 
 async function load(go) {
   if (!tok) { show('login'); return; }
@@ -419,6 +445,7 @@ function renderHome() {
   $('sumcard').hidden = false;
   const latest = us.reduce((a, b) => (b.s && b.s.t || 0) > (a.s && a.s.t || 0) ? b : a, us[0]), ls = latest.s || {}, c = ls.cur;
   $('accname').textContent = ids.length > 1 ? '' : '口座 ****' + accSel.slice(-4) + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
+  $('today').textContent = today();
   $('bal').textContent = plain(ls.bal, c);
   const day = us.reduce((s, u) => s + Number(u.s && u.s.day || 0), 0), opn = us.reduce((s, u) => s + Number(u.s && u.s.opn || 0), 0);
   $('day').textContent = money(day, c); $('day').className = cls(day);
@@ -440,15 +467,25 @@ function renderDetail() {
   $('dacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4);
   const lot = u.want && u.want.lot !== '' ? Number(u.want.lot) : Number(s.lot);
   const en = u.want && u.want.en !== '' ? u.want.en === '1' : s.en !== '0';
-  const rows = a => a.length ? a.map(p => `<div class="row"><span>${p[0]}</span><span class="${cls(p[1])}">${money(p[1], c)}</span></div>`).join('') : '<div class="empty">ありません</div>';
+  // 1 本ずつ ＋ 買い・売り・合計（合計は EA が送ってきた全体の数字。一覧は 10 本まで）
+  const rows = (a, total) => {
+    if (!a.length) return '<div class="empty">ありません</div>';
+    const sum = k => a.filter(p => p[0] === k).reduce((x, p) => x + Number(p[1] || 0), 0), cnt = k => a.filter(p => p[0] === k).length;
+    const one = a.map(p => `<div class="row"><span>${p[0]}</span><span class="${cls(p[1])}">${money(p[1], c)}</span></div>`).join('');
+    const sub = ['買い', '売り'].map(k => `<div class="row sub"><span>${k}の合計 <small>${cnt(k)}本</small></span><span class="${cls(sum(k))}">${cnt(k) ? money(sum(k), c) : '—'}</span></div>`).join('');
+    const tot = total === '' || total == null ? a.reduce((x, p) => x + Number(p[1] || 0), 0) : Number(total);
+    return one + sub + `<div class="row tot"><span>合計 <small>${a.length}本</small></span><span class="${cls(tot)}">${money(tot, c)}</span></div>`;
+  };
   $('dbody').innerHTML = `<div style="--c:var(--${e[1]})">
   <div class="dh"><span class="nm">${e[0]}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
+  <div class="today dtoday">${today()}</div>
   <div class="card"><div class="row"><span class="lbl">本日損益</span><span class="${cls(s.day)}" style="font-size:20px;font-weight:700">${money(s.day, c)}</span></div>
   <div class="row" style="margin-top:4px"><span class="lbl">現在損益</span><span class="${cls(s.opn)}">${money(s.opn, c)}</span></div>
   <div class="small">${ago(u.seen)}${s.v ? '・' + s.v : ''}</div></div>
   ${detailOf(u) ? `<div class="card"><h2>${st[1] === 'オフライン' ? '最後に届いたときの状態' : '今の状態'}</h2><div class="dtl">${esc(detailOf(u))}</div></div>` : ''}
-  <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos))}</div>
-  <div class="card pos"><h2>本日の決済</h2>${rows(parseList(s.cl))}</div>
+  <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos), s.opn)}</div>
+  <div class="card pos"><h2>本日の決済<small class="today">${today()}</small></h2>${rows(parseList(s.cl), s.day)}</div>
+  ${scoreCard(s, c)}
   <div class="card"><h2>設定</h2>
    <div class="set"><div class="lbl">ロットの量</div><div class="seg" id="lotseg" style="margin-top:8px">${LOTN.map((t, i) => `<button data-l="${i}" class="${i === lot ? 'on' : ''}">${t}</button>`).join('')}</div></div>
    <div class="row set"><span>新しいエントリー<div class="lbl">OFF にすると、新しく建てません。持っているポジションは EA が最後まで管理します。</div></span><button class="sw ${en ? 'on' : ''}" id="entsw"></button></div>
@@ -493,7 +530,7 @@ var MOCKDB = null;   // var: はじめの読み込み（上の start）より前
 function mockApi(op, q) {
   const now = Date.now();
   if (!MOCKDB) MOCKDB = { prefs: { stop: 1, start: 1, auto: 1, cfg: 0, min: 10 }, units: [
-    { unit: 'K1|1234567|TRE', acc: '1234567', demo: false, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'run2', bal: '1284560', day: '12300', opn: '-3150', pos: 'B:1250,B:-4400', cl: 'B:8900,B:3400', lot: '1', en: '1', cur: 'JPY', v: 'v2.53', dt: '上の時間足と今の足の向きがそろうのを待っています\n次の足が確定したら、もう一度見ます' } },
+    { unit: 'K1|1234567|TRE', acc: '1234567', demo: false, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'run3', bal: '1284560', day: '12300', opn: '-2250', pos: 'B:1250,B:-4400,S:900', cl: 'B:8900,S:3400', sc: 'w:21400,9,6;m:68300,31,19;y:412000,288,171;a:412000,288,171', lot: '1', en: '1', cur: 'JPY', v: 'v2.53', dt: '上の時間足と今の足の向きがそろうのを待っています\n次の足が確定したら、もう一度見ます' } },
     { unit: 'K2|1234567|NAMI', acc: '1234567', demo: false, ea: 'NAMI', seen: now - 90000, alerted: false, want: null, s: { t: now - 90000, st: 'wait', bal: '1284560', day: '6120', opn: '0', pos: '', cl: 'S:6120', lot: '1', en: '1', cur: 'JPY', v: 'v1.22', dt: 'レンジの端に届くのを待っています' } },
     { unit: 'K3|1234567|MADO', acc: '1234567', demo: false, ea: 'MADO', seen: now - 40 * 60000, alerted: true, want: null, s: { t: now - 40 * 60000, st: 'wait', bal: '1284560', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.55' } },
     { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } },
