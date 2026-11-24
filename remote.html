@@ -23,6 +23,8 @@ button{cursor:pointer}
 .wrap{max-width:460px;margin:0 auto;padding:14px 16px calc(40px + env(safe-area-inset-bottom))}
 .scr{display:none}.scr.on{display:block}
 .top{display:flex;align-items:center;gap:8px;margin-bottom:12px;min-height:38px}
+.top.stick{position:sticky;top:0;z-index:15;margin:-14px -16px 12px;padding:calc(6px + env(safe-area-inset-top)) 16px 6px;background:var(--page);border-bottom:1px solid var(--line)}
+.top.stick .back{padding:8px 14px 8px 0;font-size:15px;font-weight:700;color:var(--tx)}
 .logo{display:flex;align-items:center;gap:8px;font-weight:700;letter-spacing:.08em;color:var(--tx);text-decoration:none}
 .logo img{width:26px;height:26px}
 :root[data-theme="light"] .logo img{filter:invert(1)}
@@ -231,13 +233,13 @@ h2{font-size:15px;margin:2px 0 8px}
 
 <!-- EA の詳細 -->
 <div class="scr" id="detail">
-<div class="top"><button class="back" data-go="home">‹ 一覧へ</button><span class="ml lbl" id="dacc"></span></div>
+<div class="top stick"><button class="back" data-go="home">‹ 一覧へ</button><span class="ml lbl" id="dacc"></span></div>
 <div id="dbody"></div>
 </div>
 
 <!-- お知らせ -->
 <div class="scr" id="notice">
-<div class="top"><button class="back" data-go="home">‹ 一覧へ</button></div>
+<div class="top stick"><button class="back" data-go="home">‹ 一覧へ</button></div>
 <div class="card"><h2>お知らせ</h2><div id="notes"></div></div>
 <div class="card" id="prefs">
 <h2>メールで受け取る</h2>
@@ -259,7 +261,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124e';
+const PAGE_VER = '20261124f';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
