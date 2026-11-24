@@ -6,7 +6,10 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0b0c0e">
 <link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="img/hama_logo.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="img/hama_icon_180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="img/hama_icon_192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="img/hama_icon_512.png">
+<meta name="apple-mobile-web-app-title" content="HAMA">
 <title>HAMA リモート</title>
 <style>
 :root{--bg:#0b0c0e;--page:#050506;--card:#141518;--line:#2a2c31;--tx:#ececee;--sub:#a2a5ab;--inv:#0b0c0e;--btn:#f2f3f5;--plus:#9cc8ff;--minus:#ffa6a0;--tre:#e6c766;--nami:#7fd3ff;--mado:#7fdca2;--red:#ff7d75;--ok:#7fdca2;--wait:#e6c766;--alertbg:rgba(255,125,117,.08);--alertln:#5a2f2d;--alerttx:#ffd1cd}
@@ -256,7 +259,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124d';
+const PAGE_VER = '20261124e';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
