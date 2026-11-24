@@ -15,9 +15,20 @@
 .hs-remote { background: radial-gradient(800px 420px at 80% 40%, rgba(255,47,134,.20), transparent 70%), #0e0d10; }
 .hs-phones { position: relative; display: flex; justify-content: center; }
 .hs-phones img { display: block; width: 100%; max-width: 560px; max-height: 430px; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,0,0,.55)); }
+/* REMOTE の iPhone も大きめに（右の列を広く） */
+.hs-remote .hs-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr); gap: 12px; }
+.hs-remote .hs-phones img { max-width: 760px; max-height: 560px; margin-right: -30px; }
+@media (max-width: 860px) { .hs-remote .hs-split { grid-template-columns: 1fr; } .hs-remote .hs-phones img { max-height: 290px; margin-right: 0; } }
 .hs-remote .hs-badge { left: auto; right: 8px; bottom: 6px; background: #ff4f9a; color: #fff; }
 .hs-remote .hs-more { transition: background .15s, color .15s; }
 .hs-remote:hover .hs-more { background: #ff4f9a; color: #fff; }
+/* 成績表のカード: REMOTE のカードと同じ形で、モニターの絵を入れる */
+.card.ea-report .img.mon { position: relative; display: flex; align-items: center; justify-content: center; padding: 18px 16px 14px;
+  background: radial-gradient(70% 80% at 50% 45%, rgba(217,181,74,.16), transparent 70%), #0e0f12; background-size: auto; }
+.card.ea-report .img.mon img { position: relative; z-index: 1; display: block; width: 100%; max-height: 290px; object-fit: contain; }
+/* 「イメージ（架空の数値）」の札は出さない（バナー・カードとも） */
+.card.ea-report .img.mon::before, .card.ea-remote .img::before { display: none; }
+@media (max-width: 640px) { .card.ea-report .img.mon img { max-height: 220px; } }
 /* マドのカード: 表紙のチャート（窓を埋める所）は右寄りにあるので、右側を見せる */
 .card.ea-mado .img { background-position: 88% center; }
 /* 下の HAMA REMOTE のカード（ピンク・斜めの iPhone） */
@@ -107,7 +118,7 @@
      <p class="hs-desc">EA のようすと損益を、外出先からスマホで。<br>ロットの量の切り替えもできて、<br>EA が止まったら、お知らせで知らせます。</p>
      <span class="hs-more">VIEW MORE →</span>
     </div>
-    <div class="hs-phones"><img src="img/remote_phones_r.png" alt="HAMA REMOTE の画面のイメージ（架空の数値）"><span class="hs-badge">イメージ（架空の数値）</span></div>
+    <div class="hs-phones"><img src="img/remote_phones_r.png" alt="HAMA REMOTE の画面のイメージ（架空の数値）"></div>
    </div>
   </a>
  </div>
@@ -184,7 +195,7 @@
   <p class="sub">HAMA の EA には、口座の成績をまとめて見られる成績表が付いています。</p>
   <div class="cards rows">
     <a class="card ea-report" href="report.html">
-      <div class="img" style="background-image:url(img/report_sample.png)"></div>
+      <div class="img mon"><img src="img/report_monitor.png" alt="成績表の画面のイメージ（架空の数値）" loading="lazy"></div>
       <div class="body">
         <span class="nick">成績表（すべての EA 共通）</span>
         <h3>HAMA <span style="color:#d9b54a">EA</span> REPORT</h3>
