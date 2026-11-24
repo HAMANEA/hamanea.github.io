@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
@@ -43,6 +43,54 @@
 .hs-report .hs-phones img { max-width: 860px; max-height: 600px; margin-right: -40px; }
 @media (max-width: 860px) { .hs-phones img { max-height: 250px; } .hs-report .hs-split { grid-template-columns: 1fr; } .hs-report .hs-phones img { max-height: 290px; } }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+<style>
+/* キャラ入りバナー（TREND のみ） */
+.hs-chara-left .hs-bg { background-position: center right; }
+.hs-chara-left .hs-bg::after { background: linear-gradient(90deg, #0b0c0f 0%, rgba(11,12,15,.92) 40%, rgba(11,12,15,.45) 72%, rgba(11,12,15,.25) 100%); }
+.hs-chara { position: absolute; z-index: 1; left: auto; right: max(180px, calc(50% - 411px)); transform: translateX(50%); bottom: auto; top: 18px; height: 150%; width: auto; max-width: none; pointer-events: none; filter: drop-shadow(0 10px 24px rgba(0,0,0,.6)); }
+.card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img { overflow: hidden; }
+.card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img { container-type: inline-size; --ks: 1.37; }
+.card.ea-nami .img::before { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(12,36,64,.6); }
+.card.ea-tre { --k: 1; --eye: .397; }
+.card.ea-nami { --k: 1.12; --eye: .272; }
+.card.ea-mado { --k: .82; --eye: .505; }
+.card-chara { position: absolute; z-index: 1; left: 50%; width: calc(var(--k) * var(--ks) * 100cqw); height: auto; max-width: none; top: calc(52% - var(--eye) * var(--k) * var(--ks) * 100cqw); transform: translateX(-50%); pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 88%); mask-image: linear-gradient(180deg, #000 70%, transparent 88%); }
+.card.ea-tre .img::after, .card.ea-nami .img::after, .card.ea-mado .img::after { z-index: 2; }
+.card.ea-mado .chara-name { color: #0d2a19; background: linear-gradient(180deg, #e8fbef, #9fe6bb 60%, #4fc27f); border-color: #f2fff6; box-shadow: 0 4px 0 #2a7a4c, 0 10px 22px rgba(0,0,0,.45); }
+.card.ea-mado .chara-name::before, .card.ea-mado .chara-name::after { color: #e8fbef; text-shadow: 0 0 6px rgba(150,230,180,.9); }
+.card.ea-nami .chara-name { color: #0b2a44; background: linear-gradient(180deg, #e6f7ff, #8fd6ff 60%, #4dc3ff); border-color: #f2fbff; box-shadow: 0 4px 0 #1f6f9e, 0 10px 22px rgba(0,0,0,.45); }
+.card.ea-nami .chara-name::before, .card.ea-nami .chara-name::after { color: #e6f7ff; text-shadow: 0 0 6px rgba(140,215,255,.9); }
+.chara-name { position: absolute; z-index: 3; font-family: "Fredoka", "Zen Kaku Gothic New", sans-serif; font-weight: 700; letter-spacing: .08em; color: #2a2208;
+  background: linear-gradient(180deg, #fff3c4, #e9c45a 60%, #c99a2e); border: 2px solid #fff6d6; border-radius: 999px; padding: .18em .8em .22em;
+  box-shadow: 0 4px 0 #8a6a1c, 0 10px 22px rgba(0,0,0,.45); transform: rotate(-6deg); pointer-events: none; white-space: nowrap; line-height: 1; }
+.chara-name::before, .chara-name::after { content: "✦"; position: absolute; color: #fff1b8; text-shadow: 0 0 6px rgba(255,220,120,.9); }
+.chara-name::before { left: -.75em; top: -.55em; font-size: .7em; }
+.chara-name::after { right: -.6em; bottom: -.5em; font-size: .55em; }
+.hs-name { font-size: 30px; left: auto; right: max(40px, calc(50% - 560px)); bottom: 54px; }
+.card-name { font-size: 20px; left: 16px; bottom: 14px; }
+@media (max-width: 640px) { .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img { --ks: 1.65; aspect-ratio: 1 / 1; width: 100%; min-height: 0; } }
+.hs-nami .hs-chara { height: 138%; }
+.hs-mado .hs-chara { height: 143%; }
+.hs-nami .chara-name { color: #0b2a44; background: linear-gradient(180deg, #e6f7ff, #8fd6ff 60%, #4dc3ff); border-color: #f2fbff; box-shadow: 0 4px 0 #1f6f9e, 0 10px 22px rgba(0,0,0,.45); }
+.hs-nami .chara-name::before, .hs-nami .chara-name::after { color: #e6f7ff; text-shadow: 0 0 6px rgba(140,215,255,.9); }
+.hs-mado .chara-name { color: #0d2a19; background: linear-gradient(180deg, #e8fbef, #9fe6bb 60%, #4fc27f); border-color: #f2fff6; box-shadow: 0 4px 0 #2a7a4c, 0 10px 22px rgba(0,0,0,.45); }
+.hs-mado .chara-name::before, .hs-mado .chara-name::after { color: #e8fbef; text-shadow: 0 0 6px rgba(150,230,180,.9); }
+@media (max-width: 860px) { .hs-nami .hs-chara, .hs-mado .hs-chara { height: 108%; } }
+.hs-ctl { bottom: 14px !important; gap: 0 !important; }
+.hs-arrow { display: none !important; }
+.hs-dots { gap: 10px !important; }
+.hs-dots button { width: 8px !important; height: 8px !important; border-radius: 50% !important; background: rgba(150,155,165,.45) !important; transition: background .3s !important; }
+.hs-dots button.on { width: 8px !important; background: #d9b54a !important; }
+@media (max-width: 860px) { .hs-name { left: auto; right: 22px; bottom: 70px; font-size: 22px; } }
+.hs-chara-left .hs-in { display: flex; flex-direction: column; align-items: flex-start; padding-right: min(36%, 420px); }
+@media (min-width: 861px) { .hs-chara-left .hs-title { white-space: nowrap; } }
+@media (max-width: 860px) {
+  .hs-chara { left: auto; right: -30px; transform: none; top: 40px; height: 115%; opacity: .45; }
+  .hs-chara-left .hs-in { padding-left: 16px; padding-right: 16px; }
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -50,40 +98,22 @@
   <button class="menu-btn" type="button" aria-label="メニュー" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
   <nav class="menu">
     <a href="index.html" class="on">TOP</a>
-    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="nami.html">NAMITORE G4</a><a href="tre.html">TREND G3</a><a href="mado.html">MADOUME G7</a></div></div>
+    <a href="news.html">NEWS</a>
+    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="tre.html">TREND G3</a><a href="nami.html">NAMITORE G4</a><a href="mado.html">MADOUME G7</a></div></div>
     <a href="setup.html">SETUP</a>
     <a href="license.html">LICENSE</a>
     <a href="report.html">REPORT</a>
     <a href="app.html">REMOTE</a>
     <a href="faq.html">FAQ</a>
-    <a href="news.html">NEWS</a>
   </nav>
 </div></header>
 
 <div class="hslider" id="hslider" aria-roledescription="carousel" aria-label="HAMA EA の紹介">
  <div class="hs-track">
-  <div class="hero hero-brand hs-slide is-on" aria-roledescription="slide" aria-label="1 / 6">
-   <img class="hero-mark" src="img/hama_logo.svg" alt="">
-   <div class="wrap hero-grid">
-    <div class="hero-text">
-     <span class="tag">MT5 EA</span>
-     <p class="hero-title">HAMA <span>EA</span> series</p>
-     <h1>相場に合わせて選べるEA</h1>
-    </div>
-    <img class="hero-candles" src="img/hero_candles.svg?v=2" alt="">
-   </div>
-  </div>
-  <a class="hs-slide hs-ea" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="2 / 6">
-   <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
-   <div class="wrap hs-in">
-    <span class="hs-nick">レンジ（逆張り）</span>
-    <p class="hs-title">HAMA NAMITORE G4</p>
-    <p class="hs-desc">攻めと守りの「ダブルロジック」で、<br>金の“波”をとらえるレンジ EA。</p>
-    <span class="hs-more">VIEW MORE →</span>
-   </div>
-  </a>
-  <a class="hs-slide hs-ea" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="3 / 6">
+  <a class="hs-slide hs-ea hs-chara-left is-on" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="1 / 5">
    <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
+   <img class="hs-chara" src="img/chara/tren_full.webp" alt="">
+   <span class="chara-name hs-name" aria-hidden="true">TOREN</span>
    <div class="wrap hs-in">
     <span class="hs-nick">トレンド追従</span>
     <p class="hs-title">HAMA TREND G3</p>
@@ -91,8 +121,21 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="4 / 6">
+  <a class="hs-slide hs-ea hs-chara-left hs-nami" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="2 / 5">
+   <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
+   <img class="hs-chara" src="img/chara/nami_full.webp" alt="ナミ">
+   <span class="chara-name hs-name" aria-hidden="true">NAMI</span>
+   <div class="wrap hs-in">
+    <span class="hs-nick">レンジ（逆張り）</span>
+    <p class="hs-title">HAMA NAMITORE G4</p>
+    <p class="hs-desc">攻めと守りの「ダブルロジック」で、<br>金の“波”をとらえるレンジ EA。</p>
+    <span class="hs-more">VIEW MORE →</span>
+   </div>
+  </a>
+  <a class="hs-slide hs-ea hs-chara-left hs-mado" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="3 / 5">
    <div class="hs-bg" style="background-image:url(img/madoume_cover_chart.jpg)"></div>
+   <img class="hs-chara" src="img/chara/ume_full.webp" alt="うめちゃん">
+   <span class="chara-name hs-name" aria-hidden="true">UME</span>
    <div class="wrap hs-in">
     <span class="hs-nick">押し目の積み増し</span>
     <p class="hs-title">HAMA MADOUME G7</p>
@@ -100,7 +143,7 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="5 / 6">
+  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="4 / 5">
    <div class="wrap hs-in hs-split">
     <div>
      <span class="hs-nick">成績表（すべての EA 共通）</span>
@@ -111,7 +154,7 @@
     <div class="hs-phones"><img src="img/report_monitor.png" alt="成績表の画面のイメージ（架空の数値）"></div>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="6 / 6">
+  <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="5 / 5">
    <div class="wrap hs-in hs-split">
     <div>
      <span class="hs-nick">スマホで見る（すべての EA 共通）</span>
@@ -125,7 +168,7 @@
  </div>
  <div class="hs-ctl">
   <button class="hs-arrow" type="button" data-go="-1" aria-label="前へ">‹</button>
-  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button><button type="button" aria-label="6"></button></div>
+  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button></div>
   <button class="hs-arrow" type="button" data-go="1" aria-label="次へ">›</button>
  </div>
 </div>
@@ -161,17 +204,8 @@
   <p class="wait-note"><b>条件がそろうまで、じっと待つ EA です。</b><br>HAMA の EA は、決められた条件がそろったときだけエントリーします。短い時間にエントリーと決済を何度もくり返すタイプの EA ではないので、取引のない日が続くこともあります。</p>
   <h3 class="cat xau">ゴールド（XAUUSD）</h3>
   <div class="cards rows">
-    <a class="card ea-nami" href="nami.html">
-      <div class="img" style="background-image:url(img/namitore_cover.jpg)"></div>
-      <div class="body">
-        <span class="nick">レンジ（逆張り）</span>
-        <h3>HAMA NAMITORE G4</h3>
-        <p>攻めと守りの「ダブルロジック」で、金の“波”をとらえるレンジ EA。</p>
-        <span class="more">VIEW MORE <i>→</i></span>
-      </div>
-    </a>
     <a class="card ea-tre" href="tre.html">
-      <div class="img" style="background-image:url(img/trend_cover.jpg)"></div>
+      <div class="img" style="background-image:url(img/trend_cover.jpg)"><img class="card-chara" src="img/chara/tren_serious.webp" alt=""><span class="chara-name card-name" aria-hidden="true">TOREN</span></div>
       <div class="body">
         <span class="nick">トレンド追従</span>
         <h3>HAMA TREND G3</h3>
@@ -179,8 +213,17 @@
         <span class="more">VIEW MORE <i>→</i></span>
       </div>
     </a>
+    <a class="card ea-nami" href="nami.html">
+      <div class="img" style="background-image:url(img/namitore_cover.jpg)"><img class="card-chara" src="img/chara/nami_front.webp" alt=""><span class="chara-name card-name" aria-hidden="true">NAMI</span></div>
+      <div class="body">
+        <span class="nick">レンジ（逆張り）</span>
+        <h3>HAMA NAMITORE G4</h3>
+        <p>攻めと守りの「ダブルロジック」で、金の“波”をとらえるレンジ EA。</p>
+        <span class="more">VIEW MORE <i>→</i></span>
+      </div>
+    </a>
     <a class="card ea-mado" href="mado.html">
-      <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"></div>
+      <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"><img class="card-chara" src="img/chara/ume_front.webp" alt=""><span class="chara-name card-name" aria-hidden="true">UME</span></div>
       <div class="body">
         <span class="nick">押し目の積み増し</span>
         <h3>HAMA MADOUME G7</h3>

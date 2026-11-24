@@ -10,6 +10,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261124a">
+<style>
+/* 3人キャラ（アニメのロゴができるまで） */
+.news-trio { position: relative; overflow: hidden; min-height: 420px; display: flex; align-items: center; }
+.news-trio .wrap { position: relative; z-index: 2; width: 100%; }
+.nt-trio { position: absolute; z-index: 1; right: max(0px, calc(50% - 620px)); bottom: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
+@media (max-width: 860px) {
+  .news-trio { display: flex; flex-direction: column; min-height: 0; }
+  .news-trio .wrap { order: 1; }
+  .nt-trio { order: 2; }
+  .nt-trio { position: static; display: block; width: 100%; height: auto; max-width: 460px; margin: 0 auto; }
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -17,17 +29,18 @@
   <button class="menu-btn" type="button" aria-label="メニュー" aria-expanded="false" onclick="var h=this.closest('header');var o=h.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
   <nav class="menu">
     <a href="index.html">TOP</a>
-    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="nami.html">NAMITORE G4</a><a href="tre.html">TREND G3</a><a href="mado.html">MADOUME G7</a></div></div>
+    <a href="news.html" class="on">NEWS</a>
+    <div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a href="tre.html">TREND G3</a><a href="nami.html">NAMITORE G4</a><a href="mado.html">MADOUME G7</a></div></div>
     <a href="setup.html">SETUP</a>
     <a href="license.html">LICENSE</a>
     <a href="report.html">REPORT</a>
     <a href="app.html">REMOTE</a>
     <a href="faq.html">FAQ</a>
-    <a href="news.html" class="on">NEWS</a>
   </nav>
 </div></header>
 
-<div class="hero hero-news">
+<div class="hero hero-news news-trio">
+  <img class="nt-trio" src="img/chara/trio_full.webp" alt="うめちゃん・トレン・ナミ">
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">NEWS</span>
     <h1><span class="g">お知らせ</span></h1>
