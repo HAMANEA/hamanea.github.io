@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="img/hama_icon_192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="img/hama_icon_512.png">
 <meta name="apple-mobile-web-app-title" content="HAMA">
-<title>HAMA</title>
+<title>HAMA REMOTE</title>
 <style>
 :root{--bg:#0b0c0e;--page:#050506;--card:#141518;--line:#2a2c31;--tx:#ececee;--sub:#a2a5ab;--inv:#0b0c0e;--btn:#f2f3f5;--plus:#9cc8ff;--minus:#ffa6a0;--tre:#e6c766;--nami:#7fd3ff;--mado:#7fdca2;--red:#ff7d75;--ok:#7fdca2;--wait:#e6c766;--alertbg:rgba(255,125,117,.08);--alertln:#5a2f2d;--alerttx:#ffd1cd}
 :root[data-theme="light"]{--bg:#ffffff;--page:#f2f3f5;--card:#ffffff;--line:#dfe1e5;--tx:#1b1c1f;--sub:#6b6f76;--inv:#ffffff;--btn:#1b1c1f;--plus:#1f6fd1;--minus:#d0372d;--tre:#a8860f;--nami:#1688c4;--mado:#1f9a55;--red:#d0372d;--ok:#1f9a55;--wait:#a8860f;--alertbg:rgba(208,55,45,.06);--alertln:#f1c2be;--alerttx:#a3271f}
@@ -308,7 +308,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124r';
+const PAGE_VER = '20261124s';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();

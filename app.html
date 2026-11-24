@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>スマホのページ | HAMA</title>
+<title>HAMA REMOTE（リモート） | HAMA</title>
 <meta name="description" content="HAMA の EA のようすと設定を、スマホで見られるページ。登録のしかたと画面の見方。すべての EA で共通です。">
 <link rel="icon" href="img/hama_logo.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,16 +11,47 @@
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261124a">
 <style>
+/* このページはピンク: 見出し・大きめの文字・手順の番号 */
+.hero-app { --hc1: #ffc2dc; --hc2: #ff2f86; }
+main { --pk: #ff4f9a; --pk2: #ff8dbf; }
+main h2 { color: var(--pk); }
+main h2::after { content: ""; display: block; width: 44px; height: 3px; margin-top: 10px; border-radius: 3px; background: linear-gradient(90deg, var(--pk), transparent); }
+main ol.steps b, main .box.note > b, .shots figcaption b { color: var(--pk2); }
+main ol.steps > li::before { background: var(--pk); color: #1a0b12; }
+main ol.steps > li::after { background: linear-gradient(var(--pk), var(--line)); opacity: .5; }
+main ul.check li::before { background: var(--pk); }
+main .tbl th { color: var(--pk2); }
+main .box.note { border-color: color-mix(in srgb, var(--pk) 45%, transparent); background: color-mix(in srgb, var(--pk) 6%, #131418); }
+.hero-app .btn { background: var(--hc2); color: #1a0b12; }
+.hero-app .btn:hover { background: #ff5ea0; color: #fff; }
+.hero-app .btn:active { background: #d81b6e; color: #fff; transform: scale(.97); }
+.hero-app .btn { transition: background .15s, transform .1s; box-shadow: 0 6px 20px rgba(255,47,134,.4); }
+/* 本文のリンク: ピンクで下線。さわる・押すと色が変わる */
+main a:not(.btn) { color: var(--pk); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--pk) 55%, transparent); border-radius: 4px; padding: 0 2px; transition: background .15s, color .15s; }
+main a:not(.btn):hover { color: #fff; background: color-mix(in srgb, var(--pk) 30%, transparent); text-decoration-color: var(--pk); }
+main a:not(.btn):active { color: #1a0b12; background: var(--pk); }
 .shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
 .shots.three { grid-template-columns: repeat(3, 1fr); max-width: 760px; }
 .shots figure { margin: 0; }
 /* 画面写真: 背景（黒）と同化しないよう、スマホの枠のように縁取る */
-.shots .ph { display: block; padding: 7px; border-radius: 26px;
-  background: linear-gradient(160deg, #55585f, #26282e 45%, #3a3c43); border: 1px solid #62656e;
-  box-shadow: 0 14px 34px rgba(0,0,0,.65), 0 0 30px rgba(217,181,74,.12); }
-.shots .ph img { display: block; width: 100%; border-radius: 19px; }
+/* iPhone 風の枠: チタンの縁 → 黒いベゼル → 画面（ステータスバー・ダイナミックアイランド・ホームバー） */
+.shots .ph { position: relative; display: block; padding: 6px; border-radius: 34px; background: #050506;
+  box-shadow: 0 0 0 2px #8e9198, 0 0 0 3px #3b3d42, 0 18px 40px rgba(0,0,0,.7), 0 0 34px rgba(217,181,74,.10); }
+.shots .ph::before, .shots .ph::after { content: ""; position: absolute; width: 3px; border-radius: 2px; background: linear-gradient(90deg, #6d7077, #a4a7ae); }
+.shots .ph::before { left: -5px; top: 18%; height: 7%; }
+.shots .ph::after  { right: -5px; top: 24%; height: 12%; }
+.shots .ph .vol { position: absolute; left: -5px; top: 29%; width: 3px; height: 10%; border-radius: 2px; background: linear-gradient(90deg, #6d7077, #a4a7ae); }
+.shots .scrn { position: relative; display: block; overflow: hidden; border-radius: 28px; background: #000; }
+.shots .sb { display: flex; align-items: center; justify-content: space-between; height: 24px; padding: 0 14px 0 18px;
+  color: #fff; font: 600 9.5px/1 -apple-system, "Helvetica Neue", Arial, sans-serif; letter-spacing: .02em; }
+.shots .sb svg { height: 8px; width: auto; display: block; }
+.shots .sb .ic { display: flex; gap: 3px; align-items: center; }
+.shots .isl { position: absolute; left: 50%; top: 5px; width: 30%; height: 14px; transform: translateX(-50%); border-radius: 10px; background: #000; box-shadow: 0 0 0 1px #111; }
+.shots .scrn img { display: block; width: 100%; }
+.shots .home { position: absolute; left: 50%; bottom: 5px; width: 34%; height: 3px; transform: translateX(-50%); border-radius: 3px; background: rgba(255,255,255,.75); }
 .shots figcaption { margin-top: 8px; font-size: 14px; line-height: 1.6; }
-.shots figcaption b { display: block; color: var(--text); }
+.shots figcaption b { display: block; font-size: 15px; }
 .shots figcaption span { color: var(--sub); font-size: 13px; }
 .shotnote { color: var(--sub); font-size: 13px; margin-top: 10px; }
 .open-app { margin-top: 18px; }
@@ -37,18 +68,18 @@
     <a href="setup.html">SETUP</a>
     <a href="license.html">LICENSE</a>
     <a href="report.html">REPORT</a>
-    <a href="app.html" class="on">APP</a>
+    <a href="app.html" class="on">REMOTE</a>
     <a href="faq.html">FAQ</a>
     <a href="news.html">NEWS</a>
   </nav>
 </div></header>
 
-<div class="hero" style="--hc1:#d8f5e6;--hc2:#4fc27f">
+<div class="hero hero-app">
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
-    <span class="tag">APP</span>
-    <h1><span class="g">スマホのページ</span></h1>
-    <p class="lead">EA のようすと損益を、外出先からスマホで確かめられるページです。ロットの量の切り替えや、新しいエントリーの停止もできます。すべての HAMA の EA で共通です。</p>
-    <a class="btn open-app" href="remote.html">スマホのページを開く <i>→</i></a>
+    <span class="tag">REMOTE</span>
+    <h1><span class="g">HAMA REMOTE</span></h1>
+    <p class="lead">HAMA REMOTE（リモート）は、EA のようすと損益を、外出先からスマホで確かめられるページです。ロットの量の切り替えや、新しいエントリーの停止もできます。すべての HAMA の EA で共通です。</p>
+    <a class="btn open-app" href="remote.html">リモートを開く <i>→</i></a>
   </div>
 </div>
 
@@ -56,10 +87,10 @@
 <section><div class="wrap">
   <h2>できること</h2>
   <div class="shots">
-    <figure><span class="ph"><img src="img/app/app_home.png" alt="一覧の画面" loading="lazy"></span><figcaption><b>一覧</b><span>口座残高、含み損益、今日決済した損益と、EA ごとの状態が一目でわかります。</span></figcaption></figure>
-    <figure><span class="ph"><img src="img/app/app_set.png" alt="EA の詳細と設定の画面" loading="lazy"></span><figcaption><b>EA の詳細・設定</b><span>今の状態を確かめられます。ロットの量（攻め・標準・守り）と、新しいエントリーの ON・OFF を切り替えられます。</span></figcaption></figure>
-    <figure><span class="ph"><img src="img/app/app_score.png" alt="成績の画面" loading="lazy"></span><figcaption><b>成績</b><span>直近 1 週間の日ごとの損益と、週・月・年ごとのまとめです。</span></figcaption></figure>
-    <figure><span class="ph"><img src="img/app/app_notice.png" alt="お知らせの画面" loading="lazy"></span><figcaption><b>お知らせ</b><span>EA が止まったとき・起動したときなどに知らせます。メールでも受け取れます。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_home.png" alt="一覧の画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>一覧</b><span>口座残高、含み損益、今日決済した損益と、EA ごとの状態が一目でわかります。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_set.png" alt="EA の詳細と設定の画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>EA の詳細・設定</b><span>今の状態を確かめられます。ロットの量（攻め・標準・守り）と、新しいエントリーの ON・OFF を切り替えられます。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_score.png" alt="成績の画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>成績</b><span>直近 1 週間の日ごとの損益と、週・月・年ごとのまとめです。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_notice.png" alt="お知らせの画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>お知らせ</b><span>EA が止まったとき・起動したときなどに知らせます。メールでも受け取れます。</span></figcaption></figure>
   </div>
   <p class="shotnote">画面はイメージです。数値は説明のための架空のもので、実際の成績ではありません。</p>
   <ul class="check" style="margin-top:18px">
@@ -73,7 +104,7 @@
   <h2>使う前の準備</h2>
   <ol class="steps">
     <li><b>EA を最新版にする</b><br>
-      スマホのページに対応した版の EA を使ってください。対応した版は、EA が自動で、2 分ごとにようすを知らせます。EA の設定で、何かを入れる必要はありません。</li>
+      リモートに対応した版の EA を使ってください。対応した版は、EA が自動で、2 分ごとにようすを知らせます。EA の設定で、何かを入れる必要はありません。</li>
     <li><b>EA がサーバーにつながるようにする</b><br>
       ライセンスの確認と同じ準備です（「DLL の使用を許可する」か「WebRequest を許可する URL リスト」）。くわしくは <a href="license.html">ライセンス</a> の「キーの入れ方」の手順 1 をご覧ください。ライセンス OK と出ていれば、準備はできています。</li>
     <li><b>キーにメールアドレスが登録されていること</b><br>
@@ -85,7 +116,7 @@
   <h2>登録のしかた</h2>
   <p class="sub">はじめに 1 度だけ、パスワードを決めます。お持ちのライセンスキーのどれか 1 つと、そのパスワードでログインします。</p>
   <ol class="steps">
-    <li><b>スマホのページを開く</b><br>
+    <li><b>リモートを開く</b><br>
       スマホのブラウザで <a href="remote.html">hamanea.github.io/remote.html</a> を開きます。</li>
     <li><b>「はじめての方・パスワードを忘れた方」を押す</b><br>
       ライセンスキーを入れて「リンクを送る」を押します。小文字やハイフンなしで入れても、自動で直します。</li>
@@ -97,9 +128,9 @@
       キーとパスワードでログインします。「このスマホにキーを覚える」にチェックを入れておくと、次からはパスワードだけで入れます。</li>
   </ol>
   <div class="shots three">
-    <figure><span class="ph"><img src="img/app/app_login.png" alt="ログインの画面" loading="lazy"></span><figcaption><b>ログイン</b><span>はじめての方は、いちばん下のリンクから。</span></figcaption></figure>
-    <figure><span class="ph"><img src="img/app/app_first.png" alt="リンクを送る画面" loading="lazy"></span><figcaption><b>リンクを送る</b><span>キーを入れて「リンクを送る」。</span></figcaption></figure>
-    <figure><span class="ph"><img src="img/app/app_setpw.png" alt="パスワードを決める画面" loading="lazy"></span><figcaption><b>パスワードを決める</b><span>メールのリンクから開きます。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_login.png" alt="ログインの画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>ログイン</b><span>はじめての方は、いちばん下のリンクから。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_first.png" alt="リンクを送る画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>リンクを送る</b><span>キーを入れて「リンクを送る」。</span></figcaption></figure>
+    <figure><span class="ph"><i class="vol"></i><span class="scrn"><span class="sb"><b>9:41</b><span class="ic"><svg viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx="1" fill="#fff"/><rect x="4.5" y="5" width="3" height="6" rx="1" fill="#fff"/><rect x="9" y="2.5" width="3" height="8.5" rx="1" fill="#fff"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="#fff"/></svg><svg viewBox="0 0 15 11"><path d="M7.5 2.2c2.2 0 4.2.8 5.7 2.2l1.3-1.4A10 10 0 0 0 .5 3l1.3 1.4a8.2 8.2 0 0 1 5.7-2.2zm0 3.6c1.2 0 2.3.4 3.1 1.2l1.3-1.4a6.3 6.3 0 0 0-8.8 0L4.4 7a4.4 4.4 0 0 1 3.1-1.2zM7.5 11l2-2.1a2.8 2.8 0 0 0-4 0z" fill="#fff"/></svg><svg viewBox="0 0 25 12"><rect x=".5" y=".5" width="21" height="11" rx="3" fill="none" stroke="#fff" stroke-opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="#fff"/><rect x="22.6" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".45"/></svg></span></span><i class="isl"></i><img src="img/app/app_setpw.png" alt="パスワードを決める画面" loading="lazy"><i class="home"></i></span></span><figcaption><b>パスワードを決める</b><span>メールのリンクから開きます。</span></figcaption></figure>
   </div>
   <div class="box note" style="margin-top:22px">
     <b>ホーム画面に置くと便利です</b><br>
@@ -129,7 +160,7 @@
 
 <section><div class="wrap">
   <h2>お知らせの受け取り方</h2>
-  <p class="sub">どのお知らせも、スマホのページの「お知らせ」に出ます。「メール＋アプリ」にしたものは、メールでも届きます。</p>
+  <p class="sub">どのお知らせも、リモートの「お知らせ」に出ます。「メール＋アプリ」にしたものは、メールでも届きます。</p>
   <div class="tblwrap"><table class="tbl">
     <tr><th>お知らせ</th><th>いつ</th></tr>
     <tr><td>EA がオフラインになった・戻った</td><td>EA から、決めた時間（5 分・10 分・30 分から選べます）知らせが届かなかったとき。MT5 やパソコンが止まったときなどです。</td></tr>
