@@ -90,6 +90,52 @@
   .cards.rows .st-card .body { padding-right: 310px; } .st-card { position: relative; } /* 五角形をカードの中に置く（ひみつの生徒のカードでも） */
   .st-stat { position: absolute; right: 22px; top: 22px; margin: 0; }
 }
+
+/* WANTED 風のスタンプ（試験中＝シルバー・EAマスター＝ゴールド＋H ロゴ） */
+.exam-stamp { position: absolute; z-index: 4; top: 14px; left: 16px; transform: none; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 16px; letter-spacing: .14em; line-height: 1;
+  padding: 7px 12px 6px 14px; border: 3px solid currentColor; border-radius: 6px; outline: 1px solid currentColor; outline-offset: 3px; background: rgba(12,14,18,.62); pointer-events: none; white-space: nowrap;
+  color: #dfe5ee; text-shadow: 0 0 6px rgba(220,230,245,.55); box-shadow: 0 0 14px rgba(200,212,230,.25); }   /* 試験中＝シルバー */
+.exam-stamp.master { color: #ffd768; background: rgba(40,30,6,.72); text-shadow: 0 0 6px rgba(255,215,104,.6); box-shadow: 0 0 18px rgba(255,205,90,.45); }   /* EAマスター＝ゴールド */
+.exam-stamp.master { display: inline-flex; align-items: center; gap: 9px; padding: 6px 14px 5px 7px; font-size: 18px; background: rgba(14,11,3,.88); }
+.exam-stamp.master img { width: 46px; height: 46px; flex: none; filter: drop-shadow(0 0 6px rgba(255,210,100,.75)); }
+.exam-stamp.master > span { display: block; }
+@media (max-width: 640px) { .exam-stamp.master img { width: 28px; height: 28px; } }
+.exam-stamp small { display: block; font-size: 9px; letter-spacing: .2em; margin-top: 3px; opacity: .85; font-weight: 700; }
+/* LV のバッジ（文字は見出しと同じ Fredoka） */
+.card.ea-tre { --lc: #e9c45a; --lc2: #fff3c4; } .card.ea-nami { --lc: #4dc3ff; --lc2: #e6f7ff; } .card.ea-mado { --lc: #4fc27f; --lc2: #e8fbef; }
+.lv { display: inline-flex; align-items: baseline; gap: 3px; vertical-align: 4px; margin-left: 12px; padding: 4px 11px 4px 9px; font-family: "Fredoka", sans-serif; font-weight: 700; line-height: 1; white-space: nowrap;
+  color: #0b0c0e; background: linear-gradient(180deg, var(--lc2, #fff), var(--lc, #e9edf3) 70%); border: 1.5px solid rgba(255,255,255,.85); border-radius: 8px 3px 8px 3px;
+  box-shadow: 0 3px 0 rgba(0,0,0,.45), 0 0 12px color-mix(in srgb, var(--lc, #fff) 45%, transparent); transform: skewX(-10deg); }
+.lv small { font-size: .42em; letter-spacing: .12em; opacity: .75; }
+.lv b { font-size: .62em; font-weight: 700; }
+@media (max-width: 640px) { .exam-stamp { font-size: 13px; top: 10px; left: 10px; padding: 5px 9px 4px 11px; } .lv { margin-left: 8px; padding: 3px 8px 3px 7px; } }
+
+.grades.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+/* レベルアップ：右に行くほど高くなる階段 */
+.lvsteps { position: relative; display: flex; align-items: flex-end; gap: 8px; height: 74px; margin: 4px 0 10px; padding-right: 28px; }
+.lvsteps i { position: relative; flex: 1; height: var(--h); border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #8fd6ff, #2f7fc0); box-shadow: 0 0 12px rgba(120,200,255,.35); }
+.lvsteps i:nth-child(2) { background: linear-gradient(180deg, #b8e6ff, #3d97dc); }
+.lvsteps i.nx { background: repeating-linear-gradient(135deg, rgba(143,214,255,.28) 0 6px, rgba(143,214,255,.1) 6px 12px); border: 1.5px dashed #8fd6ff; box-shadow: none; }
+.lvsteps em { position: absolute; left: 0; right: 0; top: 4px; text-align: center; font-family: "Fredoka", sans-serif; font-style: normal; font-weight: 700; font-size: 12px; color: #08223a; }
+.lvsteps i.nx em { color: #bfe9ff; }
+.lvsteps .up { position: absolute; right: 0; top: -2px; font-size: 22px; line-height: 1; color: #8fd6ff; text-shadow: 0 0 10px rgba(143,214,255,.8); }
+.grade.glv { border-color: #2f6f9e; }
+.grade.gm { border-color: #d9b54a; background: linear-gradient(140deg, #2c2817, #16171b 70%); }
+.grade.gm span { background: #d9b54a; color: #1a1406; }
+.grade.gm b { color: #fff1b8; }
+.st-tags { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+.st-tags .st-grade { margin: 0; }
+.st-machine { font-size: 12.5px; font-weight: 700; color: var(--c2); border: 1px solid var(--c); border-radius: 99px; padding: 1px 10px; }
+@media (max-width: 860px) { .grades.g3 { grid-template-columns: 1fr; } }
+
+/* STORY：スタンプはキャラの画像にかぶせず、名前の横に置く */
+.st-card h3 .exam-stamp { position: relative; top: 0; left: auto; margin: 4px 0 4px 18px; font-size: 13px; letter-spacing: .18em; padding: 8px 16px 7px 18px; outline-offset: 4px; transform: none; }   /* 水平・ゆったり */
+.st-card h3 .exam-stamp.master { padding: 7px 18px 6px 10px; gap: 10px; font-size: 14px; }
+.st-card h3 .exam-stamp.master img { width: 30px; height: 30px; }
+.st-card h3 .exam-stamp small { font-size: 8px; margin-top: 4px; letter-spacing: .24em; }
+.cards.rows .st-card h3 { align-items: center; flex-wrap: wrap; row-gap: 12px; margin-bottom: 12px; }
+.st-tags { margin-bottom: 12px !important; }
+@media (min-width: 861px) { .st-card h3 .exam-stamp.master { margin-left: 4px; } }
 </style>
 </head>
 <body>
@@ -115,19 +161,19 @@
     <span class="tag">STORY</span>
     <h1 class="sh-school"><span class="g">HAMA EA学園</span></h1>
     <p class="lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b>「EAマスター」</b>をめざして操縦の練習をしています。</p>
-    <p class="lead sh-lead2">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>4年制で、1〜3年生はシミュレーター（デモ口座）で練習し、4年生でリアルの操縦免許をとります。</p>
+    <p class="lead sh-lead2">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>学年も卒業もありません。シミュレーター（デモ口座）で練習をかさね、試験に合格すると、リアルの操縦免許をもつ「EAマスター」になれます。</p>
   </div>
 </div>
 
 <main>
 <section class="school-sec"><div class="wrap">
-  <div class="grades">
-    <div class="grade"><b>1年生</b><span>シミュレーター</span><p>相場のきほんと、操縦のきほんを学びます。</p></div>
-    <div class="grade"><b>2年生</b><span>シミュレーター</span><p>担当の機体（EA）で、自分の戦略をじっくり練習します。</p></div>
-    <div class="grade"><b>3年生</b><span>シミュレーター</span><p>リアルへ進む前の、さいごの仕上げです。</p></div>
-    <div class="grade g4"><b>4年生</b><span>リアル免許</span><p>「EAマスター」に。その子の“くせ”が入った EA が、世界中の MT5 でいっしょに動きます。</p></div>
+  <div class="grades g3">
+    <div class="grade"><b>試験中</b><span>練習生</span><p>シミュレーター（デモ口座）で、担当の機体を操縦する練習をしています。いまの生徒は、みんなここ。</p></div>
+    <div class="grade gm"><b>EAマスター</b><span>パイロット</span><p>試験に合格したパイロット。その子の“くせ”が入った EA が、世界中の MT5 でいっしょに動きます。</p></div>
+    <div class="grade glv"><b>レベルアップ</b><span>機体の性能アップ</span>
+      <div class="lvsteps" aria-hidden="true"><i style="--h:34%"><em>LV.1</em></i><i style="--h:62%"><em>LV.2</em></i><i class="nx" style="--h:92%"><em>LV.3</em></i><strong class="up">▲</strong></div><p>機体（EA）は、整備と改造で性能アップ。</p></div>
   </div>
-  <p class="exam">上の学年へ進むには、きびしい<b>進級試験</b>に合格しないといけません。<br>だから、学年と年齢は関係なし。ずっと1年生のままの生徒も、めずらしくないんだとか…。<br>授業は<b>平日だけ</b>。相場がお休みの土日は、学校もお休みです。</p>
+  <p class="exam">EAマスターになるには、きびしい<b>試験</b>に合格しないといけません。<br>試験は何度でも受けられるけれど、ずっと試験中のままの生徒も、めずらしくないんだとか…。<br>まったく新しい機体がとどくと、それに乗る<b>新入生</b>がやってきます。<br>授業は<b>平日だけ</b>。相場がお休みの土日は、学校もお休みです。</p>
 </div></section>
 
 <section><div class="wrap">
@@ -137,8 +183,8 @@
     <a class="card ea-tre st-card" href="tre.html">
       <div class="img" style="background-image:url(img/trend_cover.jpg)"><img class="card-chara" src="img/chara/tren_serious.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">TOREN</span></div>
       <div class="body">
-        <span class="st-grade">2年生</span>
-        <h3>トレン<small>TOREN</small></h3>
+        <div class="st-tags"><span class="st-machine">機体：HAMA TREND G3 LV.1</span></div>
+        <h3>トレン<small>TOREN</small><span class="exam-stamp">試験中<small>IN TRAINING</small></span></h3>
         <span class="st-study">勉強中の戦略：トレンドフォロー（順張り）</span>
         <p class="st-text">いつも元気いっぱい！ 勉強中なのは「トレンドフォロー」。流れが出てきたら「いまだっ～！」と、流れにぴょんと乗っていきます。でも、流れがないときは、ちゃんとおやすみ。気持ちの切りかえも上手な、がんばり屋さんです。</p>
         <span class="st-good">得意：流れに乗ること</span>
@@ -149,8 +195,8 @@
     <a class="card ea-nami st-card" href="nami.html">
       <div class="img" style="background-image:url(img/namitore_cover.jpg)"><img class="card-chara" src="img/chara/nami_front.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">NAMI</span></div>
       <div class="body">
-        <span class="st-grade">2年生</span>
-        <h3>ナミ<small>NAMI</small></h3>
+        <div class="st-tags"><span class="st-machine">機体：HAMA NAMITORE G4 LV.1</span></div>
+        <h3>ナミ<small>NAMI</small><span class="exam-stamp">試験中<small>IN TRAINING</small></span></h3>
         <span class="st-study">勉強中の戦略：レンジ（逆張り）</span>
         <p class="st-text">みんなのいやし係。勉強中なのは「レンジ（逆張り）」。上がったり下がったりする相場を「波」に見立てて、行きすぎたところで反対側をそ～っとねらいます。攻めと守り、ふたつの考え方を、じょうずに使い分けているみたい。</p>
         <span class="st-good">得意：波をながめること</span>
@@ -161,8 +207,8 @@
     <a class="card ea-mado st-card" href="mado.html">
       <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"><img class="card-chara" src="img/chara/ume_front.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">UME</span></div>
       <div class="body">
-        <span class="st-grade">2年生</span>
-        <h3>うめちゃん<small>UME</small></h3>
+        <div class="st-tags"><span class="st-machine">機体：HAMA MADOUME G7 LV.1</span></div>
+        <h3>うめちゃん<small>UME</small><span class="exam-stamp">試験中<small>IN TRAINING</small></span></h3>
         <span class="st-study">勉強中の戦略：押し目買い・窓埋め</span>
         <p class="st-text">SMCがだいすきな、おっとりおんなのこ。いつも小さなノートを持ち歩いています。勉強中なのは「押し目買い」と「窓埋め」。大きな流れをたしかめてから、値段が「窓」に向かって下がってきたところを、少しずつ拾っていくのが好きなんだとか。「あわてない、あわてない」が口ぐせです。</p>
         <span class="st-good">得意：のんびり待つこと</span>
@@ -173,10 +219,10 @@
     <div class="card st-secret st-card">
       <div class="img"><span class="q">?</span><span class="chara-name card-name" aria-hidden="true">???</span></div>
       <div class="body">
-        <span class="st-grade">？年生</span>
+        <span class="st-grade">？？？</span>
         <h3>ひみつの生徒<small>COMING SOON</small></h3>
         <span class="st-study">うわさ：購買部のうらで、なにか売っているらしい…</span>
-        <p class="st-text">いつまでたっても進級できない、ちょっと問題児な生徒がいるみたい。校則では、こっそり EA を売ったら退学なんだけど…。先生には、まだナイショ。</p>
+        <p class="st-text">いつまでたっても試験に合格できない、ちょっと問題児な生徒がいるみたい。校則では、こっそり EA を売ったら退学なんだけど…。先生には、まだナイショ。</p>
         <span class="st-good">得意：？？？</span>
         <div class="st-stat" data-v="?"></div>
       </div>

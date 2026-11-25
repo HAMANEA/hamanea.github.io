@@ -42,6 +42,25 @@
 .hs-report .hs-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 12px; }
 .hs-report .hs-phones img { max-width: 860px; max-height: 600px; margin-right: -40px; }
 @media (max-width: 860px) { .hs-phones img { max-height: 250px; } .hs-report .hs-split { grid-template-columns: 1fr; } .hs-report .hs-phones img { max-height: 290px; } }
+
+/* WANTED 風のスタンプ（試験中＝シルバー・EAマスター＝ゴールド＋H ロゴ） */
+.exam-stamp { position: absolute; z-index: 4; top: 14px; left: 16px; transform: none; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 16px; letter-spacing: .14em; line-height: 1;
+  padding: 7px 12px 6px 14px; border: 3px solid currentColor; border-radius: 6px; outline: 1px solid currentColor; outline-offset: 3px; background: rgba(12,14,18,.62); pointer-events: none; white-space: nowrap;
+  color: #dfe5ee; text-shadow: 0 0 6px rgba(220,230,245,.55); box-shadow: 0 0 14px rgba(200,212,230,.25); }   /* 試験中＝シルバー */
+.exam-stamp.master { color: #ffd768; background: rgba(40,30,6,.72); text-shadow: 0 0 6px rgba(255,215,104,.6); box-shadow: 0 0 18px rgba(255,205,90,.45); }   /* EAマスター＝ゴールド */
+.exam-stamp.master { display: inline-flex; align-items: center; gap: 9px; padding: 6px 14px 5px 7px; font-size: 18px; background: rgba(14,11,3,.88); }
+.exam-stamp.master img { width: 46px; height: 46px; flex: none; filter: drop-shadow(0 0 6px rgba(255,210,100,.75)); }
+.exam-stamp.master > span { display: block; }
+@media (max-width: 640px) { .exam-stamp.master img { width: 28px; height: 28px; } }
+.exam-stamp small { display: block; font-size: 9px; letter-spacing: .2em; margin-top: 3px; opacity: .85; font-weight: 700; }
+/* LV のバッジ（文字は見出しと同じ Fredoka） */
+.card.ea-tre { --lc: #e9c45a; --lc2: #fff3c4; } .card.ea-nami { --lc: #4dc3ff; --lc2: #e6f7ff; } .card.ea-mado { --lc: #4fc27f; --lc2: #e8fbef; }
+.lv { display: inline-flex; align-items: baseline; gap: 3px; vertical-align: 4px; margin-left: 12px; padding: 4px 11px 4px 9px; font-family: "Fredoka", sans-serif; font-weight: 700; line-height: 1; white-space: nowrap;
+  color: #0b0c0e; background: linear-gradient(180deg, var(--lc2, #fff), var(--lc, #e9edf3) 70%); border: 1.5px solid rgba(255,255,255,.85); border-radius: 8px 3px 8px 3px;
+  box-shadow: 0 3px 0 rgba(0,0,0,.45), 0 0 12px color-mix(in srgb, var(--lc, #fff) 45%, transparent); transform: skewX(-10deg); }
+.lv small { font-size: .42em; letter-spacing: .12em; opacity: .75; }
+.lv b { font-size: .62em; font-weight: 700; }
+@media (max-width: 640px) { .exam-stamp { font-size: 13px; top: 10px; left: 10px; padding: 5px 9px 4px 11px; } .lv { margin-left: 8px; padding: 3px 8px 3px 7px; } }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -231,7 +250,7 @@
       <div class="img" style="background-image:url(img/trend_cover.jpg)"><img class="card-chara" src="img/chara/tren_serious.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">TOREN</span></div>
       <div class="body">
         <span class="nick">トレンド追従</span>
-        <h3>HAMA TREND G3</h3>
+        <h3>HAMA TREND G3<span class="lv"><small>LV.</small><b>1</b></span></h3>
         <p>トレンドが出ている間だけ、その方向に、<br>価格が逆に動くたび決まった間隔で最大 3 本まで<br>ポジションを足していく EA です。</p>
         <span class="more">VIEW MORE <i>→</i></span>
       </div>
@@ -240,7 +259,7 @@
       <div class="img" style="background-image:url(img/namitore_cover.jpg)"><img class="card-chara" src="img/chara/nami_front.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">NAMI</span></div>
       <div class="body">
         <span class="nick">レンジ（逆張り）</span>
-        <h3>HAMA NAMITORE G4</h3>
+        <h3>HAMA NAMITORE G4<span class="lv"><small>LV.</small><b>1</b></span></h3>
         <p>攻めと守りの「ダブルロジック」で、金の“波”をとらえるレンジ EA。</p>
         <span class="more">VIEW MORE <i>→</i></span>
       </div>
@@ -249,7 +268,7 @@
       <div class="img" style="background-image:url(img/madoume_cover_chart.jpg)"><img class="card-chara" src="img/chara/ume_front.webp?v=20261125" alt=""><span class="chara-name card-name" aria-hidden="true">UME</span></div>
       <div class="body">
         <span class="nick">押し目の積み増し</span>
-        <h3>HAMA MADOUME G7</h3>
+        <h3>HAMA MADOUME G7<span class="lv"><small>LV.</small><b>1</b></span></h3>
         <p>大きな流れに乗って、「窓」への押し目を少しずつ拾うゴールド EA。</p>
         <span class="more">VIEW MORE <i>→</i></span>
       </div>
