@@ -72,8 +72,9 @@
 .hs-top .tb-lead b { color: #15171c; }
 .hs-top .tb-lead b.gd { color: #a8781a; }
 @media (max-width: 640px) {
-  .hs-top .tw-img { right: 0; top: auto; bottom: 0; height: 56%; }
-  .hs-top .tw-in { padding-right: 16px; }
+  .hs-top.hs-slide { display: flex; flex-direction: column; }   /* スマホ: 3 人の絵（全身）を上、HAMA EA学園を下に */
+  .hs-top .tw-img { position: static; order: -1; width: 100%; height: auto; }
+  .hs-top .tw-in { padding-top: 16px; padding-bottom: 64px; padding-right: 16px; }
   .hs-top .tb-lead { font-size: 14px; }
   .hs-top .hs-more { background: #fff; }
 }
