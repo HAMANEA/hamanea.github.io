@@ -148,6 +148,14 @@
   .hs-mado .hs-bg { background: radial-gradient(120% 80% at 80% 70%, #2a8a55 0%, #14532f 45%, #0a2e1b 100%) !important; }
   .hs-nami .hs-bg::after, .hs-mado .hs-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 60%); }
 }
+/* PC の背景もスマホと同じ色に：トレンは黒、ナミは青、うめちゃんは緑（おためし 11-25） */
+@media (min-width: 641px) {
+  /* 元の写真を、色の層の下にうすーく透かす */
+  .hs-chara-left .hs-bg { opacity: 1; }
+  .hs-chara-left:not(.hs-nami):not(.hs-mado) .hs-bg::after { background: radial-gradient(120% 80% at 80% 70%, rgba(42,44,51,.86) 0%, rgba(21,22,27,.9) 45%, rgba(11,12,15,.94) 100%); }
+  .hs-nami .hs-bg::after { background: radial-gradient(120% 80% at 80% 70%, rgba(29,95,168,.86) 0%, rgba(14,53,112,.9) 45%, rgba(8,31,69,.94) 100%); }
+  .hs-mado .hs-bg::after { background: radial-gradient(120% 80% at 80% 70%, rgba(42,138,85,.86) 0%, rgba(20,83,47,.9) 45%, rgba(10,46,27,.94) 100%); }
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
 <style>
