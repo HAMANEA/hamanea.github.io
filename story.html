@@ -137,6 +137,10 @@
 .cards.rows .st-card h3 { align-items: center; flex-wrap: wrap; row-gap: 12px; margin-bottom: 12px; }
 .st-tags { margin-bottom: 12px !important; }
 @media (min-width: 861px) { .st-card h3 .exam-stamp.master { margin-left: 4px; } }
+/* 3 人とも「試験中」を名前の下にそろえる（名前が短いと横に並んでしまうため） */
+.cards.rows .st-card h3 { display: block; }
+.cards.rows .st-card h3 .exam-stamp { display: table; margin: 12px 0 4px; }
+.cards.rows .st-card h3 .exam-stamp.master { display: flex; width: fit-content; margin: 12px 0 4px; }
 /* 操縦中の3人（「試験中」などの箱と同じ大きさ） */
 .pilots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 8px 0 14px; }
 .pilot { position: relative; margin: 0; border: 1px solid #2a2c31; border-radius: 14px; overflow: hidden; background: #16171b; line-height: 0; }
@@ -170,7 +174,7 @@
     <span class="tag">STORY</span>
     <h1 class="sh-school"><span class="g">HAMA EA学園</span></h1>
     <p class="lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b>「EAマスター」</b>をめざして操縦の練習をしています。</p>
-    <p class="lead sh-lead2">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>学年も卒業もありません。シミュレーター（デモ口座）で練習をかさね、試験に合格すると、リアルの操縦免許をもつ「EAマスター」になれます。</p>
+    <p class="lead sh-lead2">EA は、学園が用意した「機体」。生徒たちは、担当の機体を操縦するパイロットです。<br>学年も卒業もありません。シミュレーター（デモ口座）で練習をかさね、試験に合格すると、LV.2 からの機体に乗れる、リアルの操縦免許をもつ「EAマスター」になれます。</p>
   </div>
 </div>
 
@@ -182,10 +186,10 @@
     <figure class="pilot" style="--c:#4fc27f"><img src="img/chara/cockpit_ume.webp?v=20261125d" alt="コックピットで操縦するうめちゃん" loading="lazy"></figure>
   </div>
   <div class="grades g3">
-    <div class="grade"><b>試験中</b><span>練習生</span><p>シミュレーター（デモ口座）で、担当の機体を操縦する練習をしています。いまの生徒は、みんなここ。</p></div>
-    <div class="grade gm"><b>EAマスター</b><span>パイロット</span><p>試験に合格したパイロット。その子の“くせ”が入った EA が、世界中の MT5 でいっしょに動きます。</p></div>
+    <div class="grade"><b>試験中</b><span>練習生</span><p>LV.1 の機体で、シミュレーター（デモ口座）を使って操縦の練習をしています。いまの生徒は、みんなここ。</p></div>
     <div class="grade glv"><b>レベルアップ</b><span>機体の性能アップ</span>
-      <div class="lvsteps" aria-hidden="true"><i style="--h:34%"><em>LV.1</em></i><i style="--h:62%"><em>LV.2</em></i><i class="nx" style="--h:92%"><em>LV.3</em></i><strong class="up">▲</strong></div><p>機体（EA）は、整備と改造で性能アップ！</p></div>
+      <div class="lvsteps" aria-hidden="true"><i style="--h:34%"><em>LV.1</em></i><i style="--h:62%"><em>LV.2</em></i><i class="nx" style="--h:92%"><em>LV.3</em></i><strong class="up">▲</strong></div><p>機体（EA）は、整備と改造で性能アップ！ LV.2 からは、リアルの機体です。</p></div>
+    <div class="grade gm"><b>EAマスター</b><span>パイロット</span><p>試験に合格したパイロット。LV.2 からの機体に乗って、リアル口座で操縦できます。その子の“くせ”が入った EA が、世界中の MT5 でいっしょに動きます。</p></div>
   </div>
   <p class="exam">EAマスターになるには、きびしい<b>試験</b>に合格しないといけません。<br>試験は何度でも受けられるけれど、ずっと試験中のままの生徒も、めずらしくないんだとか…。<br>まったく新しい機体がとどくと、それに乗る<b>新入生</b>がやってきます。<br>授業は<b>平日だけ</b>。相場がお休みの土日は、学校もお休みです。</p>
 </div></section>
