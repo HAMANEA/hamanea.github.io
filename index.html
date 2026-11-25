@@ -149,6 +149,93 @@
   .hs-nami .hs-bg::after, .hs-mado .hs-bg::after { background: linear-gradient(90deg, rgba(0,0,0,.25) 0%, rgba(0,0,0,0) 60%); }
 }
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+<style>
+/* トップの LV.1（デモ）/ LV.2（リアル）バナー（3 人共通） */
+.tlv-head { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .32em; color: #d9b54a; }
+.tlv-head::before, .tlv-head::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(217,181,74,.55)); }
+.tlv-head::after { transform: scaleX(-1); }
+.tlv-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.tlv { --c: #b9bec8; --c2: #f3f5f8; position: relative; overflow: hidden; isolation: isolate; display: flex; min-height: 300px; border-radius: 18px; text-decoration: none !important; }
+.tlv { flex-direction: column; background: #101114; }
+/* 上の帯: LV.1 = 3 人の顔、LV.2 = だれもいない学園（まだ公開していない） */
+.tlv .bg { position: relative; flex: none; width: 100%; height: 240px; background: #000 url('img/chara/tren_back_band.webp?v=20261125') 50% 30% / cover no-repeat; -webkit-mask-image: linear-gradient(#000 62%, transparent); mask-image: linear-gradient(#000 62%, transparent); }
+.tlv-2 .bg { background-image: url('img/chara/tren_shoulder_band.webp?v=20261125'); background-position: 50% 40%; }
+.tlv::before { content: none; }
+.tlv .tlv-in { margin-top: -78px; }
+.tlv-in { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding: 26px 28px; }
+.tlv-1 { border: 1px solid rgba(185,190,200,.7); box-shadow: 0 18px 40px rgba(0,0,0,.55); transition: transform .2s, box-shadow .2s; }
+.tlv-1::before { background: linear-gradient(90deg, rgba(12,13,16,.97) 0%, rgba(12,13,16,.88) 46%, rgba(12,13,16,.2) 100%); }
+.tlv-1:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--c), 0 22px 46px rgba(0,0,0,.6), 0 0 34px rgba(185,190,200,.3); }
+.tlv-2 { --c: #d9b54a; --c2: #fff1b8; border: 1px solid #2f3238; cursor: default; }
+.tlv-2 .bg { filter: grayscale(.35) brightness(.55); }
+.tlv-2::before { background: linear-gradient(90deg, rgba(10,11,14,.95), rgba(10,11,14,.6)), repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, transparent 1px 4px); }
+.tlv-emb { --hx: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); position: relative; flex: none; align-self: flex-start; width: 104px; height: 119px; margin-bottom: 14px; clip-path: var(--hx); background: linear-gradient(160deg, #fff6cf 0%, var(--c2) 25%, var(--c) 55%, #3a3a3a 100%); }
+.tlv-emb .e-in { position: absolute; inset: 5px; clip-path: var(--hx); background: radial-gradient(120% 90% at 50% 15%, #23252c, #0b0c0f 70%); display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+.tlv-emb small { font-family: "Orbitron", sans-serif; font-weight: 900; font-size: 14px; letter-spacing: .32em; margin: 0 0 2px .32em; color: var(--c2); }
+.tlv-emb b { font-family: "Orbitron", sans-serif; font-weight: 900; font-size: 56px; background: linear-gradient(180deg, #fff 0%, var(--c2) 40%, var(--c) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tlv-2 .tlv-emb { opacity: .7; }
+.tlv-2 .tlv-emb b { background: none; color: transparent; -webkit-text-stroke: 2px #d9b54a; }
+.tlv-ea { display: block; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 28px; line-height: 1.2; color: #f4f5f7; margin: 0 0 10px; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+.tlv-ea .mk { font-size: .62em; letter-spacing: .14em; color: #c9ccd2; vertical-align: .16em; margin-right: 4px; }
+.tlv-ea .tlv-lvl { font-family: "Orbitron", sans-serif; font-size: .62em; letter-spacing: .06em; color: var(--c2); vertical-align: .14em; margin-left: 4px; }
+.tlv-2 .tlv-ea { color: #c9ccd2; } .tlv-2 .tlv-ea .tlv-lvl { color: #b8973c; }
+.tlv-tag { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; font-family: "Fredoka", "Zen Kaku Gothic New", sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .14em; border-radius: 99px; padding: 4px 12px; margin-bottom: 12px; }
+.tlv-1 .tlv-tag { background: var(--c); color: #0b0c0e; }
+.tlv-2 .tlv-tag { border: 1px solid #575b63; color: #c3c6cd; background: rgba(0,0,0,.35); }
+.tlv-2 .tlv-tag::before { content: "🔒"; font-size: 11px; }
+.tlv-h { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 21px; color: #f4f5f7; margin: 0 0 6px; }
+.tlv-2 .tlv-h { color: #c9ccd2; }
+.tlv-p { font-size: 14px; line-height: 1.8; color: #d6d8dd; margin: 0 0 18px; max-width: 24em; min-height: 3.6em; }
+.tlv-2 .tlv-p { color: #9a9ea8; }
+.tlv-go { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; margin-top: auto; padding: 11px 22px; border-radius: 99px; background: linear-gradient(135deg, var(--c2), var(--c)); color: #0b0c0e; font-weight: 900; font-size: 15px; box-shadow: 0 6px 18px rgba(185,190,200,.35); }
+.tlv-go i { font-style: normal; transition: transform .2s; }
+.tlv-1:hover .tlv-go i { transform: translateX(4px); }
+.tlv-go.off { background: rgba(255,255,255,.06); color: #9a9ea8; border: 1px solid #3a3d44; box-shadow: none; }
+.tlv-tape { position: absolute; top: 28px; right: -46px; transform: rotate(35deg); width: 200px; text-align: center; padding: 6px 0; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .26em; color: #0b0c0e; background: repeating-linear-gradient(135deg, #d9b54a 0 12px, #9a7f2f 12px 24px); box-shadow: 0 4px 12px rgba(0,0,0,.5); }
+.tlv-eas { list-style: none; margin: 0 0 16px; padding: 0; display: grid; gap: 4px; }
+.tlv-eas li { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 15px; letter-spacing: .02em; color: #eef0f3; }
+.tlv-eas li em { font-style: normal; color: var(--c2); }
+.tlv-eas li .lx { font-family: "Orbitron", sans-serif; font-size: .78em; letter-spacing: .06em; color: var(--c2); margin-left: 4px; }
+.tlv-2 .tlv-eas li .lx { color: #b8973c; }
+.tlv-2 .tlv-eas li { color: #aeb2ba; } .tlv-2 .tlv-eas li em { color: #b8973c; }
+/* LV.1（デモ）はシルバーで統一 */
+.tlv-1 { background: linear-gradient(160deg, #1f2227 0%, #141518 55%, #101114 100%); border-color: #c3c8d1; box-shadow: 0 18px 40px rgba(0,0,0,.55), inset 0 0 0 1px rgba(255,255,255,.06), 0 0 26px rgba(195,200,209,.18); }
+.tlv-1 .tlv-eas li em, .tlv-1 .tlv-eas li .lx, .tlv-1 .tlv-ea .tlv-lvl { background: linear-gradient(180deg, #ffffff 0%, #d7dbe2 45%, #9aa0aa 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tlv-1 .tlv-h { color: #eef0f4; }
+.tlv-1 .tlv-go { background: linear-gradient(135deg, #ffffff 0%, #d7dbe2 45%, #9aa0aa 100%); }/* 「HAMA EA LV.1 / LV.2」を大きく、強く */
+.tlv-ea { font-size: 44px; line-height: 1.1; letter-spacing: .01em; margin: 0 0 14px; }
+.tlv-ea .mk { font-size: .5em; letter-spacing: .18em; vertical-align: .32em; }
+.tlv-ea .tlv-lvl { font-size: .78em; letter-spacing: .04em; margin-left: 8px; vertical-align: 0; }
+.tlv-1 .tlv-ea { background: linear-gradient(180deg, #ffffff 0%, #e6e9ee 45%, #a9afb9 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; filter: drop-shadow(0 3px 10px rgba(195,200,209,.25)); }
+.tlv-2 .tlv-ea { background: linear-gradient(180deg, #fff6cf 0%, #e8c75e 45%, #9a7a2a 100%); -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+.tlv-1 .tlv-ea .mk, .tlv-2 .tlv-ea .mk { -webkit-text-fill-color: currentColor; color: #c9ccd2; }
+@media (max-width: 640px) { .tlv-ea { font-size: 34px; } }/* LV.2 はすべて金色 */
+.tlv-2 { border-color: #d9b54a; background: linear-gradient(160deg, #2a2414 0%, #17150f 55%, #100f0c 100%); box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 0 26px rgba(217,181,74,.18); }
+.tlv-2 .tlv-emb { opacity: 1; }
+.tlv-2 .tlv-ea .mk { color: #d9b54a; }
+.tlv-2 .tlv-tag { border-color: #d9b54a; color: #f0d27a; background: rgba(217,181,74,.12); }
+.tlv-2 .tlv-h { color: #f0d27a; }
+.tlv-2 .tlv-eas li, .tlv-2 .tlv-eas li em, .tlv-2 .tlv-eas li .lx { color: #e8c75e; }
+.tlv-2 .tlv-p { color: #c9b27a; }
+.tlv-2 .tlv-go.off { color: #e8c75e; border-color: #b8973c; background: rgba(217,181,74,.08); }/* 文字の大きさをそろえる（HAMA / EA / LV.1 を同じ大きさに。EA 名の行も G3・LV.1 を同じ大きさに） */
+.tlv-ea .mk, .tlv-ea .tlv-lvl { font-size: 1em; vertical-align: 0; letter-spacing: .02em; margin-right: 0; }
+.tlv-ea .tlv-lvl { font-family: "Zen Kaku Gothic New", sans-serif; margin-left: 2px; }
+.tlv-ea .mk { margin-right: 12px; }
+.tlv-1 .tlv-ea .mk { -webkit-text-fill-color: transparent; }
+.tlv-2 .tlv-ea .mk { -webkit-text-fill-color: transparent; }
+.tlv-eas li .lx { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 1em; letter-spacing: .02em; margin-left: 6px; }.tlv-note { margin: 12px 2px 0; font-size: 12.5px; line-height: 1.7; color: #9a9ea8; }
+@media (max-width: 640px) {
+  .tlv-row { grid-template-columns: 1fr; gap: 14px; }
+  .tlv { min-height: 0; }
+  .tlv .bg { width: 72%; right: -10%; }
+  .tlv-in { padding: 22px 20px; }
+  .tlv-emb { width: 86px; height: 98px; } .tlv-emb b { font-size: 46px; } .tlv-emb small { font-size: 12px; }
+  .tlv-ea { font-size: 23px; } .tlv-h { font-size: 18px; }
+  .tlv-p { min-height: 0; }
+  .tlv-1::before { background: linear-gradient(90deg, rgba(12,13,16,.96) 0%, rgba(12,13,16,.82) 58%, rgba(12,13,16,.35) 100%); }
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -335,26 +422,35 @@
 </div></section>
 
 <section class="demo-cta"><div class="wrap">
-  <div class="cta-grid">
-    <div class="cta">
-      <div class="cta-t">
-        <span class="tag">FREE DEMO</span>
-        <h2>まずは無料でお試し</h2>
-        <p class="cta-lead"><strong>どの EA も、デモ口座なら 30 日間無料でお試しいただけます。</strong></p>
-        <p>お名前とメールアドレスを入れるだけで、デモ用のライセンスキー（すべての EA 共通）をすぐにメールでお送りします。</p>
-      </div>
-      <a class="btn cta-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">デモを申し込む <i>→</i></a>
-    </div>
-    <div class="cta cta-real">
-      <div class="cta-t">
-        <span class="tag">REAL ACCOUNT</span>
-        <h2>リアル口座でのご利用</h2>
-        <p class="cta-lead"><strong>ただいま準備中です。</strong></p>
-        <p>リアル口座でのご利用方法は、決まりしだい、このページでお知らせします。</p>
-      </div>
-      <span class="btn cta-btn is-off" aria-disabled="true">準備中</span>
+  <div class="tlv-head" id="lv">MACHINE LEVEL</div>
+  <div class="tlv-row">
+    <a class="tlv tlv-1" href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">
+      <span class="bg" aria-hidden="true"></span>
+      <span class="tlv-in">
+        <span class="tlv-emb"><span class="e-in"><small>LV</small><b>1</b></span></span>
+        <span class="tlv-ea"><span class="mk">HAMA</span>EA <span class="tlv-lvl">LV.1</span></span>
+        <span class="tlv-tag">DEMO OK</span>
+        <span class="tlv-h">まずは無料でお試し</span>
+        <ul class="tlv-eas"><li>HAMA TREND <em>G3</em> <span class="lx">LV.1</span></li><li>HAMA NAMITORE <em>G4</em> <span class="lx">LV.1</span></li><li>HAMA MADOUME <em>G7</em> <span class="lx">LV.1</span></li></ul>
+        <span class="tlv-p">どの EA も、デモ口座で 30 日間、無料でお試しいただけます。デモ用のライセンスキー（すべての EA 共通）を、すぐにメールでお送りします。</span>
+        <span class="tlv-go">デモを申し込む <i>→</i></span>
+      </span>
+    </a>
+    <div class="tlv tlv-2" aria-disabled="true">
+      <span class="bg" aria-hidden="true"></span>
+      <span class="tlv-tape" aria-hidden="true">COMING SOON</span>
+      <span class="tlv-in">
+        <span class="tlv-emb"><span class="e-in"><small>LV</small><b>2</b></span></span>
+        <span class="tlv-ea"><span class="mk">HAMA</span>EA <span class="tlv-lvl">LV.2</span></span>
+        <span class="tlv-tag">公開待ち</span>
+        <span class="tlv-h">リアル口座でのご利用</span>
+        <ul class="tlv-eas"><li>HAMA TREND <em>G3</em> <span class="lx">LV.2</span></li><li>HAMA NAMITORE <em>G4</em> <span class="lx">LV.2</span></li><li>HAMA MADOUME <em>G7</em> <span class="lx">LV.2</span></li></ul>
+        <span class="tlv-p">性能アップした機体は、リアル口座でのご利用を予定しています。ただいま準備中です。公開したら NEWS でお知らせします。</span>
+        <span class="tlv-go off">公開をお待ちください</span>
+      </span>
     </div>
   </div>
+  <p class="tlv-note">※ 同じシリーズの LV.1 と LV.2 は、同時にご使用いただけません。</p>
 </div></section>
 </main>
 
