@@ -10,6 +10,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css?v=20261124a">
+<style>
+/* はじめの画面の右にキャラ 1 人（NEWS の 3 人と同じ置き方） */
+.hero-chara { position: relative; overflow: hidden; min-height: 420px; display: flex; align-items: center; }
+.hero-chara .wrap { position: relative; z-index: 2; width: 100%; }
+.hc-img { position: absolute; z-index: 1; right: max(0px, calc(50% - 600px)); bottom: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
+.hero-chara .lead { max-width: 640px; }
+@media (max-width: 860px) {
+  .hero-chara { flex-direction: column; min-height: 0; }
+  .hero-chara .wrap { order: 1; }
+  .hc-img { order: 2; position: static; display: block; width: auto; height: 340px; max-width: 100%; margin: 0 auto; }
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="wrap">
@@ -28,7 +40,8 @@
   </nav>
 </div></header>
 
-<div class="hero hero-license">
+<div class="hero hero-license hero-chara">
+  <img class="hc-img" src="img/chara/nami_full.webp?v=20261125" alt="ナミ">
   <div class="wrap" style="padding-top:48px;padding-bottom:48px">
     <span class="tag">LICENSE</span>
     <h1><span class="g">ライセンス</span></h1>
