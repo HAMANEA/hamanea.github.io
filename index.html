@@ -61,21 +61,21 @@
 .lv small { font-size: .42em; letter-spacing: .12em; opacity: .75; }
 .lv b { font-size: .62em; font-weight: 700; }
 @media (max-width: 640px) { .exam-stamp { font-size: 13px; top: 10px; left: 10px; padding: 5px 9px 4px 11px; } .lv { margin-left: 8px; padding: 3px 8px 3px 7px; } }
-/* TOP バナー（左：文字／右半分：登校のイラスト、さかい目はぼかさない） */
-.top-banner { position: relative; background: #fff; border-bottom: 1px solid var(--line); line-height: 0; }
-.top-banner .tb-img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
-.top-banner .tb-text { position: absolute; inset: 0; max-width: 1400px; margin: 0 auto; display: flex; align-items: center; line-height: 1.6; }
-.top-banner .tb-in { width: 50%; padding: 0 4% 0 5%; box-sizing: border-box; }
-.top-banner .tb-title { margin: 0 0 18px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.2; letter-spacing: .03em; }
-.top-banner .tb-title .g { background: linear-gradient(135deg, #2a2d35, #15171c 60%); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.top-banner .tb-lead { margin: 0; font-size: clamp(14px, 1.55vw, 20px); color: #4a4f5a; line-height: 1.9; }
-.top-banner .tb-logo { display: block; width: clamp(56px, 6.5vw, 92px); height: auto; margin-bottom: 18px; }
-.top-banner .tb-lead b.gd { color: #a8781a; }
-.top-banner .tb-lead b { color: #15171c; }
-@media (max-width: 760px) {
-  .top-banner .tb-img { aspect-ratio: 960 / 1090; object-fit: cover; object-position: 100% 50%; }
-  .top-banner .tb-text { position: static; }
-  .top-banner .tb-in { width: 100%; padding: 26px 20px 30px; }
+/* スライド 1 枚目：HAMA EA学園（白い背景・右に登校の絵） */
+.hs-top { position: relative; overflow: hidden; background: #fff; }
+.hs-top .tw-img { position: absolute; z-index: 1; right: max(0px, calc(50% - 620px)); top: 0; height: 100%; width: auto; max-width: none; pointer-events: none; }
+.hs-top .tw-in { position: relative; z-index: 2; padding-right: min(46%, 560px); }
+.hs-top .tb-logo { display: block; width: clamp(52px, 5vw, 76px); height: auto; margin-bottom: 14px; }
+.hs-top .tb-title { margin: 0 0 14px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: clamp(30px, 4vw, 52px); line-height: 1.2; letter-spacing: .03em; }
+.hs-top .tb-title .g { background: linear-gradient(135deg, #2a2d35, #15171c 60%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hs-top .tb-lead { margin: 0 0 18px; font-size: clamp(14px, 1.4vw, 18px); color: #4a4f5a; line-height: 1.9; }
+.hs-top .tb-lead b { color: #15171c; }
+.hs-top .tb-lead b.gd { color: #a8781a; }
+@media (max-width: 640px) {
+  .hs-top .tw-img { right: 0; top: auto; bottom: 0; height: 56%; }
+  .hs-top .tw-in { padding-right: 16px; }
+  .hs-top .tb-lead { font-size: 14px; }
+  .hs-top .hs-more { background: #fff; }
 }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
@@ -166,17 +166,18 @@
   </nav>
 </div></header>
 
-<div class="top-banner">
-  <img class="tb-img" src="img/chara/top_walk_banner_white.webp?v=20261125b" alt="公園の道を歩いて学園へ向かう、うめちゃん・ナミ・トレン">
-  <div class="tb-text"><div class="tb-in">
+<div class="hslider" id="hslider" aria-roledescription="carousel" aria-label="HAMA EA の紹介">
+ <div class="hs-track">
+  <a class="hs-slide hs-top is-on" href="story.html" style="--c:#a8781a;--c2:#d9b54a" aria-roledescription="slide" aria-label="1 / 6">
+   <img class="tw-img" src="img/chara/top_walk_trio.webp?v=20261125" alt="公園の道を歩いて学園へ向かう、うめちゃん・ナミ・トレン">
+   <div class="wrap hs-in tw-in">
     <img class="tb-logo" src="img/hama_logo.svg" alt="HAMA">
     <h1 class="tb-title"><span class="g">HAMA EA学園</span></h1>
     <p class="tb-lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b class="gd">「EAマスター」</b>をめざして操縦の練習をしています。</p>
-  </div></div>
-</div>
-<div class="hslider" id="hslider" aria-roledescription="carousel" aria-label="HAMA EA の紹介">
- <div class="hs-track">
-  <a class="hs-slide hs-ea hs-chara-left is-on" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="1 / 5">
+    <span class="hs-more">STORY →</span>
+   </div>
+  </a>
+  <a class="hs-slide hs-ea hs-chara-left" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="2 / 6">
    <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
    <img class="hs-chara" src="img/chara/tren_full.webp?v=20261125" alt="">
    <span class="chara-name hs-name" aria-hidden="true">TOREN</span>
@@ -187,7 +188,7 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-chara-left hs-nami" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="2 / 5">
+  <a class="hs-slide hs-ea hs-chara-left hs-nami" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="3 / 6">
    <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
    <img class="hs-chara" src="img/chara/nami_full.webp?v=20261125" alt="ナミ">
    <span class="chara-name hs-name" aria-hidden="true">NAMI</span>
@@ -198,7 +199,7 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-chara-left hs-mado" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="3 / 5">
+  <a class="hs-slide hs-ea hs-chara-left hs-mado" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="4 / 6">
    <div class="hs-bg" style="background-image:url(img/madoume_cover_chart.jpg)"></div>
    <img class="hs-chara" src="img/chara/ume_full.webp?v=20261125" alt="うめちゃん">
    <span class="chara-name hs-name" aria-hidden="true">UME</span>
@@ -209,7 +210,7 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="4 / 5">
+  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="5 / 6">
    <div class="wrap hs-in hs-split">
     <div>
      <span class="hs-nick">成績表（すべての EA 共通）</span>
@@ -220,7 +221,7 @@
     <div class="hs-phones"><img src="img/report_monitor.png" alt="成績表の画面のイメージ（架空の数値）"></div>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="5 / 5">
+  <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="6 / 6">
    <div class="wrap hs-in hs-split">
     <div>
      <span class="hs-nick">スマホで見る（すべての EA 共通）</span>
@@ -234,7 +235,7 @@
  </div>
  <div class="hs-ctl">
   <button class="hs-arrow" type="button" data-go="-1" aria-label="前へ">‹</button>
-  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button></div>
+  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button><button type="button" aria-label="6"></button></div>
   <button class="hs-arrow" type="button" data-go="1" aria-label="次へ">›</button>
  </div>
 </div>
