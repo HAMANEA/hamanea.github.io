@@ -312,11 +312,12 @@ h2{font-size:15px;margin:2px 0 8px}
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxVILsMUm1UMdNhgRQVQgXre6H6Kc50SF3V2KBowSc4ORi4PsX-drc23v-SNNxlBR5H/exec';
 const MOCK = /[?&]mock=1/.test(location.search);
-const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MADOUME G7', 'mado'] };
+const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MADOUME G7', 'mado'], TRE2: ['TREND G3 LV.2', 'tre'], NAMI2: ['NAMITORE G4 LV.2', 'nami'], MADO2: ['MADOUME G7 LV.2', 'mado'] };
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261125a';
+const PAGE_VER = '20261125b';
+const verTx = v => 'ver ' + String(v).replace(/^v(er)?\s*/i, '');   // 版は「ver 2.63」（LV と見まちがえないように）
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -507,7 +508,7 @@ function renderHome() {
   $('dsum').textContent = money(day + opn, c); $('dsum').className = 'pv ' + cls(day + opn);
   const bad = us.filter(u => status(u)[0] === 'bad');
   $('alerts').innerHTML = bad.map(u => `<div class="alert">⚠ ${EA[u.ea] ? EA[u.ea][0] : u.ea}：${status(u)[1] === 'オフライン' ? 'オフラインです' : status(u)[1]}。${status(u)[1] === 'オフライン' ? 'MT5 やパソコンを確認してください。' : ''}</div>`).join('');
-  const order = ['TRE', 'NAMI', 'MADO'];
+  const order = ['TRE', 'TRE2', 'NAMI', 'NAMI2', 'MADO', 'MADO2'];
   us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
   $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.opn : '', dd = u.s ? u.s.day : '';
     return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; }).join('');
@@ -542,7 +543,7 @@ function renderDetail() {
   <div><div class="lbl">含み損益</div><div class="pv ${cls(s.opn)}">${money(s.opn, c)}</div><div class="ps">持っている分</div></div>
   <div><div class="lbl">決済した損益</div><div class="pv ${cls(s.day)}">${money(s.day, c)}</div><div class="ps">今日 確定した分</div></div>
   <div><div class="lbl">今日の合計</div><div class="pv ${cls(Number(s.day || 0) + Number(s.opn || 0))}">${money(Number(s.day || 0) + Number(s.opn || 0), c)}</div><div class="ps">含み ＋ 決済</div></div></div>
-  <div class="small">${ago(u.seen)}${s.v ? '・' + s.v : ''}</div></div>
+  <div class="small">${ago(u.seen)}${s.v ? '・' + verTx(s.v) : ''}</div></div>
   ${detailOf(u) ? `<div class="card"><h2>${st[1] === 'オフライン' ? '最後に届いたときの状態' : '今の状態'}</h2><div class="dtl">${esc(detailOf(u))}</div></div>` : ''}
   ${fxCard(s, c)}
   <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos), s.opn)}${closeBtns(u)}</div>
@@ -614,7 +615,7 @@ function agg(rows) {
 }
 const pfs = v => isFinite(v) ? v.toFixed(2) : (v === Infinity ? '—（負けなし）' : '—');
 const winp = r => r.n ? Math.round(r.w / r.n * 100) + '%' : '—';
-function scoreUnits() { const accs = accounts(); return accSel && accs[accSel] ? accs[accSel].slice().sort((a, b) => ['TRE', 'NAMI', 'MADO'].indexOf(a.ea) - ['TRE', 'NAMI', 'MADO'].indexOf(b.ea)) : []; }
+function scoreUnits() { const accs = accounts(); return accSel && accs[accSel] ? accs[accSel].slice().sort((a, b) => ['TRE', 'TRE2', 'NAMI', 'NAMI2', 'MADO', 'MADO2'].indexOf(a.ea) - ['TRE', 'TRE2', 'NAMI', 'NAMI2', 'MADO', 'MADO2'].indexOf(b.ea)) : []; }
 async function openScore() {
   const us = scoreUnits();
   if (!us.length) { alert('この口座で動いている EA がありません'); return; }
