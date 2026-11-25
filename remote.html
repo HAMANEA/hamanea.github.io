@@ -316,7 +316,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261125b';
+const PAGE_VER = '20261125c';
 const verTx = v => 'ver ' + String(v).replace(/^v(er)?\s*/i, '');   // 版は「ver 2.63」（LV と見まちがえないように）
 async function checkVer() {
   try {
@@ -478,6 +478,12 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden && to
 function accounts() {
   const m = {};
   data.units.filter(u => (cur === 'demo') === u.demo).forEach(u => { (m[u.acc] = m[u.acc] || []).push(u); });
+  // 同じ口座・同じ EA が 2 つあるとき（EA を入れ替えるときに別のキーを入れた など）は、いちばん新しく届いたものだけを出す
+  Object.keys(m).forEach(a => {
+    const best = {};
+    m[a].forEach(u => { if (!best[u.ea] || (u.seen || 0) > (best[u.ea].seen || 0)) best[u.ea] = u; });
+    m[a] = m[a].filter(u => best[u.ea] === u);
+  });
   return m;
 }
 function renderHome() {
