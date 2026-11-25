@@ -127,6 +127,11 @@ details[open] .ch{transform:rotate(90deg)}
 .sw.on{background:var(--c,var(--ok))}.sw.on::after{left:23px;background:var(--inv)}
 .set{padding:12px 0;border-bottom:1px solid var(--line)}
 .set:last-child{border-bottom:0}
+.fx2{grid-template-columns:repeat(2,1fr)}
+.clrow{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:6px;margin-top:12px}
+.clbtn{font:inherit;font-size:13px;font-weight:700;padding:10px 4px;border-radius:10px;border:1.5px solid #e0626b;background:transparent;color:#ff8f96;cursor:pointer}
+.clbtn.all{background:#c9404b;border-color:#c9404b;color:#fff}
+.clbtn:disabled{opacity:.35;cursor:default}
 .pend{margin-top:8px;font-size:12px;color:var(--wait);background:rgba(230,199,102,.10);border-radius:10px;padding:8px 10px}
 .in{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--tx);font-size:16px;padding:12px;border-radius:12px;margin:6px 0 14px;letter-spacing:.04em}
 .go{width:100%;background:var(--btn);color:var(--inv);border:0;font-weight:700;font-size:16px;padding:13px;border-radius:12px}
@@ -311,7 +316,7 @@ const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MA
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261124w';
+const PAGE_VER = '20261125a';
 async function checkVer() {
   try {
     const t = await (await fetch(location.pathname + '?v=' + Date.now(), { cache: 'no-store' })).text();
@@ -451,7 +456,9 @@ function scoreCard(s, c) {
     rs.map(([k, v]) => `<tr><th>${k}</th><td class="${cls(v.pl)}">${money(v.pl, c)}</td><td>${v.n}回</td><td>${v.n ? Math.round(v.w / v.n * 100) + '%' : '—'}</td></tr>`).join('') +
     `</table><p class="small">この EA がこの口座で決済した取引の合計です（スワップ・手数料こみ）。週は月曜から。日付は FX 会社の時間です。</p></div>`;
 }
-const parseList = s => String(s || '').split(',').filter(x => x).map(x => { const a = x.split(':'); return [a[0] === 'B' ? '買い' : '売り', a[1]]; });
+// 「B:1250:0.03:123456」= 向き:損益:ロット:番号（ロットと番号は新しい EA だけ。前の EA は「B:1250」）
+const parseList = s => String(s || '').split(',').filter(x => x).map(x => { const a = x.split(':'); return [a[0] === 'B' ? '買い' : '売り', a[1], a[2] === undefined ? null : Number(a[2]), a[3] || '']; });
+const lotf = v => (Math.round(v * 100) / 100).toFixed(2);
 
 async function load(go) {
   if (!tok) { show('login'); return; }
@@ -516,13 +523,15 @@ function renderDetail() {
   const e = EA[u.ea] || [u.ea, 'tre'], s = u.s || {}, st = status(u), c = s.cur;
   $('dacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4);
   const lot = u.want && u.want.lot !== '' ? Number(u.want.lot) : Number(s.lot);
-  const en = u.want && u.want.en !== '' ? u.want.en === '1' : s.en !== '0';
-  // 1 本ずつ ＋ 買い・売り・合計（合計は EA が送ってきた全体の数字。一覧は 10 本まで）
+  const wen = u.want && u.want.en ? u.want.en.charAt(0) : '';
+  const en = wen === '0' || wen === '1' ? wen === '1' : String(s.en || '').charAt(0) !== '0';
+  // 1 本ずつ ＋ 買い・売り・合計（合計は EA が送ってきた全体の数字。一覧は 10 本まで）。新しい EA はロットも出す
   const rows = (a, total) => {
     if (!a.length) return '<div class="empty">ありません</div>';
     const sum = k => a.filter(p => p[0] === k).reduce((x, p) => x + Number(p[1] || 0), 0), cnt = k => a.filter(p => p[0] === k).length;
-    const one = a.map(p => `<div class="row"><span>${p[0]}</span><span class="${cls(p[1])}">${money(p[1], c)}</span></div>`).join('');
-    const sub = ['買い', '売り'].map(k => `<div class="row sub"><span>${k}の合計 <small>${cnt(k)}本</small></span><span class="${cls(sum(k))}">${cnt(k) ? money(sum(k), c) : '—'}</span></div>`).join('');
+    const lots = k => a.filter(p => p[0] === k).reduce((x, p) => x + (p[2] || 0), 0), hasLot = a.some(p => p[2] !== null);
+    const one = a.map(p => `<div class="row"><span>${p[0]}${p[2] !== null ? ` <small>${lotf(p[2])} ロット</small>` : ''}</span><span class="${cls(p[1])}">${money(p[1], c)}</span></div>`).join('');
+    const sub = ['買い', '売り'].map(k => `<div class="row sub"><span>${k}の合計 <small>${cnt(k)}本${hasLot && cnt(k) ? '・' + lotf(lots(k)) + ' ロット' : ''}</small></span><span class="${cls(sum(k))}">${cnt(k) ? money(sum(k), c) : '—'}</span></div>`).join('');
     const tot = total === '' || total == null ? a.reduce((x, p) => x + Number(p[1] || 0), 0) : Number(total);
     return one + sub + `<div class="row tot"><span>合計 <small>${a.length}本</small></span><span class="${cls(tot)}">${money(tot, c)}</span></div>`;
   };
@@ -535,7 +544,8 @@ function renderDetail() {
   <div><div class="lbl">今日の合計</div><div class="pv ${cls(Number(s.day || 0) + Number(s.opn || 0))}">${money(Number(s.day || 0) + Number(s.opn || 0), c)}</div><div class="ps">含み ＋ 決済</div></div></div>
   <div class="small">${ago(u.seen)}${s.v ? '・' + s.v : ''}</div></div>
   ${detailOf(u) ? `<div class="card"><h2>${st[1] === 'オフライン' ? '最後に届いたときの状態' : '今の状態'}</h2><div class="dtl">${esc(detailOf(u))}</div></div>` : ''}
-  <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos), s.opn)}</div>
+  ${fxCard(s, c)}
+  <div class="card pos"><h2>保有ポジション</h2>${rows(parseList(s.pos), s.opn)}${closeBtns(u)}</div>
   <div class="card pos"><h2>本日の決済<small class="today">${today()}</small></h2>${rows(parseList(s.cl), s.day)}</div>
   <div class="card"><h2>設定</h2>
    <div class="set"><div class="lbl">ロットの量</div><div class="seg" id="lotseg" style="margin-top:8px">${LOTN.map((t, i) => `<button data-l="${i}" class="${i === lot ? 'on' : ''}">${t}</button>`).join('')}</div></div>
@@ -545,6 +555,35 @@ function renderDetail() {
   <p class="small">※ 設定は、EA が次に知らせてくるとき（2 分以内）に届きます。</p></div>`;
   $('lotseg').querySelectorAll('button').forEach(b => b.onclick = () => cmd(u, { lot: Number(b.dataset.l) }));
   $('entsw').onclick = () => cmd(u, { en: en ? 0 : 1 });
+  $('dbody').querySelectorAll('.clbtn').forEach(b => b.onclick = () => closeCmd(u, b.dataset.cl));
+}
+// きょうの最大の含み益・含み損（新しい EA だけが送る「最大の含み益,最大の含み損」）
+function fxCard(s, c) {
+  if (s.fx === undefined || s.fx === null) return '';
+  const a = String(s.fx).split(','), hi = a.length === 2 ? Number(a[0]) : NaN, lo = a.length === 2 ? Number(a[1]) : NaN, has = isFinite(hi) && isFinite(lo) && s.fx !== '';
+  return `<div class="card"><h2>きょうの含み損益の幅<small class="today">${today()}</small></h2><div class="pl3 fx2" style="margin-top:0;padding-top:0;border-top:0">
+  <div><div class="lbl">最大の含み益</div><div class="pv ${has ? cls(Math.max(hi, 0)) : ''}">${has ? (hi > 0 ? money(hi, c) : '—') : '—'}</div><div class="ps">いちばん増えたとき</div></div>
+  <div><div class="lbl">最大の含み損</div><div class="pv ${has ? cls(Math.min(lo, 0)) : ''}">${has ? (lo < 0 ? money(lo, c) : '—') : '—'}</div><div class="ps">いちばん減ったとき</div></div></div>
+  <div class="small">${has ? 'この EA のポジションの合計で見ています' : 'きょうはまだポジションを持っていません'}</div></div>`;
+}
+// 決済のボタン（ロットを送ってくる新しい EA で、ポジションがあるときだけ）
+function closeBtns(u) {
+  const a = parseList(u.s && u.s.pos);
+  if (!a.length || !a.some(p => p[2] !== null) || status(u)[1] === 'オフライン') return '';
+  const pend = u.want && u.want.en && u.want.en.length > 1 ? '<div class="pend">決済の命令を、EA が受け取るのを待っています（2 分以内）</div>' : '';
+  const nb = a.filter(p => p[0] === '買い').length, ns = a.filter(p => p[0] === '売り').length;
+  return `<div class="clrow"><button class="clbtn all" data-cl="A">全部決済</button><button class="clbtn" data-cl="B" ${nb ? '' : 'disabled'}>買いだけ決済</button><button class="clbtn" data-cl="S" ${ns ? '' : 'disabled'}>売りだけ決済</button></div>${pend}`;
+}
+async function closeCmd(u, cl) {
+  const s = u.s || {}, c = s.cur, a = parseList(s.pos).filter(p => cl === 'A' || p[0] === (cl === 'B' ? '買い' : '売り'));
+  if (!a.length) return;
+  const nm = { A: '全部', B: '買い', S: '売り' }[cl], pl = a.reduce((x, p) => x + Number(p[1] || 0), 0), lt = a.reduce((x, p) => x + (p[2] || 0), 0);
+  if (!confirm(`${(EA[u.ea] || [u.ea])[0]} の「${nm}」を決済しますか？\n${a.length}本・${lotf(lt)} ロット・いまの含み損益 ${money(pl, c)}\n\n・EA が次に知らせてくるとき（2 分以内）に決済します。そのあいだに値段は動きます。\n・同じ向きの待機中の注文も取り消します。\n・新しいエントリーも OFF にします（すぐにまた建たないように）。`)) return;
+  if (!confirm(`本当に「${nm}」を決済しますか？\n決済は取り消せません。`)) return;
+  $('dbody').classList.add('spin');
+  try { const r = await api('r_cmd', { unit: u.unit, cl: cl, en: 0 }); if (!r.ok) alert('送れませんでした'); else alert('決済の命令を送りました。EA が受け取ると、お知らせが届きます。'); await load(false); }
+  catch (e) { alert('つながりません'); }
+  finally { $('dbody').classList.remove('spin'); }
 }
 async function cmd(u, body) {
   if (body.lot !== undefined) {
@@ -692,7 +731,7 @@ var MOCKDB = null;   // var: はじめの読み込み（上の start）より前
 function mockApi(op, q) {
   const now = Date.now();
   if (!MOCKDB) MOCKDB = { prefs: { stop: 1, start: 1, auto: 1, cfg: 0, min: 10 }, units: [
-    { unit: 'K1|1234567|TRE', acc: '1234567', demo: false, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'run3', bal: '1284560', day: '12300', opn: '-2250', pos: 'B:1250,B:-4400,S:900', cl: 'B:8900,S:3400', sc: 'w:21400,9,6;m:68300,31,19;y:412000,288,171;a:412000,288,171', lot: '1', en: '1', cur: 'JPY', v: 'v2.53', dt: '上の時間足と今の足の向きがそろうのを待っています\n次の足が確定したら、もう一度見ます' } },
+    { unit: 'K1|1234567|TRE', acc: '1234567', demo: false, ea: 'TRE', seen: now - 60000, alerted: false, want: null, s: { t: now - 60000, st: 'run3', bal: '1284560', day: '12300', opn: '-2250', pos: 'B:1250:0.03:1001,B:-4400:0.03:1002,S:900:0.02:1003', fx: '3200,-6800', cl: 'B:8900,S:3400', sc: 'w:21400,9,6;m:68300,31,19;y:412000,288,171;a:412000,288,171', lot: '1', en: '1', cur: 'JPY', v: 'v2.53', dt: '上の時間足と今の足の向きがそろうのを待っています\n次の足が確定したら、もう一度見ます' } },
     { unit: 'K2|1234567|NAMI', acc: '1234567', demo: false, ea: 'NAMI', seen: now - 90000, alerted: false, want: null, s: { t: now - 90000, st: 'wait', bal: '1284560', day: '6120', opn: '0', pos: '', cl: 'S:6120', lot: '1', en: '1', cur: 'JPY', v: 'v1.22', dt: 'レンジの端に届くのを待っています' } },
     { unit: 'K3|1234567|MADO', acc: '1234567', demo: false, ea: 'MADO', seen: now - 40 * 60000, alerted: true, want: null, s: { t: now - 40 * 60000, st: 'wait', bal: '1284560', day: '0', opn: '0', pos: '', cl: '', lot: '2', en: '1', cur: 'JPY', v: 'v2.55' } },
     { unit: 'K4|5678|NAMI', acc: '5678', demo: true, ea: 'NAMI', seen: now - 120000, alerted: false, want: null, s: { t: now - 120000, st: 'off', bal: '3052300', day: '-8200', opn: '2600', pos: 'B:2600', cl: 'S:-8200', lot: '0', en: '1', cur: 'JPY', v: 'v1.22' } },
@@ -705,7 +744,7 @@ function mockApi(op, q) {
   if (op === 'r_reset') return { ok: 1, to: 'ex***@mail.jp' };
   if (op === 'r_setpw') return { ok: 1, tok: 'mock' };
   if (op === 'r_state') return { ok: 1, now: now, units: D.units, notes: D.notes, prefs: D.prefs, mail: 'ex***@mail.jp' };
-  if (op === 'r_cmd') { const u = D.units.find(x => x.unit === q.unit); u.want = { lot: q.lot !== undefined ? String(q.lot) : (u.want ? u.want.lot : ''), en: q.en !== undefined ? String(q.en) : (u.want ? u.want.en : '') }; return { ok: 1 }; }
+  if (op === 'r_cmd') { const u = D.units.find(x => x.unit === q.unit); u.want = { lot: q.lot !== undefined ? String(q.lot) : (u.want ? u.want.lot : ''), en: (q.en !== undefined ? String(q.en) : (u.want ? u.want.en.charAt(0) : '')) + (q.cl || '') }; return { ok: 1 }; }
   if (op === 'r_prefs') { D.prefs = q.prefs; return { ok: 1 }; }
   if (op === 'r_score') { // 見本: それらしい日ごとの成績（土日は休み）
     let s = [], d = new Date(); d.setDate(d.getDate() - 200); let seed = q.unit.length * 7;
