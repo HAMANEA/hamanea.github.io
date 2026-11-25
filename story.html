@@ -76,6 +76,7 @@
 .gate-banner { margin: 0; line-height: 0; background: #0b0c0f; border-bottom: 1px solid var(--line); }
 .gate-banner img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
 @media (max-width: 640px) { .gate-banner img { aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 50%; } } /* スマホは左右を切って正方形に */
+@media (min-width: 641px) { .gate-banner { padding: 24px 24px 0; border-bottom: 0; } .gate-banner img { max-width: 1000px; border-radius: 16px; } } /* パソコンはサイトの中身の幅（1000px）にそろえる */
 .school-sec { position: relative; overflow: hidden; }
 .school-sec::before { content: ""; position: absolute; inset: 0; background: url(img/chara/classroom_1nen.webp?v=20261125) center 40% / cover no-repeat; opacity: .16; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 78%, transparent 100%); pointer-events: none; }
 .school-sec .wrap { position: relative; z-index: 1; }
@@ -136,6 +137,14 @@
 .cards.rows .st-card h3 { align-items: center; flex-wrap: wrap; row-gap: 12px; margin-bottom: 12px; }
 .st-tags { margin-bottom: 12px !important; }
 @media (min-width: 861px) { .st-card h3 .exam-stamp.master { margin-left: 4px; } }
+/* 操縦中の3人（「試験中」などの箱と同じ大きさ） */
+.pilots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 8px 0 14px; }
+.pilot { position: relative; margin: 0; border: 1px solid #2a2c31; border-radius: 14px; overflow: hidden; background: #16171b; line-height: 0; }
+.pilot img { display: block; width: 100%; aspect-ratio: 960 / 657; object-fit: cover; }
+.pilot figcaption { position: absolute; left: 10px; bottom: 10px; line-height: 1; font: 900 13px "Zen Kaku Gothic New", sans-serif; color: #0b0c0e; background: var(--c); border-radius: 99px; padding: 4px 12px; }
+@media (max-width: 860px) { .pilots { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .pilots { grid-template-columns: 1fr; gap: 10px; } } /* スマホは縦に 1 枚ずつ */
+@media (max-width: 560px) { .pilot { border-radius: 12px; } .pilot figcaption { font-size: 10px; padding: 3px 7px; left: 5px; bottom: 5px; } }
 </style>
 </head>
 <body>
@@ -167,6 +176,11 @@
 
 <main>
 <section class="school-sec"><div class="wrap">
+  <div class="pilots">
+    <figure class="pilot" style="--c:#d9b54a"><img src="img/chara/cockpit_tren.webp?v=20261125" alt="コックピットで操縦するトレン" loading="lazy"></figure>
+    <figure class="pilot" style="--c:#4dc3ff"><img src="img/chara/cockpit_nami.webp?v=20261125" alt="コックピットで操縦するナミ" loading="lazy"></figure>
+    <figure class="pilot" style="--c:#4fc27f"><img src="img/chara/cockpit_ume.webp?v=20261125b" alt="コックピットで操縦するうめちゃん" loading="lazy"></figure>
+  </div>
   <div class="grades g3">
     <div class="grade"><b>試験中</b><span>練習生</span><p>シミュレーター（デモ口座）で、担当の機体を操縦する練習をしています。いまの生徒は、みんなここ。</p></div>
     <div class="grade gm"><b>EAマスター</b><span>パイロット</span><p>試験に合格したパイロット。その子の“くせ”が入った EA が、世界中の MT5 でいっしょに動きます。</p></div>

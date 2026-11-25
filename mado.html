@@ -386,7 +386,7 @@ header.top .waveart, header.top img { display: none !important; }
 </style>
 <div class="chara-top">
   <div class="ci-row ci-mado">
-    <img class="ci-full" src="img/chara/gate_ume.webp?v=20261125" alt="うめちゃん">
+    <img class="ci-full" src="img/chara/gate_ume_walk.webp?v=20261125" alt="うめちゃん">
     <div class="ci-body">
       <span class="ci-name">UME<small>うめちゃん</small></span>
       <span class="ci-st" style="margin-top:10px">勉強中の戦略：押し目買い・窓埋め</span>
@@ -713,7 +713,14 @@ HAMA MADOUME G7 は、この考え方のうち、数字で決められる部分�
 <p>トレンドの強さを0〜100で表す指標です。上げ・下げの向きは関係なく、一方向に強く動いているほど高くなります。</p>
 <ul class="terms"><li><b>このEAでは</b>：H1のADXが弱いときは方向感のない相場（レンジ気味）と考え、ロットを減らします。</li></ul>
 </section>
-
+<style>
+/* 操縦シーンの絵（ページの途中） */
+.scene-fig { margin: 36px 0 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .scene-fig { gap: 6px; } .scene-fig img { border-radius: 10px; } }
+.scene-fig img:first-child { order: 2; }
+.scene-fig img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid #2a2c31; }
+</style>
+<figure class="scene-fig"><img src="img/chara/scene_ume_yoshi.webp?v=20261125" alt="コックピットでノートを胸に「よしっ」とうなずくうめちゃん" loading="lazy"><img src="img/chara/scene_ume_side.webp?v=20261125" alt="コックピットで画面を見つめて操縦するうめちゃん" loading="lazy"></figure>
 <section id="s4">
 <h2><span class="no">04</span>操作パネル</h2>
 <p>見出し（左側）をドラッグすると動かせます。右上の<b class="gold">成績</b>は日別の成績レポート（開いたときは、HAMA MADOUME G7だけを表示します。上のボタンで「すべて」やほかのEAに切り替えられます）、<b class="gold">説明</b>はこの説明書、<b class="gold">設定</b>はEAの設定画面（F7）を開きます。</p>

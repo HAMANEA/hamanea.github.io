@@ -61,6 +61,22 @@
 .lv small { font-size: .42em; letter-spacing: .12em; opacity: .75; }
 .lv b { font-size: .62em; font-weight: 700; }
 @media (max-width: 640px) { .exam-stamp { font-size: 13px; top: 10px; left: 10px; padding: 5px 9px 4px 11px; } .lv { margin-left: 8px; padding: 3px 8px 3px 7px; } }
+/* TOP バナー（左：文字／右半分：登校のイラスト、さかい目はぼかさない） */
+.top-banner { position: relative; background: #fff; border-bottom: 1px solid var(--line); line-height: 0; }
+.top-banner .tb-img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
+.top-banner .tb-text { position: absolute; inset: 0; max-width: 1400px; margin: 0 auto; display: flex; align-items: center; line-height: 1.6; }
+.top-banner .tb-in { width: 50%; padding: 0 4% 0 5%; box-sizing: border-box; }
+.top-banner .tb-title { margin: 0 0 18px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: clamp(30px, 4.2vw, 58px); line-height: 1.2; letter-spacing: .03em; }
+.top-banner .tb-title .g { background: linear-gradient(135deg, #2a2d35, #15171c 60%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.top-banner .tb-lead { margin: 0; font-size: clamp(14px, 1.55vw, 20px); color: #4a4f5a; line-height: 1.9; }
+.top-banner .tb-logo { display: block; width: clamp(56px, 6.5vw, 92px); height: auto; margin-bottom: 18px; }
+.top-banner .tb-lead b.gd { color: #a8781a; }
+.top-banner .tb-lead b { color: #15171c; }
+@media (max-width: 760px) {
+  .top-banner .tb-img { aspect-ratio: 960 / 1090; object-fit: cover; object-position: 100% 50%; }
+  .top-banner .tb-text { position: static; }
+  .top-banner .tb-in { width: 100%; padding: 26px 20px 30px; }
+}
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
 <style>
@@ -150,6 +166,14 @@
   </nav>
 </div></header>
 
+<div class="top-banner">
+  <img class="tb-img" src="img/chara/top_walk_banner_white.webp?v=20261125b" alt="公園の道を歩いて学園へ向かう、うめちゃん・ナミ・トレン">
+  <div class="tb-text"><div class="tb-in">
+    <img class="tb-logo" src="img/hama_logo.svg" alt="HAMA">
+    <h1 class="tb-title"><span class="g">HAMA EA学園</span></h1>
+    <p class="tb-lead">ここは、EA の<b>パイロット</b>を育てる学園。<br>生徒たちは毎日、<b class="gd">「EAマスター」</b>をめざして操縦の練習をしています。</p>
+  </div></div>
+</div>
 <div class="hslider" id="hslider" aria-roledescription="carousel" aria-label="HAMA EA の紹介">
  <div class="hs-track">
   <a class="hs-slide hs-ea hs-chara-left is-on" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="1 / 5">

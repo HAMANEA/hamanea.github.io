@@ -389,7 +389,7 @@ header.top .waveart, header.top img { display: none !important; }
 </style>
 <div class="chara-top">
   <div class="ci-row ci-tre">
-    <img class="ci-full" src="img/chara/gate_tren.webp?v=20261125" alt="トレン">
+    <img class="ci-full" src="img/chara/gate_tren_walk.webp?v=20261125" alt="トレン">
     <div class="ci-body">
       <span class="ci-name">TOREN<small>トレン</small></span>
       <span class="ci-st" style="margin-top:10px">勉強中の戦略：トレンドフォロー（順張り）</span>
@@ -673,7 +673,14 @@ header.top .waveart, header.top img { display: none !important; }
   <p><b>はじめにネットにつながっている状態でEAを動かすと、設定を受け取ります。</b>ストラテジーテスターの前に、一度チャートでEAを動かしてください（ライセンスがOKになると受け取ります）。受け取るまでは、新しい注文を出しません。</p>
   <div class="note info"><b>再起動しても大丈夫</b>MT5を閉じて開き直しても、保有中のポジション、パネルの位置、設定欄で変えた値はそのまま引き継ぎます。</div>
 </section>
-
+<style>
+/* 操縦シーンの絵（ページの途中） */
+.scene-fig { margin: 36px 0 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 560px) { .scene-fig { gap: 6px; } .scene-fig img { border-radius: 10px; } }
+.scene-fig img:first-child { order: 2; }
+.scene-fig img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid #2a2c31; }
+</style>
+<figure class="scene-fig"><img src="img/chara/scene_tren_ike.webp?v=20261125" alt="コックピットでレバーを押しこみ「いけーっ！」とさけぶトレン" loading="lazy"><img src="img/chara/scene_tren_side.webp?v=20261125" alt="コックピットで画面を見つめて操縦するトレン" loading="lazy"></figure>
 <section id="panel">
   <h2><span class="no">04</span><span class="ttl">操作パネルの見方</span></h2>
   <p>操作パネルは、チャートの左上に出ます。</p>
