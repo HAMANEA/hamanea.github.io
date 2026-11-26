@@ -58,6 +58,7 @@ button{cursor:pointer}
 .accs button.on .rd{border:5px solid var(--btn)}
 .accs .an{font-weight:700;font-size:15px;letter-spacing:.03em}
 .accs .as{font-size:12px;color:var(--sub)}
+.accs .as.sv{font-size:11px;letter-spacing:.02em;word-break:break-all}
 .accs .ab{text-align:right;font-weight:700;font-size:14px;white-space:nowrap}
 .accs .ab .bad{display:block;font-size:11px;color:var(--red);font-weight:400}
 .tabbar{position:fixed;left:0;right:0;bottom:0;z-index:10;display:flex;justify-content:center;gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:var(--card);border-top:1px solid var(--line)}
@@ -159,6 +160,10 @@ h2{font-size:15px;margin:2px 0 8px}
 #dbody .card h2 small.today{color:var(--sub)}
 .dh{display:flex;align-items:center;gap:10px;margin:6px 0 12px;flex-wrap:wrap}
 .dh .nm{font-size:20px;font-weight:700;letter-spacing:.05em;color:var(--c)}
+.lvt{display:inline-block;font-size:.68em;font-weight:800;letter-spacing:.04em;line-height:1;padding:.22em .45em .2em;border-radius:4px;vertical-align:.12em;margin-left:.2em}
+.lvt.lv1{color:#16181d;background:linear-gradient(180deg,#f4f6f9,#b9bfc9)}
+.lvt.lv2{color:#1c1603;background:linear-gradient(180deg,#ffe9a8,#d9b54a)}
+.lvt.lv7{color:#fff;background:linear-gradient(180deg,#c9a2ff,#8a55e6)}
 .nt{display:grid;grid-template-columns:1fr;gap:2px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
 .nt:last-child{border:0}
 .nt .tm{font-size:12px;color:var(--sub)}
@@ -312,11 +317,15 @@ h2{font-size:15px;margin:2px 0 8px}
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxVILsMUm1UMdNhgRQVQgXre6H6Kc50SF3V2KBowSc4ORi4PsX-drc23v-SNNxlBR5H/exec';
 const MOCK = /[?&]mock=1/.test(location.search);
-const EA = { TRE: ['TREND G3', 'tre'], NAMI: ['NAMITORE G4', 'nami'], MADO: ['MADOUME G7', 'mado'], TRE2: ['TREND G3 LV.2', 'tre'], NAMI2: ['NAMITORE G4 LV.2', 'nami'], MADO2: ['MADOUME G7 LV.2', 'mado'] };
+const EA = { TRE: ['TREND G3 LV.1', 'tre'], NAMI: ['NAMITORE G4 LV.1', 'nami'], MADO: ['MADOUME G7 LV.1', 'mado'], TRE2: ['TREND G3 LV.2', 'tre'], NAMI2: ['NAMITORE G4 LV.2', 'nami'], MADO2: ['MADOUME G7 LV.2', 'mado'] };
+// 名前の「LV.1 / LV.2」を、目立つ札にして出す（LV.1 と LV.2 を同時に動かしても見分けやすく）
+// 口座のサーバー名（EA が知らせてくる名前。いちばん新しく連絡があった EA のもの）
+const srvOf = g => { const x = g.filter(u => u.srv).sort((a, b) => (b.seen || 0) - (a.seen || 0))[0]; return x ? x.srv : ''; };
+const nmH = n => esc(n).replace(/ (LV\.(\d+))$/, (m, t, d) => ` <span class="lvt lv${d}">${t}</span>`);
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261125c';
+const PAGE_VER = '20261126a';
 const verTx = v => 'ver ' + String(v).replace(/^v(er)?\s*/i, '');   // 版は「ver 2.63」（LV と見まちがえないように）
 async function checkVer() {
   try {
@@ -495,7 +504,7 @@ function renderHome() {
   const kind = cur === 'real' ? 'リアル口座' : 'デモ口座';
   $('acctitle').innerHTML = `<b>${kind}</b>` + (ids.length > 1 ? `${ids.length} つの口座で動いています。見たい口座を選んでください` : '');
   $('accchips').innerHTML = ids.length > 1 ? ids.map(a => { const g = accs[a], l = g.reduce((x, y) => (y.s && y.s.t || 0) > (x.s && x.s.t || 0) ? y : x, g[0]).s || {}, nb = g.filter(u => status(u)[0] === 'bad').length;
-    return `<button data-a="${a}" class="${a === accSel ? 'on' : ''}"><span class="rd"></span><span><div class="an">口座 ****${a.slice(-4)}</div><div class="as">EA ${g.length} つ ・ ${ago(Math.max(...g.map(u => u.seen || 0)))}</div></span><span class="ab">${plain(l.bal, l.cur)}${nb ? `<span class="bad">⚠ 要確認 ${nb}</span>` : ''}</span></button>`; }).join('') : '';
+    return `<button data-a="${a}" class="${a === accSel ? 'on' : ''}"><span class="rd"></span><span><div class="an">口座 ****${a.slice(-4)}</div>${srvOf(g) ? `<div class="as sv">${esc(srvOf(g))}</div>` : ''}<div class="as">EA ${g.length} つ ・ ${ago(Math.max(...g.map(u => u.seen || 0)))}</div></span><span class="ab">${plain(l.bal, l.cur)}${nb ? `<span class="bad">⚠ 要確認 ${nb}</span>` : ''}</span></button>`; }).join('') : '';
   $('accchips').querySelectorAll('button').forEach(b => b.onclick = () => { accSel = b.dataset.a; renderHome(); });
   const us = accSel ? accs[accSel] : [];
   if (!us.length) {
@@ -505,7 +514,7 @@ function renderHome() {
   }
   $('sumcard').hidden = false;
   const latest = us.reduce((a, b) => (b.s && b.s.t || 0) > (a.s && a.s.t || 0) ? b : a, us[0]), ls = latest.s || {}, c = ls.cur;
-  $('accname').textContent = ids.length > 1 ? '' : '口座 ****' + accSel.slice(-4) + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
+  $('accname').textContent = ids.length > 1 ? '' : '口座 ****' + accSel.slice(-4) + (srvOf(us) ? ' ・ ' + srvOf(us) : '') + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
   $('today').textContent = today();
   $('bal').textContent = plain(ls.bal, c);
   const day = us.reduce((s, u) => s + Number(u.s && u.s.day || 0), 0), opn = us.reduce((s, u) => s + Number(u.s && u.s.opn || 0), 0);
@@ -517,7 +526,7 @@ function renderHome() {
   const order = ['TRE', 'TRE2', 'NAMI', 'NAMI2', 'MADO', 'MADO2'];
   us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
   $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.opn : '', dd = u.s ? u.s.day : '';
-    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${e[0]}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; }).join('');
+    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${nmH(e[0])}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; }).join('');
   $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
 }
 // リアル口座・デモ口座: どの画面からでも、その口座の一覧に戻る
@@ -528,7 +537,7 @@ function renderDetail() {
   const u = data.units.find(x => x.unit === sel);
   if (!u) { show('home'); return; }
   const e = EA[u.ea] || [u.ea, 'tre'], s = u.s || {}, st = status(u), c = s.cur;
-  $('dacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4);
+  $('dacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4) + (u.srv ? ' ・ ' + u.srv : '');
   const lot = u.want && u.want.lot !== '' ? Number(u.want.lot) : Number(s.lot);
   const wen = u.want && u.want.en ? u.want.en.charAt(0) : '';
   const en = wen === '0' || wen === '1' ? wen === '1' : String(s.en || '').charAt(0) !== '0';
@@ -543,7 +552,7 @@ function renderDetail() {
     return one + sub + `<div class="row tot"><span>合計 <small>${a.length}本</small></span><span class="${cls(tot)}">${money(tot, c)}</span></div>`;
   };
   $('dbody').innerHTML = `<div style="--c:var(--${e[1]})">
-  <div class="dh"><span class="nm">${e[0]}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
+  <div class="dh"><span class="nm">${nmH(e[0])}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
   <div class="today dtoday">${today()}</div>
   <div class="card"><div class="pl3" style="margin-top:0;padding-top:0;border-top:0">
   <div><div class="lbl">含み損益</div><div class="pv ${cls(s.opn)}">${money(s.opn, c)}</div><div class="ps">持っている分</div></div>
@@ -638,7 +647,7 @@ function renderScore() {
   const us = scoreUnits(), u = us.find(x => x.unit === scSel);
   if (!u) return;
   const e = EA[u.ea] || [u.ea, 'tre'], c = (u.s || {}).cur;
-  $('sacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4);
+  $('sacc').textContent = (u.demo ? 'デモ口座' : 'リアル口座') + ' ****' + u.acc.slice(-4) + (u.srv ? ' ・ ' + u.srv : '');
   $('sceas').innerHTML = us.map(x => `<button data-u="${x.unit}" class="${x.unit === scSel ? 'on' : ''}" style="--c:var(--${(EA[x.ea] || [0, 'tre'])[1]})">${(EA[x.ea] || [x.ea])[0]}</button>`).join('');
   $('sceas').querySelectorAll('button').forEach(b => b.onclick = () => { scSel = b.dataset.u; renderScore(); loadScore(scSel); });
   const sc = scCache[scSel];
