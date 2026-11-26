@@ -38,11 +38,12 @@
 
 /* 生徒紹介カード（トップの EA カードと同じバナーの形・大きさ） */
 .card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img { overflow: hidden; }
-.card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img { container-type: inline-size; --ks: 1.37; }
+.card.ea-tre .img, .card.ea-nami .img, .card.ea-mado .img, .card.ea-nagi .img { container-type: inline-size; --ks: 1.37; }
 .card.ea-nami .img::before { content: ""; position: absolute; inset: 0; z-index: 0; background: rgba(12,36,64,.6); }
 .card.ea-tre { --k: 1; --eye: .397; }
 .card.ea-nami { --k: 1.12; --eye: .272; }
 .card.ea-mado { --k: .82; --eye: .505; }
+.card.ea-nagi { --k: .94; --eye: .352; }   /* 顔の大きさをみんなとそろえる（キャラちゃんの目安・11-26） */
 .card-chara { position: absolute; z-index: 1; left: 50%; width: calc(var(--k) * var(--ks) * 100cqw); height: auto; max-width: none; top: calc(52% - var(--eye) * var(--k) * var(--ks) * 100cqw); transform: translateX(-50%); pointer-events: none;
   -webkit-mask-image: linear-gradient(180deg, #000 92%, transparent 100%); mask-image: linear-gradient(180deg, #000 92%, transparent 100%); }
 .card.ea-tre .img::after, .card.ea-nami .img::after, .card.ea-mado .img::after { z-index: 0; } /* 影は背景の写真だけに。キャラの上にはかけない */
@@ -57,7 +58,7 @@
 .chara-name::before { left: -.75em; top: -.55em; font-size: .7em; }
 .chara-name::after { right: -.6em; bottom: -.5em; font-size: .55em; }
 .card-name { font-size: 20px; left: 16px; bottom: 14px; }
-@media (max-width: 640px) { .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img { --ks: 1.65; aspect-ratio: 1 / 1; width: 100%; min-height: 0; } }
+@media (max-width: 640px) { .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img, .cards.rows .card.ea-nagi .img { --ks: 1.65; aspect-ratio: 1 / 1; width: 100%; min-height: 0; } }
 
 /* カードの中身（自己紹介） */
 .st-card .body { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; }
@@ -153,7 +154,7 @@
   /* もうちょっと詰める: 文字を少し小さく・下のすき間を小さく、キャラを少し大きくして写真のすき間をうめる */
   .cards.rows .st-card .body { padding: 16px 258px 56px 24px; }
   .cards.rows .st-card p.st-text { font-size: 14px; line-height: 1.7; }
-  .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img { --ks: 1.55; }
+  .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img, .cards.rows .card.ea-nagi .img { --ks: 1.55; }
   /* 下のすき間をなくして、文を読みやすく（文字を少し大きく・行間を少し広く。五角形はたての真ん中あたりに） */
   .cards.rows .card.st-card .body { padding: 18px 258px 26px 24px !important; }
   .cards.rows .st-card p.st-text { font-size: 15px; line-height: 1.85; margin-bottom: 12px; }
@@ -182,7 +183,6 @@
 /* なぎ（白銀・HAMA NAGI LV5。2026-11-26） */
 .card.ea-nagi { --c: #e9edf3; --c2: #ffffff; --cbg: #111216; border-color: #3a3d45; }
 .card.ea-nagi .img { position: relative; background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 70%, #e9edf2 100%); overflow: hidden; }
-.card.ea-nagi .nagi-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
 .card.ea-nagi .chara-name { color: #ffffff; background: #0b0c0f; border-color: #0b0c0f; box-shadow: none; }
 .card.ea-nagi .chara-name::before, .card.ea-nagi .chara-name::after { color: #ffffff; text-shadow: none; }
 .stray-stamp { display: inline-block; width: fit-content; align-self: flex-start; margin: 12px 0 8px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 13px; letter-spacing: .18em; line-height: 1; padding: 8px 16px 7px 18px;
@@ -278,7 +278,7 @@
       </div>
     </a>
     <div class="card ea-nagi st-card">
-      <div class="img"><img class="nagi-face" src="img/chara/nagi_front.webp?v=20261126" alt="なぎ" loading="lazy"><span class="chara-name card-name" aria-hidden="true">NAGI</span></div>
+      <div class="img"><img class="card-chara" src="img/chara/nagi_front.webp?v=20261126" alt=""><span class="chara-name card-name" aria-hidden="true">NAGI</span></div>
       <div class="body">
         <div class="st-tags"><span class="st-machine lv5">機体：HAMA NAGI LV5</span></div>
         <span class="st-full"><span class="lb">氏名</span><b>蒼井 凪</b><span class="yomi">あおい なぎ</span></span>
