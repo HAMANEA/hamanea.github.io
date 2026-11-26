@@ -122,6 +122,11 @@ details[open] .ch{transform:rotate(90deg)}
 .st i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px;background:var(--sub)}
 .st.run i{background:var(--ok)}.st.wait i{background:var(--wait)}.st.bad i{background:var(--red)}
 .st.bad{color:var(--red)}
+.st.old{color:var(--sub)}.st.old i{background:var(--sub)}
+.ea.old{opacity:.62}
+.oldtg{display:block;width:100%;text-align:left;background:none;border:0;border-top:1px dashed var(--line);color:var(--sub);font:inherit;font-size:13px;font-weight:700;padding:12px 16px;cursor:pointer}
+.oldtg small{display:block;font-size:11px;font-weight:400;margin-top:2px}
+.oldnote{margin:8px 0 4px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:12.5px;line-height:1.7;color:var(--sub)}
 .alert{border:1px solid var(--alertln);background:var(--alertbg);border-radius:14px;padding:10px 12px;font-size:13px;margin-bottom:12px;color:var(--alerttx)}
 .sw{position:relative;width:46px;height:26px;border-radius:999px;background:var(--line);border:0;flex:none}
 .sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--sub);transition:.15s}
@@ -163,7 +168,7 @@ h2{font-size:15px;margin:2px 0 8px}
 .lvt{display:inline-block;font-size:.68em;font-weight:800;letter-spacing:.04em;line-height:1;padding:.22em .45em .2em;border-radius:4px;vertical-align:.12em;margin-left:.2em}
 .lvt.lv1{color:#16181d;background:linear-gradient(180deg,#f4f6f9,#b9bfc9)}
 .lvt.lv2{color:#1c1603;background:linear-gradient(180deg,#ffe9a8,#d9b54a)}
-.lvt.lv7{color:#fff;background:linear-gradient(180deg,#c9a2ff,#8a55e6)}
+.lvt.lv5,.lvt.lv7{color:#fff;background:linear-gradient(180deg,#c9a2ff,#8a55e6)}
 .nt{display:grid;grid-template-columns:1fr;gap:2px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
 .nt:last-child{border:0}
 .nt .tm{font-size:12px;color:var(--sub)}
@@ -325,7 +330,7 @@ const nmH = n => esc(n).replace(/ (LV\.(\d+))$/, (m, t, d) => ` <span class="lvt
 const LOTN = ['攻め', '標準', '守り'];
 const LOST_MS = 6 * 60 * 1000;   // これより長く連絡がなければ「オフライン」
 // このページの版（アップのたびに変える）。開いたとき・戻ってきたときに新しい版があれば、自動で読み込み直す
-const PAGE_VER = '20261126a';
+const PAGE_VER = '20261126c';
 const verTx = v => 'ver ' + String(v).replace(/^v(er)?\s*/i, '');   // 版は「ver 2.63」（LV と見まちがえないように）
 async function checkVer() {
   try {
@@ -444,6 +449,7 @@ const cls = v => Number(v) > 0 ? 'plus' : Number(v) < 0 ? 'minus' : '';
 const ago = t => { if (!t) return 'まだ届いていません'; const m = Math.floor((data.now - t) / 60000); return m < 1 ? 'たった今更新' : m < 60 ? m + ' 分前に更新' : Math.floor(m / 60) + ' 時間前に更新'; };
 function status(u) {
   const s = u.s || {}, st = String(s.st || '');
+  if (u.old) return ['old', '前の記録（いまは動いていません）'];
   if (!u.seen || u.alerted || data.now - u.seen > LOST_MS) return ['bad', 'オフライン'];
   if (st === 'off') return ['bad', '自動売買 OFF'];
   if (st === 'lic') return ['bad', 'ライセンス要確認'];
@@ -492,6 +498,10 @@ function accounts() {
     const best = {};
     m[a].forEach(u => { if (!best[u.ea] || (u.seen || 0) > (best[u.ea].seen || 0)) best[u.ea] = u; });
     m[a] = m[a].filter(u => best[u.ea] === u);
+    // 同じ口座で、同じ EA のほかのレベル（LV.1 ⇔ LV.2 など）が動いていたら、もう連絡の来ない古いほうは「前の記録」にする
+    // （一覧の下の「前に動いていた EA」にしまう。要確認・合計には数えない。開けば最後に届いたようすを見られる）
+    const ser = e => String(e).replace(/\d+$/, ''), live = u => u.seen && !u.alerted && data.now - u.seen <= LOST_MS;
+    m[a].forEach(u => { u.old = !live(u) && m[a].some(v => v !== u && ser(v.ea) === ser(u.ea) && live(v) && (v.seen || 0) > (u.seen || 0)); });
   });
   return m;
 }
@@ -503,17 +513,17 @@ function renderHome() {
   if (!accSel || ids.indexOf(accSel) < 0) accSel = ids[0] || null;
   const kind = cur === 'real' ? 'リアル口座' : 'デモ口座';
   $('acctitle').innerHTML = `<b>${kind}</b>` + (ids.length > 1 ? `${ids.length} つの口座で動いています。見たい口座を選んでください` : '');
-  $('accchips').innerHTML = ids.length > 1 ? ids.map(a => { const g = accs[a], l = g.reduce((x, y) => (y.s && y.s.t || 0) > (x.s && x.s.t || 0) ? y : x, g[0]).s || {}, nb = g.filter(u => status(u)[0] === 'bad').length;
+  $('accchips').innerHTML = ids.length > 1 ? ids.map(a => { const g = accs[a], l = g.reduce((x, y) => (y.s && y.s.t || 0) > (x.s && x.s.t || 0) ? y : x, g[0]).s || {}, nb = g.filter(u => !u.old && status(u)[0] === 'bad').length;
     return `<button data-a="${a}" class="${a === accSel ? 'on' : ''}"><span class="rd"></span><span><div class="an">口座 ****${a.slice(-4)}</div>${srvOf(g) ? `<div class="as sv">${esc(srvOf(g))}</div>` : ''}<div class="as">EA ${g.length} つ ・ ${ago(Math.max(...g.map(u => u.seen || 0)))}</div></span><span class="ab">${plain(l.bal, l.cur)}${nb ? `<span class="bad">⚠ 要確認 ${nb}</span>` : ''}</span></button>`; }).join('') : '';
   $('accchips').querySelectorAll('button').forEach(b => b.onclick = () => { accSel = b.dataset.a; renderHome(); });
-  const us = accSel ? accs[accSel] : [];
-  if (!us.length) {
+  const all = accSel ? accs[accSel] : [], us = all.filter(u => !u.old), olds = all.filter(u => u.old);
+  if (!us.length && !olds.length) {
     $('accname').textContent = ''; $('alerts').innerHTML = ''; $('sumcard').hidden = true;
     $('ealist').innerHTML = `<div class="empty" style="padding:16px">${cur === 'real' ? 'リアル口座' : 'デモ口座'}で動いている EA は、まだありません。<br>EA が新しい版になり、チャートで動きはじめると、ここに出ます。</div>`;
     return;
   }
   $('sumcard').hidden = false;
-  const latest = us.reduce((a, b) => (b.s && b.s.t || 0) > (a.s && a.s.t || 0) ? b : a, us[0]), ls = latest.s || {}, c = ls.cur;
+  const base = us.length ? us : olds, latest = base.reduce((a, b) => (b.s && b.s.t || 0) > (a.s && a.s.t || 0) ? b : a, base[0]), ls = latest.s || {}, c = ls.cur;
   $('accname').textContent = ids.length > 1 ? '' : '口座 ****' + accSel.slice(-4) + (srvOf(us) ? ' ・ ' + srvOf(us) : '') + ' ・ ' + ago(Math.max(...us.map(u => u.seen || 0)));
   $('today').textContent = today();
   $('bal').textContent = plain(ls.bal, c);
@@ -525,8 +535,11 @@ function renderHome() {
   $('alerts').innerHTML = bad.map(u => `<div class="alert">⚠ ${EA[u.ea] ? EA[u.ea][0] : u.ea}：${status(u)[1] === 'オフライン' ? 'オフラインです' : status(u)[1]}。${status(u)[1] === 'オフライン' ? 'MT5 やパソコンを確認してください。' : ''}</div>`).join('');
   const order = ['TRE', 'TRE2', 'NAMI', 'NAMI2', 'MADO', 'MADO2'];
   us.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
-  $('ealist').innerHTML = us.map(u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.opn : '', dd = u.s ? u.s.day : '';
-    return `<button class="ea" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${nmH(e[0])}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; }).join('');
+  const card = u => { const e = EA[u.ea] || [u.ea, 'tre'], st = status(u), d = u.s ? u.s.opn : '', dd = u.s ? u.s.day : '';
+    return `<button class="ea${u.old ? ' old' : ''}" style="--c:var(--${e[1]})" data-u="${u.unit}"><span class="bar"></span><span><div class="nm">${nmH(e[0])}</div><div class="st ${st[0]}"><i></i>${st[1]}</div>${st[1] !== 'オフライン' && detailOf(u) ? `<div class="dt">${esc(detailOf(u).split('\n')[0])}</div>` : ''}</span><span><div class="lbl" style="text-align:right">含み損益</div><div class="pl ${cls(d)}">${money(d, c)}</div><div class="pls" style="text-align:right">決済 <b class="${cls(dd)}">${money(dd, c)}</b></div></span><span class="ch">›</span></button>`; };
+  olds.sort((a, b) => order.indexOf(a.ea) - order.indexOf(b.ea));
+  $('ealist').innerHTML = us.map(card).join('') + (olds.length ? `<button class="oldtg" id="oldtg">${showOld ? '▲' : '▼'} 前に動いていた EA（${olds.length}）<small>載せかえる前の記録です。ふだんは見なくて大丈夫です</small></button>` + (showOld ? olds.map(card).join('') : '') : '');
+  const tg = $('oldtg'); if (tg) tg.onclick = () => { showOld = !showOld; renderHome(); };
   $('ealist').querySelectorAll('.ea').forEach(b => b.onclick = () => { sel = b.dataset.u; renderDetail(); show('detail'); });
 }
 // リアル口座・デモ口座: どの画面からでも、その口座の一覧に戻る
@@ -552,7 +565,7 @@ function renderDetail() {
     return one + sub + `<div class="row tot"><span>合計 <small>${a.length}本</small></span><span class="${cls(tot)}">${money(tot, c)}</span></div>`;
   };
   $('dbody').innerHTML = `<div style="--c:var(--${e[1]})">
-  <div class="dh"><span class="nm">${nmH(e[0])}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>
+  <div class="dh"><span class="nm">${nmH(e[0])}</span><span class="st ${st[0]}"><i></i>${st[1]}</span></div>${u.old || st[1] === 'オフライン' ? `<div class="oldnote">この EA からは、いま連絡が来ていません。下の数字は、最後に届いたようすです（${ago(u.seen)}）。<br>決済・ロット・新しいエントリーのボタンは、この EA が MT5 でまた動き出したときに届きます。急ぐときは、MT5 から直接操作してください。</div>` : ''}
   <div class="today dtoday">${today()}</div>
   <div class="card"><div class="pl3" style="margin-top:0;padding-top:0;border-top:0">
   <div><div class="lbl">含み損益</div><div class="pv ${cls(s.opn)}">${money(s.opn, c)}</div><div class="ps">持っている分</div></div>
@@ -616,6 +629,7 @@ async function cmd(u, body) {
 
 // ===== 成績の画面（EA ごと。EA が送ってくる日ごとの成績から作る） =====
 let scSel = null; const scCache = {};
+let showOld = false;   // 「前に動いていた EA」を開いているか
 const WD = '日月火水木金土';
 const ymd = d => d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 function parseDays(s) {
