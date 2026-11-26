@@ -350,6 +350,11 @@ header.top .waveart, header.top img { display: none !important; }
 .ci-mado { --c: #4fc27f; --c2: #c9f2d9; --cbg: #17281e; }
 .ci-nami { --c: #4dc3ff; --c2: #bfe9ff; --cbg: #0c2440; }
 .ci-full { height: 540px; width: auto; max-width: none; object-fit: contain; justify-self: center; filter: drop-shadow(0 8px 18px rgba(0,0,0,.5)); }
+/* 生徒の氏名（ストーリーと同じ形・2026-11-26） */
+.st-full { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px; margin: 0 0 4px; letter-spacing: .06em; }
+.st-full .lb { font-size: 11px; font-weight: 700; color: var(--c); border: 1px solid var(--c); border-radius: 4px; padding: 1px 6px; align-self: center; }
+.st-full b { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 20px; color: #f1f3f6; letter-spacing: .12em; }
+.st-full .yomi { font-size: 12.5px; color: #9aa1ad; }
 .ci-name { display: inline-flex; align-items: baseline; gap: 10px; font-family: "Fredoka", "Zen Kaku Gothic New", sans-serif; font-weight: 700; font-size: 28px; letter-spacing: .06em; color: var(--c2); }
 .ci-name small { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 16px; font-weight: 700; color: var(--c); letter-spacing: .04em; }
 .ci-ea { display: block; font-size: 14px; color: var(--c); letter-spacing: .06em; margin: 4px 0 6px; }
@@ -384,6 +389,7 @@ header.top .waveart, header.top img { display: none !important; }
   <div class="ci-row ci-nami">
     <img class="ci-full" src="img/chara/gate_nami_walk.webp?v=20261125" alt="なみ">
     <div class="ci-body">
+      <span class="st-full"><span class="lb">氏名</span><b>蒼井 波</b><span class="yomi">あおい なみ</span></span>
       <span class="ci-name">NAMI<small>なみ</small></span>
       <span class="ci-st" style="margin-top:10px">得意の戦略：レンジ（逆張り）</span>
       <p class="ci-text">みんなのいやし係。勉強中なのは「レンジ（逆張り）」。上がったり下がったりする相場を「波」に見立てて、行きすぎたところで反対側をそ～っとねらいます。攻めと守り、ふたつの考え方を、じょうずに使い分けているみたい。</p>
