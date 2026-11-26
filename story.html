@@ -57,7 +57,7 @@
 .chara-name::before { left: -.75em; top: -.55em; font-size: .7em; }
 .chara-name::after { right: -.6em; bottom: -.5em; font-size: .55em; }
 .card-name { font-size: 20px; left: 16px; bottom: 14px; }
-@media (max-width: 640px) { .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img, .cards.rows .card.st-secret .img { --ks: 1.65; aspect-ratio: 1 / 1; width: 100%; min-height: 0; } }
+@media (max-width: 640px) { .cards.rows .card.ea-tre .img, .cards.rows .card.ea-nami .img, .cards.rows .card.ea-mado .img { --ks: 1.65; aspect-ratio: 1 / 1; width: 100%; min-height: 0; } }
 
 /* カードの中身（自己紹介） */
 .st-card .body { font-family: "Zen Kaku Gothic New", "BIZ UDPGothic", sans-serif; }
@@ -68,12 +68,6 @@
 .cards.rows .st-card p.st-text { font-size: 15px; line-height: 1.9; color: #e4e5e8; margin: 0 0 12px; }
 .st-good { display: inline-block; align-self: flex-start; font-size: 13px; font-weight: 700; color: var(--c2); border: 1px solid var(--c); border-radius: 8px; padding: 2px 10px; }
 
-/* ひみつの生徒（紫） */
-.card.st-secret { --c: #a970ff; --c2: #e2ccff; --cbg: #1e1430; border-style: dashed; border-color: #6b4aa3; }
-.st-secret .img { position: relative; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at 50% 45%, #4a2d7a, #1e1430 70%); }
-.st-secret .q { font-family: "Fredoka", sans-serif; font-size: 140px; font-weight: 700; color: #c9a6ff; opacity: .85; text-shadow: 0 0 28px rgba(169,112,255,.8); line-height: 1; }
-.st-secret .chara-name { color: #2a0f44; background: linear-gradient(180deg, #f2e6ff, #c9a6ff 60%, #a970ff); border-color: #f6efff; box-shadow: 0 4px 0 #5e3a99, 0 10px 22px rgba(0,0,0,.45); }
-.st-secret .chara-name::before, .st-secret .chara-name::after { color: #f2e6ff; text-shadow: 0 0 6px rgba(200,160,255,.9); }
 .gate-banner { margin: 0; line-height: 0; background: #0b0c0f; border-bottom: 1px solid var(--line); }
 .gate-banner img { display: block; width: 100%; max-width: 1400px; height: auto; margin: 0 auto; }
 @media (max-width: 640px) { .gate-banner img { aspect-ratio: 1 / 1; object-fit: cover; object-position: 50% 50%; } } /* スマホは左右を切って正方形に */
@@ -92,7 +86,7 @@
 .st-stat .lb { font-family: "Zen Kaku Gothic New", sans-serif; font-size: 12px; font-weight: 700; fill: #c9ccd2; }
 .st-stat .note { display: block; text-align: center; font-size: 11px; color: #8d9098; margin-top: 2px; }
 @media (min-width: 861px) {
-  .cards.rows .st-card .body { padding-right: 310px; } .st-card { position: relative; } /* 五角形をカードの中に置く（ひみつの生徒のカードでも） */
+  .cards.rows .st-card .body { padding-right: 310px; } .st-card { position: relative; } /* 五角形をカードの中に置く */
   .st-stat { position: absolute; right: 22px; top: 22px; margin: 0; }
 }
 
@@ -185,6 +179,16 @@
 .st-full .lb { font-size: 11px; font-weight: 700; color: var(--c); border: 1px solid var(--c); border-radius: 4px; padding: 1px 6px; align-self: center; }
 .st-full b { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 20px; color: #f1f3f6; letter-spacing: .12em; }
 .st-full .yomi { font-size: 12.5px; color: #9aa1ad; }
+/* なぎ（白銀・HAMA NAGI LV5。2026-11-26） */
+.card.ea-nagi { --c: #e9edf3; --c2: #ffffff; --cbg: #111216; border-color: #3a3d45; }
+.card.ea-nagi .img { position: relative; background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 70%, #e9edf2 100%); overflow: hidden; }
+.card.ea-nagi .nagi-face { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 15%; }
+.card.ea-nagi .chara-name { color: #ffffff; background: #0b0c0f; border-color: #0b0c0f; box-shadow: none; }
+.card.ea-nagi .chara-name::before, .card.ea-nagi .chara-name::after { color: #ffffff; text-shadow: none; }
+.stray-stamp { display: inline-block; width: fit-content; align-self: flex-start; margin: 12px 0 8px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; font-size: 13px; letter-spacing: .18em; line-height: 1; padding: 8px 16px 7px 18px;
+  color: #fff; background: #0b0c0f; border: 3px solid #fff; outline: 1px solid #fff; outline-offset: 4px; border-radius: 6px; }
+.stray-stamp small { display: block; font-size: 8px; margin-top: 4px; letter-spacing: .24em; opacity: .85; }
+.st-machine.lv5 { color: #0b0c0f; background: linear-gradient(180deg, #ffffff, #dfe3ea); border-color: #0b0c0f; }
 </style>
 </head>
 <body>
@@ -273,19 +277,19 @@
         <span class="more">HAMA MADOUME G7 <i>→</i></span>
       </div>
     </a>
-    <!-- ひみつの生徒（いったん外す 2026-11-25。戻すときはこのコメントを外す）
-    <div class="card st-secret st-card">
-      <div class="img"><span class="q">?</span><span class="chara-name card-name" aria-hidden="true">???</span></div>
+    <div class="card ea-nagi st-card">
+      <div class="img"><img class="nagi-face" src="img/chara/nagi_front.webp?v=20261126" alt="なぎ" loading="lazy"><span class="chara-name card-name" aria-hidden="true">NAGI</span></div>
       <div class="body">
-        <span class="st-grade">？？？</span>
-        <h3>ひみつの生徒<small>COMING SOON</small></h3>
-        <span class="st-study">うわさ：購買部のうらで、なにか売っているらしい…</span>
-        <p class="st-text">いつまでたっても試験に合格できない、ちょっと問題児な生徒がいるみたい。校則では、こっそり EA を売ったら退学なんだけど…。先生には、まだナイショ。</p>
-        <span class="st-good">得意：？？？</span>
+        <div class="st-tags"><span class="st-machine lv5">機体：HAMA NAGI LV5</span></div>
+        <span class="st-full"><span class="lb">氏名</span><b>蒼井 凪</b><span class="yomi">あおい なぎ</span></span>
+        <h3>なぎ<small>NAGI</small></h3>
+        <span class="stray-stamp">中退<small>DROPOUT</small></span>
+        <span class="st-study">得意の戦略：ぜんぶ自分流</span>
+        <p class="st-text">腕は学園でいちばんだったのに、自分の機体の安全装置をぜんぶ外してしまい、それがばれて大げんか。「決められたロジックなんて、つまんない」と言って、学園をやめた。何色にも染まらない白銀の機体で、時間足も、入り方も、ぜんぶ自分で決めて飛びます。</p>
+        <span class="st-good">得意：どんな波でも乗りこなすこと</span>
         <div class="st-stat" data-v="?"></div>
       </div>
     </div>
-    -->
   </div>
   <p class="fiction">※ ストーリーと登場人物はフィクションです。<br>※ EA は、お客さまの MT5 で自動で動きます。だれかが口座を操作することはありません。<br>※ 五角形は、EA どうしのとくちょうを比べたイメージです。利益を約束するものではありません。</p>
 </div></section>

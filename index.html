@@ -159,6 +159,17 @@
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
 <style>
+/* なぎ（白い背景に黒い文字。ほかの EA と同じ並び：名前は左、絵は右。なおちゃん 11-26。まだ本番に出さない） */
+.hs-nagi { background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 70%, #e9edf2 100%); }
+.hs-nagi .hs-chara { filter: none !important; top: 8px; height: calc(100% - 8px); right: max(260px, calc(50% - 330px)); }   /* 足のさきまでぎりぎり入る大きさ（なおちゃん 11-26） */
+.hs-nagi .hs-title { color: #0b0c0f; }
+.hs-nagi .hs-title, .hs-nagi .ng-q { text-shadow: none !important; }
+.ng-q { font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 900; color: #0b0c0f; font-size: clamp(20px, 2.4vw, 32px); line-height: 1.45; letter-spacing: .04em; margin: 0 0 24px; }
+.ng-q b { display: block; font-size: 1.3em; margin-bottom: 6px; }
+.hs-nagi .chara-name { color: #ffffff; background: #0b0c0f; border-color: #0b0c0f; box-shadow: none; }
+.hs-nagi .chara-name::before, .hs-nagi .chara-name::after { color: #ffffff; text-shadow: none; }
+@media (max-width: 860px) { .hs-nagi .hs-chara { height: 118%; opacity: 1; } .hs-nagi .ng-q { font-size: 18px; } }
+
 /* トップの LV.1（デモ）/ LV.2（リアル）バナー（3 人共通） */
 .tlv-head { display: flex; align-items: center; gap: 14px; margin: 0 0 18px; font-family: "Fredoka", sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .32em; color: #d9b54a; }
 .tlv-head::before, .tlv-head::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(217,181,74,.55)); }
@@ -266,7 +277,7 @@
 
 <div class="hslider" id="hslider" aria-roledescription="carousel" aria-label="HAMA EA の紹介">
  <div class="hs-track">
-  <a class="hs-slide hs-top is-on" href="story.html" style="--c:#a8781a;--c2:#d9b54a" aria-roledescription="slide" aria-label="1 / 6">
+  <a class="hs-slide hs-top is-on" href="story.html" style="--c:#a8781a;--c2:#d9b54a" aria-roledescription="slide" aria-label="1 / 7">
    <img class="tw-img" src="img/chara/top_walk_trio.webp?v=20261125" alt="公園の道を歩いて学園へ向かう、うめちゃん・なみ・トレン">
    <div class="wrap hs-in tw-in">
     <img class="tb-logo" src="img/hama_logo.svg" alt="HAMA">
@@ -275,7 +286,7 @@
     <span class="hs-more">STORY →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-chara-left" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="2 / 6">
+  <a class="hs-slide hs-ea hs-chara-left" href="tre.html" style="--c:#d9b54a;--c2:#fff1b8" aria-roledescription="slide" aria-label="2 / 7">
    <div class="hs-bg" style="background-image:url(img/trend_cover.jpg)"></div>
    <img class="hs-chara" src="img/chara/tren_full.webp?v=20261125" alt="">
    <span class="chara-name hs-name" aria-hidden="true">TOREN</span>
@@ -286,7 +297,7 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-chara-left hs-nami" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="3 / 6">
+  <a class="hs-slide hs-ea hs-chara-left hs-nami" href="nami.html" style="--c:#4dc3ff;--c2:#bfe9ff" aria-roledescription="slide" aria-label="3 / 7">
    <div class="hs-bg" style="background-image:url(img/namitore_cover.jpg)"></div>
    <img class="hs-chara" src="img/chara/nami_full.webp?v=20261125" alt="なみ">
    <span class="chara-name hs-name" aria-hidden="true">NAMI</span>
@@ -297,7 +308,7 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-chara-left hs-mado" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="4 / 6">
+  <a class="hs-slide hs-ea hs-chara-left hs-mado" href="mado.html" style="--c:#4fc27f;--c2:#c9f2d9" aria-roledescription="slide" aria-label="4 / 7">
    <div class="hs-bg" style="background-image:url(img/madoume_cover_chart.jpg)"></div>
    <img class="hs-chara" src="img/chara/ume_full.webp?v=20261125" alt="うめちゃん">
    <span class="chara-name hs-name" aria-hidden="true">UME</span>
@@ -308,7 +319,16 @@
     <span class="hs-more">VIEW MORE →</span>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="5 / 6">
+  <div class="hs-slide hs-ea hs-chara-left hs-nagi" style="--c:#0b0c0f;--c2:#0b0c0f" aria-roledescription="slide" aria-label="5 / 7">
+   <img class="hs-chara" src="img/chara/nagi_angry_big.webp?v=20261126" alt="なぎ">
+   <span class="chara-name hs-name" aria-hidden="true">NAGI</span>
+   <div class="wrap hs-in">
+    <span class="hs-nick">完全自由設計</span>
+    <p class="hs-title">HAMA NAGI LV5</p>
+    <p class="ng-q"><b>あたしは、<br>好きに<br>飛びたいの！</b>自由にやらせて！</p>
+   </div>
+  </div>
+  <a class="hs-slide hs-ea hs-report" href="report.html" style="--c:#cfd3da;--c2:#f2f3f5" aria-roledescription="slide" aria-label="6 / 7">
    <div class="wrap hs-in hs-split">
     <div>
      <span class="hs-nick">成績表（すべての EA 共通）</span>
@@ -319,7 +339,7 @@
     <div class="hs-phones"><img src="img/report_monitor.png" alt="成績表の画面のイメージ（架空の数値）"></div>
    </div>
   </a>
-  <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="6 / 6">
+  <a class="hs-slide hs-ea hs-remote" href="app.html" style="--c:#ff4f9a;--c2:#ffc2dc" aria-roledescription="slide" aria-label="7 / 7">
    <div class="wrap hs-in hs-split">
     <div>
      <span class="hs-nick">スマホで見る（すべての EA 共通）</span>
@@ -333,7 +353,7 @@
  </div>
  <div class="hs-ctl">
   <button class="hs-arrow" type="button" data-go="-1" aria-label="前へ">‹</button>
-  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button><button type="button" aria-label="6"></button></div>
+  <div class="hs-dots" role="tablist"><button type="button" class="on" aria-label="1"></button><button type="button" aria-label="2"></button><button type="button" aria-label="3"></button><button type="button" aria-label="4"></button><button type="button" aria-label="5"></button><button type="button" aria-label="6"></button><button type="button" aria-label="7"></button></div>
   <button class="hs-arrow" type="button" data-go="1" aria-label="次へ">›</button>
  </div>
 </div>
