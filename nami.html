@@ -219,6 +219,11 @@ body{overflow-wrap:anywhere}
 .scard .tbl td,.scard .tbl th{padding:7px 8px!important}
 }
 </style>
+<style>
+/* スマホのブラウザが文字を勝手に大きくして、はみ出すのを止める・表の左の列が 1 文字ずつ折れないように（2026-11-27） */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+@media (max-width:600px){.tbl th:first-child,.tbl td:first-child{min-width:4.8em;word-break:keep-all;overflow-wrap:normal}}
+</style>
 <nav id="hama-bar"><div class="in">
 <a class="b" href="index.html"><img src="img/hama_logo.svg" alt=""><span>HAMA<span class="hn" style="color:#1c1e23" aria-hidden="true">N</span>EA学園</span></a>
 <button class="mb" type="button" aria-label="メニュー" aria-expanded="false" onclick="var o=document.getElementById('hama-bar').classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
