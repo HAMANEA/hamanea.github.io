@@ -363,8 +363,27 @@ function paintTabs() {
   $('toscore').classList.toggle('on', curScr === 'score');
   $('tonotice').classList.toggle('on', curScr === 'notice');
 }
-function show(s) { curScr = s; document.querySelectorAll('.scr').forEach(e => e.classList.toggle('on', e.id === s)); window.scrollTo(0, 0); paintTabs(); if (s === 'notice') markRead(); }
-document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => show(b.dataset.go));
+// スマホのスワイプ（ブラウザの戻る）でも一覧に戻れるように、一覧 → 下の画面へ行くときだけ履歴を 1 つ積む（なおちゃん 11-27「直して」）
+const BASE_SCR = ['home', 'login'];
+let pushed = false;
+function show(s, fromPop) {
+  const prev = curScr; curScr = s; document.querySelectorAll('.scr').forEach(e => e.classList.toggle('on', e.id === s)); window.scrollTo(0, 0); paintTabs(); if (s === 'notice') markRead();
+  if (fromPop) return;
+  try {
+    if (BASE_SCR.indexOf(s) < 0 && BASE_SCR.indexOf(prev) >= 0 && !pushed) { history.pushState({ s }, ''); pushed = true; }
+    else { history.replaceState({ s }, ''); if (BASE_SCR.indexOf(s) >= 0) pushed = false; }
+  } catch (e) {}
+}
+window.addEventListener('popstate', ev => {
+  const s = ev.state && ev.state.s;
+  pushed = !!s && BASE_SCR.indexOf(s) < 0;
+  if (s === 'detail' && data && sel) { renderDetail(); show('detail', true); }
+  else if (s === 'notice' && data) show('notice', true);
+  else if (s === 'first' && !tok) show('first', true);
+  else { pushed = false; show(tok ? 'home' : 'login', true); }
+});
+// 「‹ 一覧へ」「‹ ログインへ」：履歴を積んであるときは、スワイプと同じく 1 つ戻る
+document.querySelectorAll('[data-go]').forEach(b => b.onclick = () => { if (pushed && BASE_SCR.indexOf(b.dataset.go) >= 0) history.back(); else show(b.dataset.go); });
 
 // 表示モード
 function setTheme(m) { store.set('hama_theme', m); if (m === 'auto') document.documentElement.removeAttribute('data-theme'); else document.documentElement.setAttribute('data-theme', m); paintTheme(); }
