@@ -226,14 +226,13 @@ body{overflow-wrap:anywhere}
 <a href="index.html">TOP</a>
     <a href="news.html">NEWS</a>
     <a href="story.html">STORY</a>
-<div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a class="m" href="tre.html">TREND G3</a><a class="m" href="nami.html">NAMITORE G4</a><a class="m" href="mado.html">MADOUME G7</a><a class="m on" href="nagi.html">NAGI LV5</a></div></div>
+<div class="dd"><button class="dd-btn" type="button" aria-haspopup="true" aria-expanded="false" onclick="var d=this.parentNode;var o=d.classList.toggle('open');this.setAttribute('aria-expanded',o)">EA<span class="dd-ar">▾</span></button><div class="dd-menu"><a class="m" href="tre.html">TREND G3</a><a class="m" href="nami.html">NAMITORE G4</a><a class="m" href="mado.html">MADOUME G7</a><a class="m on" href="nagi.html">NAGI LV5</a><a href="nagi.html">NAGI LV5</a></div></div>
 <a href="setup.html">SETUP</a>
 <a href="license.html">LICENSE</a>
 <a href="report.html">REPORT</a>
 <a href="app.html">REMOTE</a>
 <a href="faq.html">FAQ</a>
 </div>
-<a class="d" href="https://docs.google.com/forms/d/e/1FAIpQLSf8H6h7YXvSKtmAkEUsznZhGlMEkDStE0AxXju_L376AC1hSw/viewform" target="_blank" rel="noopener">デモを申し込む</a>
 </div></nav>
 
 <div class="wrap">
@@ -444,6 +443,9 @@ header.top h1 span{background:linear-gradient(180deg,#fff 0%,#e9edf3 55%,#b9c0cc
 .part b{font-family:"Zen Kaku Gothic New",sans-serif;font-weight:900;font-size:clamp(22px,3vw,30px);color:#fff}
 .part small{font-size:13px;color:#aeb4bf}
 .part.odp{background:#f4f6f9;border-color:#fff}.part.odp b{color:#8c3cdc}.part.odp .pn,.part.odp small{color:#4a4e57}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#hama-bar .mb{margin-left:auto!important}   /* デモのボタンがないので、メニューのボタンを右へ */
+@media (max-width:600px){.tbl th:first-child,.tbl td:first-child{min-width:4.8em;word-break:keep-all;overflow-wrap:normal}}   /* 表の左の列が 1 文字ずつ折れないように（11-27） */   /* スマホのブラウザが文字を勝手に大きくして、はみ出すのを止める（11-27） */
 .brake.leave{margin:22px 0 28px}
 .mdb{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 30px}
 .mdb-c{display:flex;flex-direction:column;gap:6px;padding:22px 24px;border-radius:16px;text-decoration:none!important;transition:transform .15s}
